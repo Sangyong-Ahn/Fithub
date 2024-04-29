@@ -1,10 +1,5 @@
 console.log(location.href);
 
-let script = document.createElement("script");
-const clientId = "_";
-script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${clientId}`;
-document.body.appendChild(script);
-
 let mapDiv = document.getElementById('map');
 let latDiv = document.getElementById('lat');
 let lngDiv = document.getElementById('lng');
