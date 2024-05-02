@@ -6,4 +6,10 @@ public interface UserService {
 	
 	int addUser(User user);
 	
+	User findUser(String email);
+	
+	int modifyUser(User user);
+	
+	int removeUser(String email);
+	
 }

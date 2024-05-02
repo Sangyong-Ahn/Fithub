@@ -9,5 +9,19 @@
 		INSERT INTO user (email, password, name, date_of_birth, gender, phone_number)
 		VALUES(#{email}, #{password}, #{name}, #{dateOfBirth}, #{gender}, #{phoneNumber})
 	</insert>
-
+	
+	<select id="selectUser" parameterType="String" resultType="User">
+		SELECT * FROM user
+		WHERE email = #{email}
+	</select>
+	
+	<update id="updateUser" parameterType="User">
+		UPDATE user SET
+		password = #{password}, name= #{name}, date_of_birth = #{dateOfBirth}, gender = #{gender}, phone_number = #{phoneNumber}
+	</update>
+	
+	<delete id="deleteUser" parameterType="String">
+		DELETE FROM user
+		WHERE email = #{email}
+	</delete>
 </mapper>

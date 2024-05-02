@@ -3,7 +3,8 @@ USE fithubdb;
 
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `email` varchar(40) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
+  `email` varchar(40) NOT NULL UNIQUE,
   `password` varchar(40) NOT NULL,
   `name` varchar(20) NOT NULL,
   `date_of_birth` DATE NOT NULL,
@@ -13,14 +14,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   
   `profile_image` varchar(100) DEFAULT NULL,
   `latitude` FLOAT DEFAULT NULL,		
-  `longitude` FLOAT DEFAULT NULL,
+  `longitude` FLOAT DEFAULT NULL
   
-  PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
 
 CREATE TABLE IF NOT EXISTS `mentor` (
-  `email` varchar(40) NOT NULL,
+  `id` int AUTO_INCREMENT PRIMARY KEY,
+  `email` varchar(40) NOT NULL UNIQUE,
   `password` varchar(40) NOT NULL,
   `name` varchar(20) NOT NULL,
   `date_of_birth` DATE NOT NULL,
@@ -32,9 +33,8 @@ CREATE TABLE IF NOT EXISTS `mentor` (
   `content` TEXT DEFAULT NULL,
   `certificate` VARCHAR(100) DEFAULT NULL,
   `latitude` FLOAT DEFAULT NULL,		
-  `longitude` FLOAT DEFAULT NULL,
+  `longitude` FLOAT DEFAULT NULL
   
-  PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
 
@@ -131,4 +131,9 @@ CREATE TABLE IF NOT EXISTS `chat` (
   FOREIGN KEY (`mentor_id`) REFERENCES `mentor`(`email`),
   FOREIGN KEY (`user_id`) REFERENCES `user`(`email`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
+
+INSERT INTO user(email, password, name, date_of_birth, gender, phone_number)
+VALUES ("admin@admin", "admin", "admin", 11111111, "M", "01000000000");
+
+SELECT * FROM user;
 

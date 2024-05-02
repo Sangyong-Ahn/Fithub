@@ -11,6 +11,11 @@ import com.team2.fithub.model.dto.User;
 public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;
+	
+	@Autowired
+	public UserServiceImpl(UserDao userDao) {
+		this.userDao = userDao;
+	}
 
 	@Autowired
 	public void setUserRepo(UserDao userDao) {
@@ -25,6 +30,23 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public int addUser(User user) {
 		return userDao.insertUser(user);
+	}
+
+	@Override
+	public User findUser(String email) {
+		return userDao.selectUser(email);
+	}
+
+	@Transactional
+	@Override
+	public int modifyUser(User user) {
+		return userDao.updateUser(user);
+	}
+
+	@Transactional
+	@Override
+	public int removeUser(String email) {
+		return userDao.deleteUser(email);
 	}
 
 }
