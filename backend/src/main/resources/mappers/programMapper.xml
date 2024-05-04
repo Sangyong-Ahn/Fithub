@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team2.fithub.model.dao.ProgramDao">
+
+	<insert id="insertProgram" parameterType="Program" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO program (
+			mentorId, categoryId, title, reservationStartDate, reservationEndDate,
+			programStartDate, programEndDate, thumbnail, content, youtubeUrl,
+			latitude, longitude
+		)
+		VALUES (
+			#{mentorId}, #{categoryId}, #{title}, #{reservationStartDate}, #{reservationEndDate},
+			#{programStartDate}, #{programEndDate}, #{thumbnail}, #{content}, #{youtubeUrl},
+			#{latitude}, #{longitude}
+		)
+	</insert>
+	
+	<select id="selectAllProgram" resultType="Program">
+		SELECT * FROM program
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team2.fithub.model.dao.TimeDao">
+
+	<insert id="insertTime" parameterType="Time">
+	    INSERT INTO time (programId, sunday, monday, tuesday, wednesday, thursday, friday, saturday, startTime, endTime, price, capacity)
+	    VALUES (#{programId}, #{sunday}, #{monday}, #{tuesday}, #{wednesday}, #{thursday}, #{friday}, #{saturday}, #{startTime}, #{endTime}, #{price}, #{capacity})
+	</insert>
+	
+	<select id="selectTimeByProgram" parameterType="int" resultType="Time">
+		SELECT * FROM time
+		WHERE programId = #{programId}
+	</select>
+	
+	
+</mapper>

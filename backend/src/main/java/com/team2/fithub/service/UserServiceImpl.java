@@ -1,5 +1,7 @@
 package com.team2.fithub.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,10 +33,20 @@ public class UserServiceImpl implements UserService {
 	public int addUser(User user) {
 		return userDao.insertUser(user);
 	}
+	
+	@Override
+	public List<User> findAllUser() {
+		return userDao.selectAllUser();
+	}
 
 	@Override
-	public User findUser(String email) {
-		return userDao.selectUser(email);
+	public User findUser(int id) {
+		return userDao.selectUser(id);
+	}
+	
+	@Override
+	public User findUserByEmail(String email) {
+		return userDao.selectUserByEmail(email);
 	}
 
 	@Transactional
@@ -45,8 +57,7 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	@Override
-	public int removeUser(String email) {
-		return userDao.deleteUser(email);
+	public int removeUser(int id) {
+		return userDao.deleteUser(id);
 	}
-
 }

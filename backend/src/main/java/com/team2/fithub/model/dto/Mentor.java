@@ -3,6 +3,7 @@ package com.team2.fithub.model.dto;
 import java.util.Date;
 
 public class Mentor {
+	private int id;
 	private String email;
     private String password;
     private String name;
@@ -11,6 +12,7 @@ public class Mentor {
     private String phoneNumber;
     
     private String profileImage;
+    private String content;
     private String certificate;
     private Double latitude;
     private Double longitude;
@@ -114,5 +116,21 @@ public class Mentor {
 
 	public void setCertificate(String certificate) {
 		this.certificate = certificate;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

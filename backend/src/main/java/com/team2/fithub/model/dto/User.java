@@ -3,6 +3,7 @@ package com.team2.fithub.model.dto;
 import java.util.Date;
 
 public class User {
+	private int id;
 	private String email;
     private String password;
     private String name;
@@ -105,5 +106,13 @@ public class User {
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

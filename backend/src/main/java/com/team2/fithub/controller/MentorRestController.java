@@ -15,37 +15,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team2.fithub.model.dto.User;
-import com.team2.fithub.service.UserService;
+import com.team2.fithub.model.dto.Mentor;
+import com.team2.fithub.service.MentorService;
 
 import jakarta.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping("/user")
-public class UserRestController {
+@RequestMapping("/mentor")
+public class MentorRestController {
 	
-	private final UserService us;
+	private final MentorService ms;
 	
 	@Autowired
     private HttpSession httpSession;
 	
 	@Autowired
-	public UserRestController(UserService us) {
-		this.us = us;
+	public MentorRestController(MentorService ms) {
+		this.ms = ms;
 	}
 	
 	@GetMapping("")
-	public ResponseEntity<?> userList() {
-		List<User> userList = us.findAllUser();
-		if (userList.isEmpty())
-			return new ResponseEntity<>(userList, HttpStatus.NOT_FOUND);
-		return new ResponseEntity<>(userList, HttpStatus.OK);
+	public ResponseEntity<?> mentorList() {
+		List<Mentor> mentorList = ms.findAllMentor();
+		if (mentorList.isEmpty())
+			return new ResponseEntity<>(mentorList, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(mentorList, HttpStatus.OK);
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<?> userAdd(@RequestBody User user) {
+	public ResponseEntity<?> mentorAdd(@RequestBody Mentor mentor) {
 		try {
-			int result = us.addUser(user);
+			int result = ms.addMentor(mentor);
 			if(result == 1)
 				return new ResponseEntity<>(result, HttpStatus.CREATED);
 			return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
@@ -55,30 +55,33 @@ public class UserRestController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> userUpdate(@PathVariable("id") int id, @RequestBody User newUser) {
+	public ResponseEntity<?> mentorModify(@PathVariable("id") int id, @RequestBody Mentor newMentor) {
 		try {
-			User user = us.findUser(id);
-	        if (user == null) {
+			Mentor mentor = ms.findMentor(id);
+	        if (mentor == null) {
 	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	        }
 	        
-	        if (newUser.getPassword() != null) {
-	        	user.setPassword(newUser.getPassword());
+	        if (newMentor.getPassword() != null) {
+	        	mentor.setPassword(newMentor.getPassword());
 	        }
-	        if (newUser.getGender() != null) {
-	        	user.setGender(newUser.getGender());
+	        if (newMentor.getGender() != null) {
+	        	mentor.setGender(newMentor.getGender());
 	        }
-	        if (newUser.getPhoneNumber() != null) {
-	        	user.setPhoneNumber(newUser.getPhoneNumber());
+	        if (newMentor.getPhoneNumber() != null) {
+	        	mentor.setPhoneNumber(newMentor.getPhoneNumber());
 	        }
-	        if (newUser.getLatitude() != null) {
-	        	user.setLatitude(newUser.getLatitude());
+	        if (newMentor.getContent() != null) {
+	        	mentor.setContent(newMentor.getContent());
 	        }
-	        if (newUser.getLongitude() != null) {
-	        	user.setLongitude(newUser.getLongitude());
+	        if (newMentor.getLatitude() != null) {
+	        	mentor.setLatitude(newMentor.getLatitude());
+	        }
+	        if (newMentor.getLongitude() != null) {
+	        	mentor.setLongitude(newMentor.getLongitude());
 	        }
 	        
-			int result = us.modifyUser(user);
+			int result = ms.modifyMentor(mentor);
 			if(result == 1)
 				return new ResponseEntity<>(result, HttpStatus.OK);
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -88,14 +91,14 @@ public class UserRestController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> userRemove(@PathVariable("id") int id) {
+	public ResponseEntity<?> mentorRemove(@PathVariable("id") int id) {
 		try {
-			User user = us.findUser(id);
-	        if (user == null) {
+			Mentor mentor = ms.findMentor(id);
+	        if (mentor == null) {
 	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	        }
 	        
-			int result = us.removeUser(id);
+			int result = ms.removeMentor(id);
 			if(result == 1)
 				return new ResponseEntity<>(result, HttpStatus.NO_CONTENT);
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -105,31 +108,31 @@ public class UserRestController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<?> userLogin(@RequestParam String email, @RequestParam String password) {
+	public ResponseEntity<?> mentorLogin(@RequestParam String email, @RequestParam String password) {
 	    try {
-	    	User user = us.findUserByEmail(email);
+	    	Mentor mentor = ms.findMentorByEmail(email);
 	        
-	        if (user == null) {
-	            return new ResponseEntity<>("User not found for email: " + email, HttpStatus.NOT_FOUND);
+	        if (mentor == null) {
+	            return new ResponseEntity<>("Mentor not found for email: " + email, HttpStatus.NOT_FOUND);
 	        }
 	        
-	        if (!user.getPassword().equals(password)) {
+	        if (!mentor.getPassword().equals(password)) {
 	            return new ResponseEntity<>("Wrong password", HttpStatus.UNAUTHORIZED);
 	        }
 
 	        // 로그인 성공 시 세션에 사용자 정보 저장
-	        httpSession.setAttribute("loginUser", user);
-	        return new ResponseEntity<>(user, HttpStatus.OK);
+	        httpSession.setAttribute("loginMentor", mentor);
+	        return new ResponseEntity<>(mentor, HttpStatus.OK);
 	    } catch (Exception e) {
 	        return exceptionHandling(e);
 	    }
 	}
 	
 	@GetMapping("/logout")
-    public ResponseEntity<String> userlogout() {
+    public ResponseEntity<String> mentorLogout() {
         try {
             // 세션에서 사용자 정보 삭제
-            httpSession.removeAttribute("loginUser");
+            httpSession.removeAttribute("loginMentor");
             return new ResponseEntity<>("Logged out successfully", HttpStatus.OK);
         } catch (Exception e) {
             return exceptionHandling(e);

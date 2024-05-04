@@ -1,0 +1,59 @@
+package com.team2.fithub.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.team2.fithub.model.dao.ProgramDao;
+import com.team2.fithub.model.dao.TimeDao;
+import com.team2.fithub.model.dto.Program;
+import com.team2.fithub.model.dto.Time;
+
+@Service
+public class ProgramServiceImpl implements ProgramService{
+	
+	private ProgramDao programDao;
+	private TimeDao timeDao;
+	
+	@Autowired
+    public ProgramServiceImpl(ProgramDao programDao, TimeDao timeDao) {
+        this.programDao = programDao;
+        this.timeDao = timeDao;
+    }
+
+	@Override
+	@Transactional
+	public int addProgram(Program program) {
+		 try {
+	        int p_result = programDao.insertProgram(program);
+	        if (p_result != 1) {
+	            throw new RuntimeException("Failed to add program.");
+	        }
+	        
+	        int programId = program.getId();
+	        
+	        for (Time time : program.getTimes()) {
+	            time.setProgramId(programId);
+	            int t_result = timeDao.insertTime(time);
+	            if (t_result != 1) {
+	                throw new RuntimeException("Failed to add time for program.");
+	            }
+	        }
+	        return 1;
+	    } catch (Exception e) {
+	        throw e;
+	    }
+	}
+
+	@Override
+	public List<Program> findAllProgram() {
+		List<Program> programList = programDao.selectAllProgram();
+		for(Program program : programList) {
+			List<Time> times = timeDao.selectTimeByProgram(program.getId());
+			program.setTimes(times);
+		}
+		return programList;
+	}
+
+}

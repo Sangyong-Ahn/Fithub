@@ -7,12 +7,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(40) NOT NULL UNIQUE,
   `password` varchar(40) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `date_of_birth` DATE NOT NULL,
+  `dateOfBirth` DATE NOT NULL,
   `gender` VARCHAR(1) NOT NULL,		# M , F
-  `phone_number` varchar(20) DEFAULT NULL,
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `phoneNumber` varchar(20) DEFAULT NULL,
+  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   
-  `profile_image` varchar(100) DEFAULT NULL,
+  `profileImage` varchar(100) DEFAULT NULL,
   `latitude` FLOAT DEFAULT NULL,		
   `longitude` FLOAT DEFAULT NULL
   
@@ -20,16 +20,16 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 
 CREATE TABLE IF NOT EXISTS `mentor` (
-  `id` int AUTO_INCREMENT PRIMARY KEY,
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
   `email` varchar(40) NOT NULL UNIQUE,
   `password` varchar(40) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `date_of_birth` DATE NOT NULL,
+  `dateOfBirth` DATE NOT NULL,
   `gender` VARCHAR(1) NOT NULL CHECK (gender IN ('M', 'F')),
-  `phone_number` varchar(20) DEFAULT NULL,
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `phoneNumber` varchar(20) DEFAULT NULL,
+  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   
-  `profile_image` varchar(100) DEFAULT NULL,
+  `profileImage` varchar(100) DEFAULT NULL,
   `content` TEXT DEFAULT NULL,
   `certificate` VARCHAR(100) DEFAULT NULL,
   `latitude` FLOAT DEFAULT NULL,		
@@ -48,29 +48,29 @@ CREATE TABLE IF NOT EXISTS `category` (
 
 CREATE TABLE IF NOT EXISTS `program` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `mentor_id` VARCHAR(40) NOT NULL,       -- 멘토 ID (외래 키)
-  `category_id` INT NOT NULL,             -- 카테고리 ID (외래 키)
+  `mentorId` INT NOT NULL,       -- 멘토 ID (외래 키)
+  `categoryId` INT NOT NULL,             -- 카테고리 ID (외래 키)
   `title` VARCHAR(100) NOT NULL,          -- 제목
-  `reservation_start_date` DATE NOT NULL, -- 예약 시작 일시
-  `reservation_end_date` DATE NOT NULL,   -- 예약 종료 일시
-  `program_start_date` DATE NOT NULL,     -- 시작 일시
-  `program_end_date` DATE NOT NULL,       -- 종료 일시
+  `reservationStartDate` DATE NOT NULL, -- 예약 시작 일시
+  `reservationEndDate` DATE NOT NULL,   -- 예약 종료 일시
+  `programStartDate` DATE NOT NULL,     -- 시작 일시
+  `programEndDate` DATE NOT NULL,       -- 종료 일시
   `thumbnail` VARCHAR(100) NOT NULL,      -- 대표 이미지 경로
   `content` TEXT NOT NULL,                -- 내용
-  `youtube_url` VARCHAR(100) NOT NULL,    -- YouTube URL
+  `youtubeUrl` VARCHAR(100) NOT NULL,    -- YouTube URL
   `latitude` FLOAT NOT NULL,              -- 위도
   `longitude` FLOAT NOT NULL,             -- 경도
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 생성 일시
+  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 생성 일시
   
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`mentor_id`) REFERENCES `mentor`(`email`),
-  FOREIGN KEY (`category_id`) REFERENCES `category`(`id`)
+  FOREIGN KEY (`mentorId`) REFERENCES `mentor`(`id`),
+  FOREIGN KEY (`categoryId`) REFERENCES `category`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
 
 CREATE TABLE IF NOT EXISTS `time` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `program_id` INT NOT NULL,         -- 프로그램 ID (외래 키)
+  `programId` INT NOT NULL,         -- 프로그램 ID (외래 키)
   `sunday` BOOLEAN DEFAULT FALSE,    -- 일요일
   `monday` BOOLEAN DEFAULT FALSE,    -- 요일
   `tuesday` BOOLEAN DEFAULT FALSE,   -- 요일
@@ -78,62 +78,86 @@ CREATE TABLE IF NOT EXISTS `time` (
   `thursday` BOOLEAN DEFAULT FALSE,  -- 요일
   `friday` BOOLEAN DEFAULT FALSE,    -- 요일
   `saturday` BOOLEAN DEFAULT FALSE,  -- 요일
-  `start_time` TIME NOT NULL,       -- 시작 시간
-  `end_time` TIME NOT NULL,         -- 종료 시간
+  `startTime` TIME NOT NULL,       -- 시작 시간
+  `endTime` TIME NOT NULL,         -- 종료 시간
   `price` INT NOT NULL,             -- 가격
   `capacity` INT NOT NULL,          -- 수용 인원
   
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`program_id`) REFERENCES `program`(`id`)
+  FOREIGN KEY (`programId`) REFERENCES `program`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
 
 CREATE TABLE IF NOT EXISTS `match` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `time_id` INT NOT NULL,           -- 시간 ID (외래 키)
-  `mentor_id` VARCHAR(40) NOT NULL, -- 멘토 ID (외래 키)
-  `user_id` VARCHAR(40) NOT NULL,   -- 사용자 ID (외래 키)
-  `purchase_confirm` BOOLEAN DEFAULT FALSE,       -- 최종 확인 여부(유저가 confirm)
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 생성 일시
+  `timeId` INT NOT NULL,           -- 시간 ID (외래 키)
+  `mentorId` INT NOT NULL, -- 멘토 ID (외래 키)
+  `userId` INT NOT NULL,   -- 사용자 ID (외래 키)
+  `purchaseConfirm` BOOLEAN DEFAULT FALSE,       -- 최종 확인 여부(유저가 confirm)
+  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 생성 일시
   
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`time_id`) REFERENCES `time`(`id`),
-  FOREIGN KEY (`mentor_id`) REFERENCES `mentor`(`email`),
-  FOREIGN KEY (`user_id`) REFERENCES `user`(`email`)
+  FOREIGN KEY (`timeId`) REFERENCES `time`(`id`),
+  FOREIGN KEY (`mentorId`) REFERENCES `mentor`(`id`),
+  FOREIGN KEY (`userId`) REFERENCES `user`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
 
 CREATE TABLE IF NOT EXISTS `review` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `mentor_id` VARCHAR(40) NOT NULL,    -- 멘토 ID (외래 키)
-  `program_id` INT NOT NULL,           -- 프로그램 ID (외래 키)
-  `user_id` VARCHAR(40) NOT NULL,      -- 사용자 ID (외래 키)
+  `mentorId` INT NOT NULL,    -- 멘토 ID (외래 키)
+  `programId` INT NOT NULL,           -- 프로그램 ID (외래 키)
+  `userId` INT NOT NULL,      -- 사용자 ID (외래 키)
   `content` TEXT NOT NULL,                                 -- 리뷰 내용
   `score` INT NOT NULL CHECK (score >= 0 AND score <= 5),  -- 점수
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,        -- 생성 일시
+  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,        -- 생성 일시
   
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`mentor_id`) REFERENCES `mentor`(`email`),
-  FOREIGN KEY (`program_id`) REFERENCES `program`(`id`),
-  FOREIGN KEY (`user_id`) REFERENCES `user`(`email`)
+  FOREIGN KEY (`mentorId`) REFERENCES `mentor`(`id`),
+  FOREIGN KEY (`programId`) REFERENCES `program`(`id`),
+  FOREIGN KEY (`userId`) REFERENCES `user`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
 
 CREATE TABLE IF NOT EXISTS `chat` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `mentor_id` VARCHAR(40) NOT NULL,  -- 멘토 ID (외래 키)
-  `user_id` VARCHAR(40) NOT NULL,    -- 사용자 ID (외래 키)
+  `mentorId` INT NOT NULL,  -- 멘토 ID (외래 키)
+  `userId` INT NOT NULL,    -- 사용자 ID (외래 키)
   `content` TEXT,                     -- 채팅 내용
   `isUser` BOOLEAN,
-  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 생성 일시
+  `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 생성 일시
 
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`mentor_id`) REFERENCES `mentor`(`email`),
-  FOREIGN KEY (`user_id`) REFERENCES `user`(`email`)
+  FOREIGN KEY (`mentorId`) REFERENCES `mentor`(`id`),
+  FOREIGN KEY (`userId`) REFERENCES `user`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
-INSERT INTO user(email, password, name, date_of_birth, gender, phone_number)
-VALUES ("admin@admin", "admin", "admin", 11111111, "M", "01000000000");
 
-SELECT * FROM user;
+
+INSERT INTO user(email, password, name, dateOfBirth, gender, phoneNumber)
+VALUES ("user1@user1", "userpass1", "username1", 11111111, "M", "11111111111"),
+	   ("user2@user2", "userpass2", "username2", 11111112, "M", "11111111112"),
+       ("user3@user3", "userpass3", "username3", 11111113, "M", "11111111113"),
+       ("user4@user4", "userpass4", "username4", 11111114, "M", "11111111114"),
+       ("user5@user5", "userpass5", "username5", 11111115, "M", "11111111115"),
+       ("user6@user6", "userpass6", "username6", 11111116, "M", "11111111116"),
+       ("user7@user7", "userpass7", "username7", 11111117, "M", "11111111117"),
+       ("user8@user8", "userpass8", "username8", 11111118, "M", "11111111118"),
+       ("user9@user9", "userpass9", "username9", 11111119, "M", "11111111119");
+       
+INSERT INTO mentor(email, password, name, dateOfBirth, gender, phoneNumber)
+VALUES ("mentor1@mentor1", "mentorpass1", "mentorname1", 11111111, "M", "11111111111"),
+	   ("mentor2@mentor2", "mentorpass2", "mentorname2", 11111112, "M", "11111111112"),
+       ("mentor3@mentor3", "mentorpass3", "mentorname3", 11111113, "M", "11111111113"),
+       ("mentor4@mentor4", "mentorpass4", "mentorname4", 11111114, "M", "11111111114"),
+       ("mentor5@mentor5", "mentorpass5", "mentorname5", 11111115, "M", "11111111115"),
+       ("mentor6@mentor6", "mentorpass6", "mentorname6", 11111116, "M", "11111111116"),
+       ("mentor7@mentor7", "mentorpass7", "mentorname7", 11111117, "M", "11111111117"),
+       ("mentor8@mentor8", "mentorpass8", "mentorname8", 11111118, "M", "11111111118"),
+       ("mentor9@mentor9", "mentorpass9", "mentorname9", 11111119, "M", "11111111119");
+
+INSERT INTO category(name)
+VALUES ("요가"), ("수영"), ("테니스"), ("등산"), ("배구"), ("축구"), ("농구"), ("야구"), ("체조"), ("스쿼시"),
+       ("댄스"), ("크로스핏"), ("볼링"), ("사이클링"), ("스키"), ("스노보드"), ("승마"), ("검도"), ("유도"), ("주짓수");
+
 

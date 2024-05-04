@@ -1,13 +1,14 @@
 package com.team2.fithub.model.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class Program {
 	private int id;
-    private String mentorId;
+    private int mentorId;
     private int categoryId;
     private String title;
-    private Date reservationStartDate;
+	private Date reservationStartDate;
     private Date reservationEndDate;
     private Date programStartDate;
     private Date programEndDate;
@@ -17,11 +18,13 @@ public class Program {
     private Double latitude;
     private Double longitude;
     private Date createdAt;
+    
+    private List<Time> times;
 
     // 생성자
     public Program() {
     }
-
+    
     // getter와 setter
     public int getId() {
         return id;
@@ -31,11 +34,11 @@ public class Program {
         this.id = id;
     }
 
-    public String getMentorId() {
+    public int getMentorId() {
         return mentorId;
     }
 
-    public void setMentorId(String mentorId) {
+    public void setMentorId(int mentorId) {
         this.mentorId = mentorId;
     }
 
@@ -134,4 +137,12 @@ public class Program {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+	public List<Time> getTimes() {
+		return times;
+	}
+
+	public void setTimes(List<Time> times) {
+		this.times = times;
+	}
 }

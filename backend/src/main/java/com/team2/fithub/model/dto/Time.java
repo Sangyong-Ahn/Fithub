@@ -1,6 +1,8 @@
 package com.team2.fithub.model.dto;
 
-import java.util.Date;
+import java.time.LocalTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Time {
 	private int id;
@@ -12,8 +14,8 @@ public class Time {
     private boolean thursday;
     private boolean friday;
     private boolean saturday;
-    private Date startTime;
-    private Date endTime;
+    private String startTime;
+    private String endTime;
     private int price;
     private int capacity;
 
@@ -94,19 +96,19 @@ public class Time {
         this.saturday = saturday;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
