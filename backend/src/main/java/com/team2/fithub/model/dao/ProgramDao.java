@@ -8,15 +8,13 @@ public interface ProgramDao {
 	
 	int insertProgram(Program program);
     
-//    Program selectProgram(int id);
+    Program selectProgram(int id);
 //    
 //    void updateProgram(Program program);
 //    
 //    void deleteProgram(int id);
 //    
     List<Program> selectAllProgram();
-//    
-//    List<Program> selectProgramsByUserId(int userId);
 //    
 //    List<Program> selectProgramsByMentorId(int mentorId);
     

@@ -19,7 +19,10 @@ public class Program {
     private Double longitude;
     private Date createdAt;
     
+    // 외부 객체 정보 담을 필드
     private List<Time> times;
+    private Mentor mentorInfo;
+    // private List<Review> reviews;
 
     // 생성자
     public Program() {
@@ -144,5 +147,13 @@ public class Program {
 
 	public void setTimes(List<Time> times) {
 		this.times = times;
+	}
+
+	public Mentor getMentorInfo() {
+		return mentorInfo;
+	}
+
+	public void setMentorInfo(Mentor mentorInfo) {
+		this.mentorInfo = mentorInfo;
 	}
 }

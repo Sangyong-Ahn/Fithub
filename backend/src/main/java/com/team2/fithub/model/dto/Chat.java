@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Chat {
 	private int id;
-    private String mentorId;
-    private String userId;
+    private int mentorId;
+    private int userId;
     private String content;
     private boolean isUser;
     private Date createdAt;
@@ -23,19 +23,19 @@ public class Chat {
         this.id = id;
     }
 
-    public String getMentorId() {
+    public int getMentorId() {
         return mentorId;
     }
 
-    public void setMentorId(String mentorId) {
+    public void setMentorId(int mentorId) {
         this.mentorId = mentorId;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

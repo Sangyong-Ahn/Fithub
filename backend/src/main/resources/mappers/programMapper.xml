@@ -17,6 +17,11 @@
 		)
 	</insert>
 	
+	<select id="selectProgram" resultType="Program">
+		SELECT * FROM program
+		WHERE id = #{id}
+	</select>
+	
 	<select id="selectAllProgram" resultType="Program">
 		SELECT * FROM program
 	</select>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team2.fithub.model.dao.ChatDao">
+
+	<insert id="insertChat" parameterType="Chat">
+	    INSERT INTO chat (mentorId, userId, content, isUser)
+	    VALUES (#{mentorId}, #{userId}, #{content}, #{isUser})
+	</insert>
+	
+	<select id="selectChat" parameterType="map" resultType="Chat">
+		SELECT * FROM chat
+		WHERE mentorId = #{mentorId} AND userId = #{userId}
+		ORDER BY createdAt DESC
+	</select>
+	
+	<select id="selectChatByUser" parameterType="int" resultType="Chat">
+		SELECT * FROM chat
+		WHERE userId = #{userId}
+		ORDER BY mentorId, createdAt DESC
+	</select>
+	
+	<select id="selectChatByMentor" parameterType="int" resultType="Chat">
+		SELECT * FROM chat
+		WHERE mentorId = #{mentorId}
+		ORDER BY userId, createdAt DESC
+	</select>
+	
+	<delete id="deleteChat" parameterType="int">
+		DELETE FROM chat
+		WHERE id = #{id}
+	</delete>
+</mapper>

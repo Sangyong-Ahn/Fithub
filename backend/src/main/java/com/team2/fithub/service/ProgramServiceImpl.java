@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.team2.fithub.model.dao.MentorDao;
 import com.team2.fithub.model.dao.ProgramDao;
 import com.team2.fithub.model.dao.TimeDao;
+import com.team2.fithub.model.dto.Mentor;
 import com.team2.fithub.model.dto.Program;
 import com.team2.fithub.model.dto.Time;
 
@@ -15,11 +18,13 @@ public class ProgramServiceImpl implements ProgramService{
 	
 	private ProgramDao programDao;
 	private TimeDao timeDao;
+	private MentorDao mentorDao;
 	
 	@Autowired
-    public ProgramServiceImpl(ProgramDao programDao, TimeDao timeDao) {
+    public ProgramServiceImpl(ProgramDao programDao, TimeDao timeDao, MentorDao mentorDao) {
         this.programDao = programDao;
         this.timeDao = timeDao;
+        this.mentorDao = mentorDao;
     }
 
 	@Override
@@ -44,6 +49,16 @@ public class ProgramServiceImpl implements ProgramService{
 	    } catch (Exception e) {
 	        throw e;
 	    }
+	}
+	
+	@Override
+	public Program findProgram(int id) {
+		Program program = programDao.selectProgram(id);
+		List<Time> times = timeDao.selectTimeByProgram(id);
+		program.setTimes(times);
+		Mentor mentorInfo = mentorDao.selectMentor(program.getMentorId());
+		program.setMentorInfo(mentorInfo);
+		return program;
 	}
 
 	@Override

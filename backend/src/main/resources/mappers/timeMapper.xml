@@ -9,10 +9,26 @@
 	    VALUES (#{programId}, #{sunday}, #{monday}, #{tuesday}, #{wednesday}, #{thursday}, #{friday}, #{saturday}, #{startTime}, #{endTime}, #{price}, #{capacity})
 	</insert>
 	
+	<select id="selectTime" parameterType="int" resultType="Time">
+		SELECT * FROM time
+		WHERE id = #{id}
+	</select>
+	
 	<select id="selectTimeByProgram" parameterType="int" resultType="Time">
 		SELECT * FROM time
 		WHERE programId = #{programId}
 	</select>
 	
-	
+	<update id="increaseReserveNum" parameterType="int">
+        UPDATE time
+        SET reserveNum = reserveNum + 1
+        WHERE id = #{id}
+    </update>
+    
+    <update id="decreaseReserveNum" parameterType="int">
+        UPDATE time
+        SET reserveNum = reserveNum - 1
+        WHERE id = #{id}
+    </update>
+    
 </mapper>

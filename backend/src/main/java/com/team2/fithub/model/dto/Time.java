@@ -1,9 +1,5 @@
 package com.team2.fithub.model.dto;
 
-import java.time.LocalTime;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class Time {
 	private int id;
     private int programId;
@@ -18,6 +14,7 @@ public class Time {
     private String endTime;
     private int price;
     private int capacity;
+    private int reserveNum;
 
     // 생성자
     public Time() {
@@ -127,4 +124,12 @@ public class Time {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
+
+	public int getReserveNum() {
+		return reserveNum;
+	}
+
+	public void setReserveNum(int reserveNum) {
+		this.reserveNum = reserveNum;
+	}
 }

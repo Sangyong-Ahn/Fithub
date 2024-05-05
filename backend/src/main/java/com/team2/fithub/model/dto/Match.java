@@ -5,8 +5,8 @@ import java.util.Date;
 public class Match {
 	private int id;
     private int timeId;
-    private String mentorId;
-    private String userId;
+    private int mentorId;
+    private int userId;
     private boolean purchaseConfirm;
     private Date createdAt;
 
@@ -31,19 +31,19 @@ public class Match {
         this.timeId = timeId;
     }
 
-    public String getMentorId() {
+    public int getMentorId() {
         return mentorId;
     }
 
-    public void setMentorId(String mentorId) {
+    public void setMentorId(int mentorId) {
         this.mentorId = mentorId;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

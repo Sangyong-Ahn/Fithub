@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS `time` (
   `endTime` TIME NOT NULL,         -- 종료 시간
   `price` INT NOT NULL,             -- 가격
   `capacity` INT NOT NULL,          -- 수용 인원
+  `reserveNum` INT DEFAULT 0,		-- 현재 예약한 인원
   
   PRIMARY KEY (`id`),
   FOREIGN KEY (`programId`) REFERENCES `program`(`id`)
@@ -159,5 +160,32 @@ VALUES ("mentor1@mentor1", "mentorpass1", "mentorname1", 11111111, "M", "1111111
 INSERT INTO category(name)
 VALUES ("요가"), ("수영"), ("테니스"), ("등산"), ("배구"), ("축구"), ("농구"), ("야구"), ("체조"), ("스쿼시"),
        ("댄스"), ("크로스핏"), ("볼링"), ("사이클링"), ("스키"), ("스노보드"), ("승마"), ("검도"), ("유도"), ("주짓수");
+       
+
+
+-- 랜덤하게 채팅 생성하는 함수  
+     
+DELIMITER $$
+
+CREATE PROCEDURE InsertDummyData()
+BEGIN
+    DECLARE i INT DEFAULT 0;
+    
+    WHILE i < 300 DO
+        SET @mentorId = FLOOR(RAND() * 9) + 1; -- 1부터 10까지의 랜덤한 mentorId 생성
+        SET @userId = FLOOR(RAND() * 9) + 1; -- 1부터 10까지의 랜덤한 userId 생성
+        SET @content = CONCAT('멘토', @mentorId, '와 사용자', @userId, '의 대화입니다.');
+        SET @isUser = FLOOR(RAND() * 2); -- 0 또는 1 랜덤 생성
+        
+        INSERT INTO `chat` (`mentorId`, `userId`, `content`, `isUser`) VALUES
+        (@mentorId, @userId, @content, @isUser);
+        
+        SET i = i + 1;
+    END WHILE;
+END$$
+
+DELIMITER ;
+
+CALL InsertDummyData();
 
 

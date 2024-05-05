@@ -9,5 +9,7 @@ public interface ProgramService {
 	
 	int addProgram(Program program);
 	
+	Program findProgram(int id);
+	
 	List<Program> findAllProgram();
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,14 @@ public class ProgramRestController {
 		} catch (Exception e) {
 			return exceptionHandling(e);
 		}
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> programDetails(@PathVariable("id") int id) {
+		Program program = ps.findProgram(id);
+		if (program == null)
+			return new ResponseEntity<>(program, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(program, HttpStatus.OK);
 	}
 	
 	private ResponseEntity<String> exceptionHandling(Exception e) {

@@ -1,6 +1,7 @@
 package com.team2.fithub.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.team2.fithub.model.dto.Chat;
 import com.team2.fithub.model.dto.User;
+import com.team2.fithub.service.ChatService;
 import com.team2.fithub.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -25,13 +28,15 @@ import jakarta.servlet.http.HttpSession;
 public class UserRestController {
 	
 	private final UserService us;
+	private final ChatService cs;
 	
 	@Autowired
     private HttpSession httpSession;
 	
 	@Autowired
-	public UserRestController(UserService us) {
+	public UserRestController(UserService us, ChatService cs) {
 		this.us = us;
+		this.cs = cs;
 	}
 	
 	@GetMapping("")
@@ -52,6 +57,22 @@ public class UserRestController {
 		} catch (Exception e) {
 			return exceptionHandling(e);
 		}
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> userDetails(@PathVariable("id") int id) {
+		User user = us.findUser(id);
+		if (user == null)
+			return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/chats")
+	public ResponseEntity<?> userChats(@PathVariable("id") int id) {
+		Map<Integer, List<Chat>> chat = cs.findChatByUser(id);
+		if (chat.isEmpty())
+			return new ResponseEntity<>(chat, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(chat, HttpStatus.OK);
 	}
 	
 	@PutMapping("/{id}")

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team2.fithub.model.dao.MatchDao">
+
+	<insert id="insertMatch" parameterType="Match">
+		INSERT INTO `match` (timeId, mentorId, userId)
+		VALUES (#{timeId}, #{mentorId}, #{userId})
+	</insert>	
+	
+	<select id="selectMatch" parameterType="int" resultType="Match">
+		SELECT * FROM `match`
+		WHERE id = #{id}
+	</select>
+	
+	<delete id="deleteMatch" parameterType="int">
+		DELETE FROM `match`
+		WHERE id = #{id}
+	</delete>
+</mapper>
