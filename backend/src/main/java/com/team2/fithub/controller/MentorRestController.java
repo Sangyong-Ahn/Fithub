@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.team2.fithub.model.dto.Chat;
 import com.team2.fithub.model.dto.Mentor;
+import com.team2.fithub.model.dto.Review;
 import com.team2.fithub.model.dto.User;
 import com.team2.fithub.service.ChatService;
 import com.team2.fithub.service.MentorService;
+import com.team2.fithub.service.ReviewService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -30,14 +32,16 @@ public class MentorRestController {
 	
 	private final MentorService ms;
 	private final ChatService cs;
+	private final ReviewService rs;
 	
 	@Autowired
     private HttpSession httpSession;
 	
 	@Autowired
-	public MentorRestController(MentorService ms, ChatService cs) {
+	public MentorRestController(MentorService ms, ChatService cs, ReviewService rs) {
 		this.ms = ms;
 		this.cs = cs;
+		this.rs = rs;
 	}
 	
 	@GetMapping("")
@@ -76,6 +80,15 @@ public class MentorRestController {
 		return new ResponseEntity<>(chat, HttpStatus.OK);
 	}
 	
+	@GetMapping("/{id}/reviews")
+	public ResponseEntity<?> mentorReviews(@PathVariable("id") int id) {
+		List<Review> review = rs.findReviewByMentor(id);
+		if (review.isEmpty())
+			return new ResponseEntity<>(review, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(review, HttpStatus.OK);
+	}
+	
+	// 지저분해서 수정 필요할듯
 	@PutMapping("/{id}")
 	public ResponseEntity<?> mentorModify(@PathVariable("id") int id, @RequestBody Mentor newMentor) {
 		try {

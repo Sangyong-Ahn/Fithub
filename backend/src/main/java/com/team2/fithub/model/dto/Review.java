@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class Review {
 	private int id;
-    private String mentorId;
+    private int mentorId;
     private int programId;
-    private String userId;
+    private int userId;
     private String content;
     private int score;
     private Date createdAt;
@@ -24,11 +24,11 @@ public class Review {
         this.id = id;
     }
 
-    public String getMentorId() {
+    public int getMentorId() {
         return mentorId;
     }
 
-    public void setMentorId(String mentorId) {
+    public void setMentorId(int mentorId) {
         this.mentorId = mentorId;
     }
 
@@ -40,11 +40,11 @@ public class Review {
         this.programId = programId;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

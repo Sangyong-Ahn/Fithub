@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team2.fithub.model.dao.ReviewDao">
+
+	<insert id="insertReview" parameterType="Review">
+	    INSERT INTO review (mentorId, programId, userId, content, score)
+	    VALUES (#{mentorId}, #{programId}, #{userId}, #{content}, #{score})
+	</insert>
+	
+	<select id="selectReview" parameterType="int" resultType="Review">
+		SELECT * FROM review
+		WHERE id = #{id}
+	</select>
+	
+	<select id="selectReviewByMentor" parameterType="int" resultType="Review">
+		SELECT * FROM review
+		WHERE mentorId = #{mentorId}
+		ORDER BY createdAt DESC
+	</select>
+    
+    <update id="updateReview" parameterType="Review">
+        UPDATE review
+        SET content = #{content}, score = #{score}
+        WHERE id = #{id}
+    </update>
+    
+    <delete id="deleteReview" parameterType="int">
+        DELETE FROM review
+		WHERE id = #{id}
+    </delete>
+</mapper>
