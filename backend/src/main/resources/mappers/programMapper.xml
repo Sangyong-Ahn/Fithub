@@ -26,5 +26,34 @@
 		SELECT * FROM program
 	</select>
 	
+	<!-- 프로그램 검색 -->
+	<select id="searchProgram" parameterType="SearchCondition" resultType="Program">
+	    SELECT p.*
+	    FROM Program p
+	    JOIN (
+	        SELECT DISTINCT programId
+	        FROM Time
+	        WHERE 
+	            <trim prefixOverrides="AND">
+	                <if test="sunday"> AND startTime &lt; #{convertedStartTime} AND endTime &gt; #{convertedEndTime}</if>
+	                <if test="monday"> AND startTime &lt; #{convertedStartTime} AND endTime &gt; #{convertedEndTime}</if>
+	                <if test="tuesday"> AND startTime &lt; #{convertedStartTime} AND endTime &gt; #{convertedEndTime}</if>
+	                <if test="wednesday"> AND startTime &lt; #{convertedStartTime} AND endTime &gt; #{convertedEndTime}</if>
+	                <if test="thursday"> AND startTime &lt; #{convertedStartTime} AND endTime &gt; #{convertedEndTime}</if>
+	                <if test="friday"> AND startTime &lt; #{convertedStartTime} AND endTime &gt; #{convertedEndTime}</if>
+	                <if test="saturday"> AND startTime &lt; #{convertedStartTime} AND endTime &gt; #{convertedEndTime}</if>
+	            </trim>
+	    ) AS filteredPrograms ON p.id = filteredPrograms.programId
+	    WHERE 
+	        <if test="categoryId == 0">
+	            1=1 <!-- Always true condition to ensure WHERE clause is valid even when no other conditions are present -->
+	        </if>
+	        <if test="categoryId != 0">
+	            p.categoryId = #{categoryId}
+	        </if>
+	    ORDER BY 
+	        <if test="order != null"> #{order} #{direction}</if>
+	</select>
+
 	
 </mapper>

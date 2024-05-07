@@ -11,6 +11,7 @@ import com.team2.fithub.model.dao.ProgramDao;
 import com.team2.fithub.model.dao.TimeDao;
 import com.team2.fithub.model.dto.Mentor;
 import com.team2.fithub.model.dto.Program;
+import com.team2.fithub.model.dto.SearchCondition;
 import com.team2.fithub.model.dto.Time;
 
 @Service
@@ -69,6 +70,12 @@ public class ProgramServiceImpl implements ProgramService{
 			program.setTimes(times);
 		}
 		return programList;
+	}
+
+	@Override
+	public List<Program> searchProgram(SearchCondition condition) {
+		System.out.println(condition);
+		return programDao.searchProgram(condition);
 	}
 
 }

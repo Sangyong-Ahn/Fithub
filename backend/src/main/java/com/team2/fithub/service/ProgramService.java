@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import com.team2.fithub.model.dto.Program;
+import com.team2.fithub.model.dto.SearchCondition;
 
 public interface ProgramService {
 	
@@ -12,4 +13,6 @@ public interface ProgramService {
 	Program findProgram(int id);
 	
 	List<Program> findAllProgram();
+	
+	List<Program> searchProgram(SearchCondition condition);
 }

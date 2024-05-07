@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team2.fithub.model.dto.Program;
+import com.team2.fithub.model.dto.SearchCondition;
 import com.team2.fithub.model.dto.Time;
 import com.team2.fithub.service.ProgramService;
 
@@ -53,6 +55,15 @@ public class ProgramRestController {
 		if (program == null)
 			return new ResponseEntity<>(program, HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(program, HttpStatus.OK);
+	}
+	
+	@GetMapping("/search")
+	public ResponseEntity<?> programDetails(@ModelAttribute SearchCondition condition) {
+		System.out.println(condition);
+		List<Program> programs = ps.searchProgram(condition);
+		if (programs.isEmpty())
+			return new ResponseEntity<>(programs, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(programs, HttpStatus.OK);
 	}
 	
 	private ResponseEntity<String> exceptionHandling(Exception e) {
