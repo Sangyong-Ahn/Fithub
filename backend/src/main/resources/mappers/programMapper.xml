@@ -35,13 +35,13 @@
 	        FROM Time
 	        WHERE 
 	            <trim prefixOverrides="AND">
-	                <if test="sunday"> AND startTime &lt; #{convertedStartTime} AND endTime &gt; #{convertedEndTime}</if>
-	                <if test="monday"> AND startTime &lt; #{convertedStartTime} AND endTime &gt; #{convertedEndTime}</if>
-	                <if test="tuesday"> AND startTime &lt; #{convertedStartTime} AND endTime &gt; #{convertedEndTime}</if>
-	                <if test="wednesday"> AND startTime &lt; #{convertedStartTime} AND endTime &gt; #{convertedEndTime}</if>
-	                <if test="thursday"> AND startTime &lt; #{convertedStartTime} AND endTime &gt; #{convertedEndTime}</if>
-	                <if test="friday"> AND startTime &lt; #{convertedStartTime} AND endTime &gt; #{convertedEndTime}</if>
-	                <if test="saturday"> AND startTime &lt; #{convertedStartTime} AND endTime &gt; #{convertedEndTime}</if>
+	                <if test="sunday"> AND startTime &gt; #{convertedStartTime} AND endTime &lt; #{convertedEndTime}</if>
+	                <if test="monday"> AND startTime &gt; #{convertedStartTime} AND endTime &lt; #{convertedEndTime}</if>
+	                <if test="tuesday"> AND startTime &gt; #{convertedStartTime} AND endTime &lt; #{convertedEndTime}</if>
+	                <if test="wednesday"> AND startTime &gt; #{convertedStartTime} AND endTime &lt; #{convertedEndTime}</if>
+	                <if test="thursday"> AND startTime &gt; #{convertedStartTime} AND endTime &lt; #{convertedEndTime}</if>
+	                <if test="friday"> AND startTime &gt; #{convertedStartTime} AND endTime &lt; #{convertedEndTime}</if>
+	                <if test="saturday"> AND startTime &gt; #{convertedStartTime} AND endTime &lt; #{convertedEndTime}</if>
 	            </trim>
 	    ) AS filteredPrograms ON p.id = filteredPrograms.programId
 	    WHERE 
