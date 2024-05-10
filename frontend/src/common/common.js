@@ -8,13 +8,13 @@ export async function initMap(mapDiv, lat=defaultLatLng.lat, lng=defaultLatLng.l
 
 
     if(typeof naver !== 'undefined'){
-    
       const mapOptions = {
         center: new naver.maps.LatLng(lat, lng),
         zoom: 14
       };
-      
+
       resolve(new naver.maps.Map(mapDiv, mapOptions))
+      return;
     };
 
     const mapScript = document.createElement("script");

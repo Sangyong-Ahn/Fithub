@@ -43,7 +43,6 @@ watch(async ()=> store.programList, async () => {
 
 function clickEvent(program){
     return function(e) {
-        console.log("HI")
         store.programList = [program]
     }
 }
