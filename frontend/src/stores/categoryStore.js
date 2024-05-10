@@ -1,6 +1,5 @@
 import { ref } from 'vue'
 import { defineStore } from "pinia";
-import router from '@/router'
 import axios from 'axios'
 
 const REST_API = `http://localhost:8080/category`

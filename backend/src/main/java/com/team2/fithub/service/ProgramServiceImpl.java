@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.team2.fithub.model.dao.MentorDao;
 import com.team2.fithub.model.dao.ProgramDao;
+import com.team2.fithub.model.dao.ReviewDao;
 import com.team2.fithub.model.dao.TimeDao;
 import com.team2.fithub.model.dto.Mentor;
 import com.team2.fithub.model.dto.Program;
+import com.team2.fithub.model.dto.Review;
 import com.team2.fithub.model.dto.SearchCondition;
 import com.team2.fithub.model.dto.Time;
 
@@ -20,12 +22,14 @@ public class ProgramServiceImpl implements ProgramService{
 	private ProgramDao programDao;
 	private TimeDao timeDao;
 	private MentorDao mentorDao;
+	private ReviewDao reviewDao;
 	
 	@Autowired
-    public ProgramServiceImpl(ProgramDao programDao, TimeDao timeDao, MentorDao mentorDao) {
+    public ProgramServiceImpl(ProgramDao programDao, TimeDao timeDao, MentorDao mentorDao, ReviewDao reviewDao) {
         this.programDao = programDao;
         this.timeDao = timeDao;
         this.mentorDao = mentorDao;
+        this.reviewDao = reviewDao;
     }
 
 	@Override
@@ -57,7 +61,14 @@ public class ProgramServiceImpl implements ProgramService{
 		Program program = programDao.selectProgram(id);
 		List<Time> times = timeDao.selectTimeByProgram(id);
 		program.setTimes(times);
+		
+		List<Review> reviews = reviewDao.selectReviewByMentor(program.getMentorId());
+		Double reviewAvgScore = reviewDao.reviewAvgScore(program.getMentorId());
 		Mentor mentorInfo = mentorDao.selectMentor(program.getMentorId());
+		
+		mentorInfo.setReviews(reviews);
+		mentorInfo.setReviewAvgScore(reviewAvgScore);
+		
 		program.setMentorInfo(mentorInfo);
 		return program;
 	}
@@ -68,6 +79,14 @@ public class ProgramServiceImpl implements ProgramService{
 		for(Program program : programList) {
 			List<Time> times = timeDao.selectTimeByProgram(program.getId());
 			program.setTimes(times);
+			
+			List<Review> reviews = reviewDao.selectReviewByMentor(program.getMentorId());
+			Double reviewAvgScore = reviewDao.reviewAvgScore(program.getMentorId());
+			Mentor mentorInfo = mentorDao.selectMentor(program.getMentorId());
+			
+			mentorInfo.setReviews(reviews);
+			mentorInfo.setReviewAvgScore(reviewAvgScore);
+			program.setMentorInfo(mentorInfo);
 		}
 		return programList;
 	}

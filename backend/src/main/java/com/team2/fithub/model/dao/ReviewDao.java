@@ -12,6 +12,8 @@ public interface ReviewDao {
 	// 멘토에게 작성된 리뷰들
 	List<Review> selectReviewByMentor(int mentorId);
 	
+	Double reviewAvgScore(int mentorId);
+	
 	int updateReview(Review review);
 	
 	int deleteReview(int id);

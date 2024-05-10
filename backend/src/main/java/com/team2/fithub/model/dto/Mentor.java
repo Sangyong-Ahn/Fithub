@@ -1,6 +1,7 @@
 package com.team2.fithub.model.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class Mentor {
 	private int id;
@@ -18,6 +19,9 @@ public class Mentor {
     private Double longitude;
     private Date createdAt;
 
+    private List<Review> reviews;
+    private Double reviewAvgScore;
+    
     // 기본 생성자
  	public Mentor() {}
  	
@@ -132,5 +136,21 @@ public class Mentor {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+	public Double getReviewAvgScore() {
+		return reviewAvgScore;
+	}
+
+	public void setReviewAvgScore(Double reviewAvgScore) {
+		this.reviewAvgScore = reviewAvgScore;
 	}
 }

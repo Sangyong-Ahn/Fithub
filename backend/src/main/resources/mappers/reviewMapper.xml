@@ -19,6 +19,12 @@
 		WHERE mentorId = #{mentorId}
 		ORDER BY createdAt DESC
 	</select>
+	
+	<select id="reviewAvgScore" parameterType="int" resultType="Double">
+	  SELECT IFNULL(AVG(score), 0) AS average_score
+	  FROM review
+	  WHERE mentorId = #{mentorId}
+	</select>
     
     <update id="updateReview" parameterType="Review">
         UPDATE review

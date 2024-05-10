@@ -22,7 +22,6 @@ public class Program {
     // 외부 객체 정보 담을 필드
     private List<Time> times;
     private Mentor mentorInfo;
-    // private List<Review> reviews;
 
     // 생성자
     public Program() {

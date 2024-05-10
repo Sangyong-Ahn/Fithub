@@ -34,6 +34,11 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<Review> findReviewByMentor(int mentorId) {
 		return reviewDao.selectReviewByMentor(mentorId);
 	}
+	
+	@Override
+	public double findReivewAvgScore(int mentorId) {
+		return reviewDao.reviewAvgScore(mentorId);
+	}
 
 	@Override
 	@Transactional
@@ -46,5 +51,7 @@ public class ReviewServiceImpl implements ReviewService {
 	public int removeReview(int id) {
 		return reviewDao.deleteReview(id);
 	}
+
+	
 
 }
