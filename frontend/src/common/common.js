@@ -1,4 +1,4 @@
-const defaultLatLng = {
+export const defaultLatLng = {
   lat: 37.5004462,
   lng: 127.037236,
 }
