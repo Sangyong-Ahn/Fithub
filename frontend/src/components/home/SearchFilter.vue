@@ -6,7 +6,7 @@
       <div class="exercise-item" v-for="idx in 20" :key="idx">
         <input type="radio" class="btn-check" :id="'btnradio' + idx" name="exercise" v-model="selectedExercise" :value="idx">
         <label class="btn btn-outline-secondary" :for="'btnradio' + idx">
-          <img src="@/assets/exicon.png"> <!-- 이미지 추가 -->
+          <img :src="getImagePath(idx)"> <!-- 이미지 추가 -->
         </label>
       </div>
     </div>
@@ -17,7 +17,7 @@
     <!-- 2. 날짜 시간 설정하는 영역 -->
     <div class="w-50">
       <p class="d-flex m-3">2. 시간대 선택</p>
-      <div class="d-flex flex-wrap">
+      <div class="d-flex justify-content-around flex-wrap">
         <div class="d-flex" v-for="(day, index) in days" :key="index">
           <input type="checkbox" class="btn-check" :id="'btncheckbox' + index" name="day" v-model="isSelected[index]" :value="day">
           <label class="btn btn-outline-secondary" :for="'btncheckbox' + index">{{ day }}</label>
@@ -31,6 +31,7 @@
         </div>
       </div>
       
+      <!-- 시간 -->
       
 
     </div>
@@ -46,10 +47,13 @@
 <script setup>
 import { ref } from 'vue';
 
+const getImagePath = (idx) => `src/assets/sports/${idx}.png`;
 const selectedExercise = ref(0);
 
 const days = ref(['일', '월', '화', '수', '목', '금', '토']);
 const isSelected = ref([false, false, false, false, false, false, false])
+const startTime = ref('');
+const endTime = ref('');
 
 </script>
 
