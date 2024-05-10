@@ -6,20 +6,20 @@
 
 <script setup>
 import { useProgramStore } from '@/stores/programStore';
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 import * as common from "@/common/common.js";
 
 const store = useProgramStore()
+onMounted(()=>{
+})
 
-onMounted(async ()=>{
+watch(async ()=> store.programList, async () => {
+    console.log("W")
     const mapDiv = document.getElementById("map");
     const map = await common.initMap(mapDiv);
 
-    if(!store.programList.length){
-        alert("조건에 해당하는 프로그램이 없습니다.") // TODO: remove
-    }
-
     for(const program of store.programList){
+        console.log(program)
         const lowestPrice = common.getLowestPrice(program);
         const markerStyle = `
         background-color: white;
@@ -43,7 +43,8 @@ onMounted(async ()=>{
 
 function clickEvent(program){
     return function(e) {
-        store.programList.value = [program]
+        console.log("HI")
+        store.programList = [program]
     }
 }
 
