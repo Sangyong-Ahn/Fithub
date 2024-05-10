@@ -42,7 +42,6 @@ public class ProgramServiceImpl implements ProgramService{
 	        }
 	        
 	        int programId = program.getId();
-	        
 	        for (Time time : program.getTimes()) {
 	            time.setProgramId(programId);
 	            int t_result = timeDao.insertTime(time);

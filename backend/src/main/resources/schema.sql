@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS fithubdb;
+CREATE DATABASE IF NOT EXISTS fithubdb DEFAULT CHARACTER SET utf8mb4;
 USE fithubdb;
 
 
@@ -187,5 +187,3 @@ END$$
 DELIMITER ;
 
 CALL InsertDummyData();
-
-
