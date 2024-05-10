@@ -18,8 +18,10 @@
       </div>
       <div class="col-2"></div>
     </div>
-    <div class="row">
-      <div class="col-3 border">
+
+
+    <div class="row mb-5">
+      <div class="col-3 border" >
         <ProgramList />
       </div>
       <div class="col-9 border">
@@ -31,7 +33,17 @@
 
 <script setup>
 import SearchFilter from '@/components/home/SearchFilter.vue';
+import ProgramList from '@/components/home/ProgramList.vue';
 import Map from '@/components/home/Map.vue';
+
+import { useProgramStore } from "@/stores/programStore";
+import { onMounted } from "vue";
+
+const store = useProgramStore()
+onMounted(() => {
+    store.getProgramList()
+})
+
 </script>
 
 <style scoped>

@@ -1,6 +1,6 @@
 <template>
   <!-- 1. 운동 카테고리 설정하는 영역 -->
-  <div>
+  <div class="text-center">
     <p class="d-flex m-3">1. 운동 선택</p>
     <div class="exercise-grid">
       <div class="exercise-item" v-for="category in store.categoryList" :key="category.id">
@@ -48,7 +48,7 @@
     </div>
   </div>
 
-  <button class="btn btn-secondary mt-4" type="submit">검색하기</button>
+  <button class="btn btn-secondary mt-4 d-block mx-auto" type="submit">검색하기</button>
   
 </template>
 

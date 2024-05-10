@@ -14,7 +14,7 @@ export const useProgramStore = defineStore("program", () => {
     axios.get(REST_API)
       .then((response) => {
         originalProgramList.value = response.data
-        programList = response.data
+        programList.value = response.data
       })
   }
 
