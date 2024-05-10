@@ -12,6 +12,7 @@ import com.team2.fithub.model.dao.ReviewDao;
 import com.team2.fithub.model.dao.TimeDao;
 import com.team2.fithub.model.dto.Mentor;
 import com.team2.fithub.model.dto.Program;
+import com.team2.fithub.model.dto.Review;
 import com.team2.fithub.model.dto.SearchCondition;
 import com.team2.fithub.model.dto.Time;
 
@@ -60,7 +61,14 @@ public class ProgramServiceImpl implements ProgramService{
 		Program program = programDao.selectProgram(id);
 		List<Time> times = timeDao.selectTimeByProgram(id);
 		program.setTimes(times);
+		
+		List<Review> reviews = reviewDao.selectReviewByMentor(program.getMentorId());
+		Double reviewAvgScore = reviewDao.reviewAvgScore(program.getMentorId());
 		Mentor mentorInfo = mentorDao.selectMentor(program.getMentorId());
+		
+		mentorInfo.setReviews(reviews);
+		mentorInfo.setReviewAvgScore(reviewAvgScore);
+		
 		program.setMentorInfo(mentorInfo);
 		return program;
 	}
@@ -72,8 +80,11 @@ public class ProgramServiceImpl implements ProgramService{
 			List<Time> times = timeDao.selectTimeByProgram(program.getId());
 			program.setTimes(times);
 			
+			List<Review> reviews = reviewDao.selectReviewByMentor(program.getMentorId());
 			Double reviewAvgScore = reviewDao.reviewAvgScore(program.getMentorId());
 			Mentor mentorInfo = mentorDao.selectMentor(program.getMentorId());
+			
+			mentorInfo.setReviews(reviews);
 			mentorInfo.setReviewAvgScore(reviewAvgScore);
 			program.setMentorInfo(mentorInfo);
 		}
