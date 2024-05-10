@@ -7,12 +7,14 @@ const REST_API = `http://localhost:8080/program`
 
 export const useProgramStore = defineStore("program", () => {
 
+  const originalProgramList = ref([])
   const programList = ref([])
 
   const getProgramList = function () {
     axios.get(REST_API)
       .then((response) => {
-        programList.value = response.data
+        originalProgramList.value = response.data
+        programList = response.data
       })
   }
 
