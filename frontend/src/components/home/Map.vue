@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="map" style="width:500px; height:500px"></div>
+        <div id="map" style="width:100%; height:500px"></div>
     </div>
 </template>
 
@@ -37,7 +37,7 @@ const programs = [ // sample data
         "saturday": false,
         "startTime": "12:00:00",
         "endTime": "14:00:00",
-        "price": 3,
+        "price": 23000,
         "capacity": 5,
         "reserveNum": 0
       },
@@ -53,7 +53,7 @@ const programs = [ // sample data
         "saturday": false,
         "startTime": "14:00:00",
         "endTime": "15:00:00",
-        "price": 7,
+        "price": 15000,
         "capacity": 3,
         "reserveNum": 0
       }
@@ -117,27 +117,36 @@ let programId = null;
 onMounted(async ()=>{
     const mapDiv = document.getElementById("map");
     const map = await common.initMap(mapDiv);
-    console.log("AWAIT FIN")
     
     for(const program of programs){
-        console.log(program.latitude)
+        const lowestPrice = common.getLowestPrice(program);
+        const markerStyle = `
+        background-color: white;
+        border: 1px solid gray;
+        border-radius: 5px;
+        padding: 5px;
+        `
         const marker = new naver.maps.Marker({
             position: new naver.maps.LatLng(program.latitude, program.longitude),
             map: map,
+            icon:{
+                content: `<div style="${markerStyle}">${lowestPrice}</div>`,
+                size: new naver.maps.Size(32, 32),
+                anchor: new naver.maps.Point(16, 16),
+            }
         });
-        naver.maps.Event.addListener(marker, 'click', clickEvent(program.id));
+        
+        naver.maps.Event.addListener(marker, 'click', clickEvent(program));
     }
 })
 
-function clickEvent(pId){
+function clickEvent(program){
     return function(e) {
-        programId = pId;
-        console.log(programId)
+        console.log(program)
     }
 }
 
 </script>
 
 <style scoped>
-
 </style>

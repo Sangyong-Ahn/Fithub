@@ -22,3 +22,6 @@ export async function initMap(mapDiv, lat=defaultLatLng.lat, lng=defaultLatLng.l
     }
   })
 }
+
+export const getLowestPrice = (program) => program.times.reduce((prev, cur) => prev < cur.price ? prev : cur.price, program.times[0].price)
+
