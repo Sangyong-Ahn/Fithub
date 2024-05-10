@@ -12,6 +12,8 @@ public interface ReviewService {
 	
 	List<Review> findReviewByMentor(int mentorId);
 	
+	double findReivewAvgScore(int mentorId);
+	
 	int modifyReview(Review review);
 	
 	int removeReview(int id);
