@@ -1,7 +1,9 @@
 <template>
-  <div class="custom-container text-center">
-    <HeaderNav />
-    <RouterView />
+  <div id="app">
+    <div class="custom-container text-center">
+      <HeaderNav />
+    </div>
+      <RouterView />
   </div>
 </template>
 
@@ -12,9 +14,6 @@ import { RouterView } from 'vue-router';
 </script>
 
 <style scoped>
-.custom-container {
-  max-width: 1000px; /* 원하는 최대 너비로 설정 */
-  margin-left: auto;
-  margin-right: auto;
+@app {
 }
 </style>

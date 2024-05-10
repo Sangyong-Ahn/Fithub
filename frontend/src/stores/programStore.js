@@ -25,5 +25,5 @@ export const useProgramStore = defineStore("program", () => {
     })
   }
 
-  return { programList, getProgramList };
+  return { programList, getProgramList, program, getProgram };
 });

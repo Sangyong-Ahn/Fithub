@@ -1,27 +1,35 @@
 <template>
   <!-- Main Navbar -->
-  <nav class="navbar navbar-expand-md py-3">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Fithub</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">
-              로그인
+  <div class="container">
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-10">
+        <nav class="navbar navbar-expand-md py-3">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Fithub</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
             </button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#registModal">
-              회원가입
-            </button>
-          </li>
-        </ul>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    로그인
+                  </button>
+                </li>
+                <li class="nav-item">
+                  <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#registModal">
+                    회원가입
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
       </div>
+      <div class="col-1"></div>
     </div>
-  </nav>
+  </div>
 
   <!-- Login Modal -->
   <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
