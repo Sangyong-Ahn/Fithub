@@ -13,10 +13,21 @@
       </div>
     </div>
   </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-3 border">
+        리스트 영역
+      </div>
+      <div class="col-9 border">
+        <Map />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import SearchFilter from '@/components/home/SearchFilter.vue';
+import Map from '@/components/home/Map.vue';
 </script>
 
 <style scoped>
