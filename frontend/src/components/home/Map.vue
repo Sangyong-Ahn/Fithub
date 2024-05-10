@@ -88,7 +88,7 @@ const programs = [ // sample data
         "saturday": false,
         "startTime": "12:00:00",
         "endTime": "14:00:00",
-        "price": 3,
+        "price": 3000,
         "capacity": 5,
         "reserveNum": 0
       },
@@ -104,7 +104,7 @@ const programs = [ // sample data
         "saturday": false,
         "startTime": "14:00:00",
         "endTime": "15:00:00",
-        "price": 7,
+        "price": 7000,
         "capacity": 3,
         "reserveNum": 0
       }
@@ -130,7 +130,7 @@ onMounted(async ()=>{
             position: new naver.maps.LatLng(program.latitude, program.longitude),
             map: map,
             icon:{
-                content: `<div style="${markerStyle}">${lowestPrice}</div>`,
+                content: `<div style="${markerStyle}">${lowestPrice.toLocaleString()}~</div>`,
                 size: new naver.maps.Size(32, 32),
                 anchor: new naver.maps.Point(16, 16),
             }
