@@ -8,7 +8,7 @@ public class Mentor {
 	private String email;
     private String password;
     private String name;
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private String gender;
     private String phoneNumber;
     
@@ -25,7 +25,7 @@ public class Mentor {
     // 기본 생성자
  	public Mentor() {}
  	
-    public Mentor(String email, String password, String name, Date dateOfBirth, String gender, String phoneNumber) {
+    public Mentor(String email, String password, String name, String dateOfBirth, String gender, String phoneNumber) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -58,11 +58,11 @@ public class Mentor {
 		this.name = name;
 	}
 
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 

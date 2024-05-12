@@ -136,15 +136,15 @@ CREATE TABLE IF NOT EXISTS `chat` (
 
 
 INSERT INTO user(email, password, name, dateOfBirth, gender, phoneNumber)
-VALUES ("user1@user1", "userpass1", "username1", 11111111, "M", "11111111111"),
-	   ("user2@user2", "userpass2", "username2", 11111112, "M", "11111111112"),
-       ("user3@user3", "userpass3", "username3", 11111113, "M", "11111111113"),
-       ("user4@user4", "userpass4", "username4", 11111114, "M", "11111111114"),
-       ("user5@user5", "userpass5", "username5", 11111115, "M", "11111111115"),
-       ("user6@user6", "userpass6", "username6", 11111116, "M", "11111111116"),
-       ("user7@user7", "userpass7", "username7", 11111117, "M", "11111111117"),
-       ("user8@user8", "userpass8", "username8", 11111118, "M", "11111111118"),
-       ("user9@user9", "userpass9", "username9", 11111119, "M", "11111111119");
+VALUES ("user1@user1", "userpass1", "username1", "11111111", "M", "11111111111"),
+	   ("user2@user2", "userpass2", "username2", "11111112", "M", "11111111112"),
+       ("user3@user3", "userpass3", "username3", "11111113", "M", "11111111113"),
+       ("user4@user4", "userpass4", "username4", "11111114", "M", "11111111114"),
+       ("user5@user5", "userpass5", "username5", "11111115", "M", "11111111115"),
+       ("user6@user6", "userpass6", "username6", "11111116", "M", "11111111116"),
+       ("user7@user7", "userpass7", "username7", "11111117", "M", "11111111117"),
+       ("user8@user8", "userpass8", "username8", "11111118", "M", "11111111118"),
+       ("user9@user9", "userpass9", "username9", "11111119", "M", "11111111119");
        
 INSERT INTO mentor(email, password, name, dateOfBirth, gender, phoneNumber)
 VALUES ("mentor1@mentor1", "mentorpass1", "mentorname1", 11111111, "M", "11111111111"),
@@ -187,3 +187,80 @@ END$$
 DELIMITER ;
 
 CALL InsertDummyData();
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE InsertDummyProgramData()
+BEGIN
+    DECLARE i INT DEFAULT 0;
+    
+    WHILE i < 50 DO
+        SET @mentorId = FLOOR(RAND() * 9) + 1; -- 1부터 10까지의 랜덤한 mentorId 생성
+        SET @categoryId = FLOOR(RAND() * 20) + 1; -- 1부터 20까지의 랜덤한 categoryId 생성
+        SET @title = CONCAT('프로그램 제목 ', i + 1);
+        SET @reservationStartDate = CURRENT_DATE() + INTERVAL FLOOR(RAND() * 30) DAY;
+        SET @reservationEndDate = @reservationStartDate + INTERVAL FLOOR(RAND() * 30) DAY;
+        SET @programStartDate = @reservationEndDate + INTERVAL FLOOR(RAND() * 30) DAY;
+        SET @programEndDate = @programStartDate + INTERVAL FLOOR(RAND() * 30) DAY;
+        SET @thumbnail = CONCAT('https://example.com/thumbnail/program', i + 1, '.jpg');
+        SET @content = CONCAT('프로그램 내용 ', i + 1);
+        SET @youtubeUrl = CONCAT('https://www.youtube.com/watch?v=', SUBSTRING(MD5(RAND()), 1, 10));
+        SET @latitude = RAND() * (37.701 - 37.426) + 37.426; -- 서울 위도 범위 내에서 무작위 위도 생성
+        SET @longitude = RAND() * (127.183 - 126.764) + 126.764; -- 서울 경도 범위 내에서 무작위 경도 생성
+        
+        INSERT INTO `program` (`mentorId`, `categoryId`, `title`, `reservationStartDate`, `reservationEndDate`, `programStartDate`, `programEndDate`, `thumbnail`, `content`, `youtubeUrl`, `latitude`, `longitude`) 
+        VALUES (@mentorId, @categoryId, @title, @reservationStartDate, @reservationEndDate, @programStartDate, @programEndDate, @thumbnail, @content, @youtubeUrl, @latitude, @longitude);
+        
+        SET @programId = LAST_INSERT_ID(); -- 방금 삽입한 프로그램의 ID를 가져옴
+        
+        -- 프로그램에 대한 무작위 시간 생성
+        INSERT INTO `time` (`programId`, `sunday`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `startTime`, `endTime`, `price`, `capacity`)
+        VALUES 
+            (@programId, RAND() < 0.5, RAND() < 0.5, RAND() < 0.5, RAND() < 0.5, RAND() < 0.5, RAND() < 0.5, RAND() < 0.5,
+             SEC_TO_TIME(FLOOR(RAND() * 86400)), SEC_TO_TIME(FLOOR(RAND() * 86400)),
+             FLOOR(RAND() * 100) + 10, FLOOR(RAND() * 15) + 5);
+        
+        SET i = i + 1;
+    END WHILE;
+END$$
+
+DELIMITER ;
+
+CALL InsertDummyProgramData();
+
+
+DELIMITER $$
+
+CREATE PROCEDURE InsertDummyReviews()
+BEGIN
+    DECLARE programCount INT DEFAULT 0;
+    DECLARE userCount INT DEFAULT 0;
+    
+    -- 각 프로그램에 대해 랜덤하게 5개의 리뷰를 작성
+    WHILE programCount < 50 DO
+        SET @programId = programCount + 1;
+        SET userCount = 0;
+        
+        -- 랜덤하게 5명의 유저 선택
+        WHILE userCount < 5 DO
+            SET @userId = FLOOR(RAND() * 9) + 1; -- 1부터 10까지의 랜덤한 userId 생성
+            SET @content = CONCAT('프로그램', @programId, '에 대한 리뷰입니다. 사용자', @userId, '가 작성했습니다.');
+            SET @score = FLOOR(RAND() * 5) + 1; -- 1부터 5까지의 랜덤한 점수 생성
+            
+            -- 프로그램에 대한 리뷰 작성
+            INSERT INTO `review` (`mentorId`, `programId`, `userId`, `content`, `score`)
+            VALUES ((SELECT mentorId FROM `program` WHERE id = @programId), @programId, @userId, @content, @score);
+            
+            SET userCount = userCount + 1;
+        END WHILE;
+        
+        SET programCount = programCount + 1;
+    END WHILE;
+END$$
+
+DELIMITER ;
+
+CALL InsertDummyReviews();
+

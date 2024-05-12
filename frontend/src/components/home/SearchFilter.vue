@@ -3,15 +3,14 @@
   <div class="text-center">
     <p class="d-flex m-3">1. 운동 선택</p>
     <div class="exercise-grid">
-      <div class="exercise-item" v-for="category in store.categoryList" :key="category.id">
-        <input type="radio" class="btn-check" :id="'btnradio' + category.id" name="exercise" v-model="selectedExercise" :value="category.id">
+      <div class="exercise-item" v-for="category in categoryStore.categoryList" :key="category.id">
+        <input type="radio" class="btn-check" :id="'btnradio' + category.id" name="exercise" v-model="categoryId" :value="category.id">
         <label class="btn btn-outline-secondary" :for="'btnradio' + category.id">
           <img :src="getImagePath(category.id)">
         </label>
         <p style="font-size:12px">{{ category.name }}</p>
       </div>
     </div>
-    <p class="d-flex m-3">선택된 운동: {{ selectedExercise }}</p>
   </div>
 
   <div class="d-flex">
@@ -48,27 +47,53 @@
     </div>
   </div>
 
-  <button class="btn btn-secondary mt-4 d-block mx-auto" type="submit">검색하기</button>
+  <button class="btn btn-secondary mt-4 d-block mx-auto" @click="programSearch" type="submit">검색하기</button>
   
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useCategoryStore } from "@/stores/categoryStore";
+import { useProgramStore } from '@/stores/programStore'
 
-const store = useCategoryStore()
+// 필터 내용에 관한것
+const categoryStore = useCategoryStore()
 onMounted(() => {
-    store.getCategoryList()
+  categoryStore.getCategoryList()
 })
 const getImagePath = (idx) => `src/assets/sports/${idx}.png`;
 
-const selectedExercise = ref(0);
+
 
 const days = ref(['일', '월', '화', '수', '목', '금', '토']);
 const isSelected = ref([false, false, false, false, false, false, false])
-const startTime = ref('');
-const endTime = ref('');
+const startTime = ref('00:00');
+const endTime = ref('23:59');
+  
 
+// 보낼 필터 객체에 대한것
+const programStore = useProgramStore()
+
+const categoryId = ref(0);
+const order = ref("createdAt")
+const direction = ref("asc")
+
+const programSearch = function () {
+  programStore.programSearch({
+      categoryId: categoryId.value,
+      sunday: isSelected.value[0],
+      monday: isSelected.value[1],
+      tuesday: isSelected.value[2],
+      wednesday: isSelected.value[3],
+      thursday: isSelected.value[4],
+      friday: isSelected.value[5],
+      saturday: isSelected.value[6],
+      startTime: startTime.value+":00",
+      endTime: endTime.value+":00",
+      order: order.value,
+      direction: direction.value
+  })
+}
 </script>
 
 <style scoped>

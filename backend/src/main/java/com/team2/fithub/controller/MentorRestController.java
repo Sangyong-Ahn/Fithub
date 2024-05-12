@@ -65,12 +65,37 @@ public class MentorRestController {
 	@PostMapping("")
 	public ResponseEntity<?> mentorAdd(@RequestBody Mentor mentor) {
 		try {
+			Mentor existingMentor = ms.findMentorByEmail(mentor.getEmail());
+			if(existingMentor != null)
+				return new ResponseEntity<>("이미 사용중인 이메일입니다.", HttpStatus.BAD_REQUEST);
+			if (mentor.getEmail().isEmpty())
+	            return new ResponseEntity<>("이메일을 입력하세요.", HttpStatus.BAD_REQUEST);
+			
+			String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+	        if (!mentor.getEmail().matches(emailPattern))
+	            return new ResponseEntity<>("올바른 이메일 형식이 아닙니다.", HttpStatus.BAD_REQUEST);
+			if (mentor.getPassword().isEmpty())
+	            return new ResponseEntity<>("비밀번호를 입력하세요.", HttpStatus.BAD_REQUEST);
+			if (mentor.getName().isEmpty())
+	            return new ResponseEntity<>("이름을 입력하세요.", HttpStatus.BAD_REQUEST);
+			if (mentor.getDateOfBirth() == null)
+	            return new ResponseEntity<>("생년월일을 입력하세요.", HttpStatus.BAD_REQUEST);
+			if (mentor.getDateOfBirth().length() != 8)
+	            return new ResponseEntity<>("생년월일을 8자리로 입력하세요.", HttpStatus.BAD_REQUEST);
+			if (mentor.getGender().isEmpty())
+				return new ResponseEntity<>("성별을 선택해주세요.", HttpStatus.BAD_REQUEST);
+			if (mentor.getPhoneNumber().isEmpty())
+				return new ResponseEntity<>("전화 번호를 선택해주세요.", HttpStatus.BAD_REQUEST);
+			if (!mentor.getPhoneNumber().matches("[0-9]+")) {
+	            return new ResponseEntity<>("전화번호는 숫자로만 입력해야 합니다.", HttpStatus.BAD_REQUEST);
+	        }
+			
 			int result = ms.addMentor(mentor);
 			if (result == 1)
 				return new ResponseEntity<>(result, HttpStatus.CREATED);
 			return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
-			return exceptionHandling(e);
+			return new ResponseEntity<>("올바른 생년월일이 아닙니다.", HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -95,7 +120,7 @@ public class MentorRestController {
 		}
 	}
 
-	@GetMapping("/{id}/chats")
+	@GetMapping("/{id}/chat")
 	public ResponseEntity<?> mentorChats(@PathVariable("id") int id) {
 		Map<Integer, List<Chat>> chat = cs.findChatByMentor(id);
 		if (chat.isEmpty())
@@ -103,7 +128,7 @@ public class MentorRestController {
 		return new ResponseEntity<>(chat, HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}/reviews")
+	@GetMapping("/{id}/review")
 	public ResponseEntity<?> mentorReviews(@PathVariable("id") int id) {
 		List<Review> review = rs.findReviewByMentor(id);
 		if (review.isEmpty())

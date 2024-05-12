@@ -61,12 +61,37 @@ public class UserRestController {
 	@PostMapping("")
 	public ResponseEntity<?> userAdd(@RequestBody User user) {
 		try {
+			User existingUser = us.findUserByEmail(user.getEmail());
+			if(existingUser != null)
+				return new ResponseEntity<>("이미 사용중인 이메일입니다.", HttpStatus.BAD_REQUEST);
+			if (user.getEmail().isEmpty())
+	            return new ResponseEntity<>("이메일을 입력하세요.", HttpStatus.BAD_REQUEST);
+			
+			String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+	        if (!user.getEmail().matches(emailPattern))
+	            return new ResponseEntity<>("올바른 이메일 형식이 아닙니다.", HttpStatus.BAD_REQUEST);
+			if (user.getPassword().isEmpty())
+	            return new ResponseEntity<>("비밀번호를 입력하세요.", HttpStatus.BAD_REQUEST);
+			if (user.getName().isEmpty())
+	            return new ResponseEntity<>("이름을 입력하세요.", HttpStatus.BAD_REQUEST);
+			if (user.getDateOfBirth() == null)
+	            return new ResponseEntity<>("생년월일을 입력하세요.", HttpStatus.BAD_REQUEST);
+			if (user.getDateOfBirth().length() != 8)
+	            return new ResponseEntity<>("생년월일을 8자리로 입력하세요.", HttpStatus.BAD_REQUEST);
+			if (user.getGender().isEmpty())
+				return new ResponseEntity<>("성별을 선택해주세요.", HttpStatus.BAD_REQUEST);
+			if (user.getPhoneNumber().isEmpty())
+				return new ResponseEntity<>("전화 번호를 선택해주세요.", HttpStatus.BAD_REQUEST);
+			if (!user.getPhoneNumber().matches("[0-9]+")) {
+	            return new ResponseEntity<>("전화번호는 숫자로만 입력해야 합니다.", HttpStatus.BAD_REQUEST);
+	        }
+			
 			int result = us.addUser(user);
 			if (result == 1)
 				return new ResponseEntity<>(result, HttpStatus.CREATED);
 			return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
-			return exceptionHandling(e);
+			return new ResponseEntity<>("올바른 생년월일이 아닙니다.", HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -91,7 +116,7 @@ public class UserRestController {
 		}
 	}
 
-	@GetMapping("/{id}/chats")
+	@GetMapping("/{id}/chat")
 	public ResponseEntity<?> userChats(@PathVariable("id") int id) {
 		Map<Integer, List<Chat>> chat = cs.findChatByUser(id);
 		if (chat.isEmpty())
@@ -184,11 +209,11 @@ public class UserRestController {
 			User user = us.findUserByEmail(email);
 
 			if (user == null) {
-				return new ResponseEntity<>("User not found for email: " + email, HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>("해당 유저가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
 			}
 
 			if (!user.getPassword().equals(password)) {
-				return new ResponseEntity<>("Wrong password", HttpStatus.UNAUTHORIZED);
+				return new ResponseEntity<>("비밀번호가 일치하지 않습니다.", HttpStatus.UNAUTHORIZED);
 			}
 
 			// 로그인 성공 시 세션에 사용자 정보 저장

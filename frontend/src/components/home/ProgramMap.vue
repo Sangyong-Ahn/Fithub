@@ -14,12 +14,11 @@ onMounted(()=>{
 })
 
 watch(async ()=> store.programList, async () => {
-    console.log("W")
     const mapDiv = document.getElementById("map");
-    const map = await common.initMap(mapDiv);
-
+    const map = await common.initMap(mapDiv, store.programList[0].latitude, store.programList[0].longitude);
+    console.log('watch processing')
+    console.log(store.programList)
     for(const program of store.programList){
-        console.log(program)
         const lowestPrice = common.getLowestPrice(program);
         const markerStyle = `
         background-color: white;
@@ -44,6 +43,7 @@ watch(async ()=> store.programList, async () => {
 function clickEvent(program){
     return function(e) {
         store.programList = [program]
+        store.isSpecified = true
     }
 }
 

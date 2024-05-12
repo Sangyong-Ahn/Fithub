@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,8 +40,8 @@ public class ProgramRestController {
 	@GetMapping("")
 	public ResponseEntity<?> programList() {
 		List<Program> programList = ps.findAllProgram();
-		if (programList.isEmpty())
-			return new ResponseEntity<>(programList, HttpStatus.NOT_FOUND);
+//		if (programList.isEmpty())
+//			return new ResponseEntity<>("검색 결과가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(programList, HttpStatus.OK);
 	}
 
@@ -86,17 +87,17 @@ public class ProgramRestController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> programDetails(@PathVariable("id") int id) {
 		Program program = ps.findProgram(id);
-		if (program == null)
-			return new ResponseEntity<>(program, HttpStatus.NOT_FOUND);
+//		if (program == null)
+//			return new ResponseEntity<>("검색 결과가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(program, HttpStatus.OK);
 	}
 
 	@GetMapping("/search")
-	public ResponseEntity<?> programDetails(@ModelAttribute SearchCondition condition) {
+	public ResponseEntity<?> programSearch(@ModelAttribute SearchCondition condition) {
 		System.out.println(condition);
 		List<Program> programs = ps.searchProgram(condition);
-		if (programs.isEmpty())
-			return new ResponseEntity<>(programs, HttpStatus.NOT_FOUND);
+//		if (programs.isEmpty())
+//			return new ResponseEntity<>("검색 결과가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(programs, HttpStatus.OK);
 	}
 

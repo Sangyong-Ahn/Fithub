@@ -3,7 +3,7 @@ const defaultLatLng = {
   lng: 127.037236,
 }
 
-export async function initMap(mapDiv, lat=defaultLatLng.lat, lng=defaultLatLng.lng){
+export async function initMap(mapDiv, lat, lng){
   return new Promise((resolve)=>{
 
 
@@ -25,7 +25,6 @@ export async function initMap(mapDiv, lat=defaultLatLng.lat, lng=defaultLatLng.l
     document.head.appendChild(mapScript);
   
     mapScript.onload = () => {
-      console.log("LOAD")
     
       const mapOptions = {
         center: new naver.maps.LatLng(lat, lng),

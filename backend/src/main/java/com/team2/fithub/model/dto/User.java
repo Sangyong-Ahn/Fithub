@@ -7,7 +7,7 @@ public class User {
 	private String email;
     private String password;
     private String name;
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private String gender;
     private String phoneNumber;
     
@@ -19,7 +19,7 @@ public class User {
     // 기본 생성자
  	public User() {}
  	
-    public User(String email, String password, String name, Date dateOfBirth, String gender, String phoneNumber) {
+    public User(String email, String password, String name, String dateOfBirth, String gender, String phoneNumber) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -52,11 +52,11 @@ public class User {
 		this.name = name;
 	}
 
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
