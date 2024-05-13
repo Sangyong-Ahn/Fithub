@@ -13,10 +13,9 @@ const props = defineProps({
     lat: Number,
     lng: Number,
 })
-const emit = defineEmits(["update-location"])
+const emit = defineEmits(["update-lat-lng"])
 
-const id=props.id;
-console.log(props)
+const id=`${props.id}Map`;
 
 onMounted(async () => {
     const map = await initMap(id, props.lat, props.lng)
@@ -36,7 +35,7 @@ onMounted(async () => {
         marker.setPosition(coord);
         // map.setCenter(coord);
         // TODO: 화면을 한 번이라도 resize 하기 전까지 중앙 위치가 잘못 잡히는 문제
-        emit("update-lat-lng", {lat:coord._lat, lng:coord._lng});
+        emit("update-lat-lng", {id:props.id, lat:coord._lat, lng:coord._lng});
 
     }
 })

@@ -40,9 +40,9 @@
           <div class="m-3">
             <!-- 위치 선택 -->
             <Location 
-              :id="'userMap'"
-              :lat="latitude"
-              :lng="longitude"
+              :id="'user'"
+              :lat="user.latitude"
+              :lng="user.longitude"
               @update-lat-lng="updateLatLng"
             />
           </div>
@@ -96,9 +96,9 @@
           <div class="m-3">
             <!-- 위치 선택 -->
             <Location
-              :id="'mentorMap'"
-              :lat="latitude"
-              :lng="longitude"
+              :id="'mentor'"
+              :lat="mentor.latitude"
+              :lng="mentor.longitude"
               @update-lat-lng="updateLatLng"
             />
           </div>
@@ -123,49 +123,41 @@ import { defaultLatLng } from "@/common/common";
 
 const store = useUserStore()
 const user = ref({
-  email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: ''
+  email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: defaultLatLng.lat, longitude: defaultLatLng.lng,
 })
 
 const mentor = ref({
-  email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: ''
+  email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: defaultLatLng.lat, longitude: defaultLatLng.lng,
 })
 
-const latitude = ref(defaultLatLng.lat)
-const longitude = ref(defaultLatLng.lng)
-
 const userCreate = function () {
-    user.value.latitude = latitude.value
-    user.value.longitude = longitude.value
     store.userCreate(user.value)
 }
 
 const mentorCreate = function () {
-    mentor.value.latitude = latitude.value
-    mentor.value.longitude = longitude.value
     store.mentorCreate(mentor.value)
 }
 
 const resetInputs = function() {
   // 사용자 회원가입 입력 초기화
   user.value = {
-    email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: ''
+    email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: defaultLatLng.lat, longitude: defaultLatLng.lng,
   };
-  
-  latitude.value = defaultLatLng.lat;
-  longitude.value = defaultLatLng.lng;
-
   // 멘토 회원가입 입력 초기화
   mentor.value = {
-    email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: ''
+    email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: defaultLatLng.lat, longitude: defaultLatLng.lng,
   };
-
-  latitude.value = defaultLatLng.lat;
-  longitude.value = defaultLatLng.lng;
 }
 
 const updateLatLng = (latLng) => {
-  latitude.value = latLng.lat;
-  longitude.value = latLng.lng;
+  if(latLng.id=='user'){
+    user.value.latitude = latLng.lat;
+    user.value.longitude = latLng.lng;
+  }
+  else if(latLng.id=='mentor'){
+    mentor.value.latitude = latLng.lat;
+    mentor.value.longitude = latLng.lng;
+  }
 }
 
 </script>
