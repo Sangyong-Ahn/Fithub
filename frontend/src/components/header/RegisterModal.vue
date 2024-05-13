@@ -39,7 +39,7 @@
           </div>
           <div class="m-3">
             <!-- 위치 선택 -->
-            <Location 
+            <UserMap 
               :id="'user'"
               :lat="user.latitude"
               :lng="user.longitude"
@@ -95,7 +95,7 @@
           </div>
           <div class="m-3">
             <!-- 위치 선택 -->
-            <Location
+            <UserMap
               :id="'mentor'"
               :lat="mentor.latitude"
               :lng="mentor.longitude"
@@ -118,7 +118,7 @@
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from "@/stores/userStore";
-import Location from "@/components/user/Location.vue";
+import UserMap from "@/components/user/UserMap.vue";
 import { defaultLatLng } from "@/common/common";
 
 const store = useUserStore()
