@@ -5,8 +5,8 @@
 <mapper namespace="com.team2.fithub.model.dao.MentorDao">
 
 	<insert id="insertMentor" parameterType="Mentor">
-		INSERT INTO mentor (email, password, name, dateOfBirth, gender, phoneNumber)
-		VALUES(#{email}, #{password}, #{name}, #{dateOfBirth}, #{gender}, #{phoneNumber})
+		INSERT INTO mentor (email, password, name, dateOfBirth, gender, phoneNumber, latitude, longitude)
+		VALUES(#{email}, #{password}, #{name}, #{dateOfBirth}, #{gender}, #{phoneNumber}, #{latitude}, #{longitude})
 	</insert>
 	
 	<select id="selectMentorByEmail" parameterType="String" resultType="Mentor">
