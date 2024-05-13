@@ -34,26 +34,23 @@
 	        SELECT DISTINCT programId
 	        FROM Time
 	        WHERE 
-	            <trim prefixOverrides="AND">
-	                <if test="sunday"> AND startTime &gt; #{convertedStartTime} AND endTime &lt; #{convertedEndTime}</if>
-	                <if test="monday"> AND startTime &gt; #{convertedStartTime} AND endTime &lt; #{convertedEndTime}</if>
-	                <if test="tuesday"> AND startTime &gt; #{convertedStartTime} AND endTime &lt; #{convertedEndTime}</if>
-	                <if test="wednesday"> AND startTime &gt; #{convertedStartTime} AND endTime &lt; #{convertedEndTime}</if>
-	                <if test="thursday"> AND startTime &gt; #{convertedStartTime} AND endTime &lt; #{convertedEndTime}</if>
-	                <if test="friday"> AND startTime &gt; #{convertedStartTime} AND endTime &lt; #{convertedEndTime}</if>
-	                <if test="saturday"> AND startTime &gt; #{convertedStartTime} AND endTime &lt; #{convertedEndTime}</if>
-	            </trim>
+	            <if test="not sunday"> sunday = 0 AND</if>
+	            <if test="not monday"> monday = 0 AND</if>
+	            <if test="not tuesday"> tuesday = 0 AND</if>
+	            <if test="not wednesday"> wednesday = 0 AND</if>
+	            <if test="not thursday"> thursday = 0 AND</if>
+	            <if test="not friday"> friday = 0 AND</if>
+	            <if test="not saturday"> saturday = 0 AND</if>
+	            startTime <![CDATA[ >= ]]> #{convertedStartTime} AND endTime <![CDATA[ <= ]]> #{convertedEndTime}
 	    ) AS filteredPrograms ON p.id = filteredPrograms.programId
 	    WHERE 
-	        <if test="categoryId == 0">
-	            1=1 <!-- Always true condition to ensure WHERE clause is valid even when no other conditions are present -->
+	        1=1 <!-- Always true condition to ensure WHERE clause is valid even when no other conditions are present -->
+	        <if test="categoryId != null and categoryId != 0">
+	            AND p.categoryId = #{categoryId}
 	        </if>
-	        <if test="categoryId != 0">
-	            p.categoryId = #{categoryId}
-	        </if>
-	    ORDER BY 
-	        <if test="order != null"> #{order} #{direction}</if>
+	    ORDER BY #{order} #{direction}
 	</select>
+
 
 	
 </mapper>

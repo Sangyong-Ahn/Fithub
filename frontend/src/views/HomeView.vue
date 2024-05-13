@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+
     <div class="row">
       <div class="col-2"></div>
       <div class="col-8">
@@ -18,12 +19,14 @@
       </div>
       <div class="col-2"></div>
     </div>
-    <div class="row">
-      <div class="col-3 border">
+
+
+    <div class="row mb-5">
+      <div class="col-4 ps-0" >
         <ProgramList />
       </div>
-      <div class="col-9 border">
-        <Map />
+      <div class="col-8 p-0">
+        <ProgramMap />
       </div>
     </div>
   </div>
@@ -31,7 +34,17 @@
 
 <script setup>
 import SearchFilter from '@/components/home/SearchFilter.vue';
-import Map from '@/components/home/Map.vue';
+import ProgramList from '@/components/home/ProgramList.vue';
+import ProgramMap from '@/components/home/ProgramMap.vue';
+
+import { useProgramStore } from "@/stores/programStore";
+import { onMounted } from "vue";
+
+const store = useProgramStore()
+onMounted(() => {
+    store.getProgramList()
+})
+
 </script>
 
 <style scoped>

@@ -18,20 +18,15 @@ public class MentorServiceImpl implements MentorService {
 	public MentorServiceImpl(MentorDao mentorDao) {
 		this.mentorDao = mentorDao;
 	}
-
-	@Autowired
-	public void setMentorRepo(MentorDao mentorDao) {
-		this.mentorDao = mentorDao;
-	}
-
-	public MentorDao getMentorRepo() {
-		return this.mentorDao;
-	}
 	
 	@Override
 	@Transactional
 	public int addMentor(Mentor mentor) {
-		return mentorDao.insertMentor(mentor);
+		try {
+	        return mentorDao.insertMentor(mentor);
+	    } catch (Exception e) {
+	        throw e;
+	    }
 	}
 	
 	@Override

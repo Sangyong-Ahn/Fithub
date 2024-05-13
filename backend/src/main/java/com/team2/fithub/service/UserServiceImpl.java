@@ -18,20 +18,15 @@ public class UserServiceImpl implements UserService {
 	public UserServiceImpl(UserDao userDao) {
 		this.userDao = userDao;
 	}
-
-	@Autowired
-	public void setUserRepo(UserDao userDao) {
-		this.userDao = userDao;
-	}
-
-	public UserDao getUserRepo() {
-		return this.userDao;
-	}
 	
 	@Override
 	@Transactional
 	public int addUser(User user) {
-		return userDao.insertUser(user);
+		try {
+	        return userDao.insertUser(user);
+	    } catch (Exception e) {
+	        throw e;
+	    }
 	}
 	
 	@Override

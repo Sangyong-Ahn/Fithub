@@ -42,7 +42,6 @@ public class ProgramServiceImpl implements ProgramService{
 	        }
 	        
 	        int programId = program.getId();
-	        
 	        for (Time time : program.getTimes()) {
 	            time.setProgramId(programId);
 	            int t_result = timeDao.insertTime(time);
@@ -93,8 +92,20 @@ public class ProgramServiceImpl implements ProgramService{
 
 	@Override
 	public List<Program> searchProgram(SearchCondition condition) {
-		System.out.println(condition);
-		return programDao.searchProgram(condition);
+		List<Program> programList = programDao.searchProgram(condition);
+		for(Program program : programList) {
+			List<Time> times = timeDao.selectTimeByProgram(program.getId());
+			program.setTimes(times);
+			
+			List<Review> reviews = reviewDao.selectReviewByMentor(program.getMentorId());
+			Double reviewAvgScore = reviewDao.reviewAvgScore(program.getMentorId());
+			Mentor mentorInfo = mentorDao.selectMentor(program.getMentorId());
+			
+			mentorInfo.setReviews(reviews);
+			mentorInfo.setReviewAvgScore(reviewAvgScore);
+			program.setMentorInfo(mentorInfo);
+		}
+		return programList;
 	}
 
 }

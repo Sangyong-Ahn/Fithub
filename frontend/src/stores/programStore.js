@@ -10,12 +10,18 @@ export const useProgramStore = defineStore("program", () => {
   const originalProgramList = ref([])
   const programList = ref([])
 
+  // 지도에서 특정 지점 하나를 누른지 체크하는 변수
+  const isSpecified = ref(false)
+
   const getProgramList = function () {
     axios.get(REST_API)
       .then((response) => {
         originalProgramList.value = response.data
-        programList = response.data
+        programList.value = response.data
       })
+      .catch(e => {
+        console.log(e)
+      });
   }
 
   const program = ref({})
@@ -27,5 +33,18 @@ export const useProgramStore = defineStore("program", () => {
     })
   }
 
-  return { programList, getProgramList, program, getProgram };
+  const programSearch = function (searchCondition) {
+    axios.get(`${REST_API}/search`, {params: searchCondition})
+      .then((response) => {
+        console.log(response.data)
+        isSpecified.value = false;
+        originalProgramList.value = response.data;
+        programList.value = response.data
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  return { originalProgramList, programList, getProgramList, program, getProgram, programSearch, isSpecified };
 });

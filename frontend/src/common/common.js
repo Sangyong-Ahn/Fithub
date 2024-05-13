@@ -3,8 +3,20 @@ export const defaultLatLng = {
   lng: 127.037236,
 }
 
-export async function initMap(mapDiv, lat=defaultLatLng.lat, lng=defaultLatLng.lng){
+export async function initMap(mapDiv, lat, lng){
   return new Promise((resolve)=>{
+
+
+    if(typeof naver !== 'undefined'){
+      const mapOptions = {
+        center: new naver.maps.LatLng(lat, lng),
+        zoom: 14
+      };
+
+      resolve(new naver.maps.Map(mapDiv, mapOptions))
+      return;
+    };
+
     const mapScript = document.createElement("script");
     const clientId = import.meta.env.VITE_NAVER_API_KEY;
     mapScript.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${clientId}`;
@@ -13,11 +25,12 @@ export async function initMap(mapDiv, lat=defaultLatLng.lat, lng=defaultLatLng.l
     document.head.appendChild(mapScript);
   
     mapScript.onload = () => {
-      console.log("LOAD")
+    
       const mapOptions = {
-          center: new naver.maps.LatLng(lat, lng),
-          zoom: 14
+        center: new naver.maps.LatLng(lat, lng),
+        zoom: 14
       };
+
       resolve(new naver.maps.Map(mapDiv, mapOptions));
     }
   })
