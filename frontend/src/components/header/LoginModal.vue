@@ -55,6 +55,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useUserStore } from '@/stores/userStore';
+import { useMatchStore } from '@/stores/matchStore';
 
 const userEmail = ref('');
 const userPassword = ref('');
@@ -62,9 +63,15 @@ const mentorEmail = ref('');
 const mentorPassword = ref('');
 
 const store = useUserStore();
+const matchStore = useMatchStore();
 
 const userLogin = function() {
-  store.userLogin(userEmail.value, userPassword.value)
+  // 비동기
+  store.userLoginPromise(userEmail.value, userPassword.value)
+  .then(()=>{
+    matchStore.getMatchListByUser(store.loginUser.id)
+  })
+  
 }
 
 const mentorLogin = function() {

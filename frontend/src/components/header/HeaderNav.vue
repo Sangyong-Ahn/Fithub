@@ -68,10 +68,13 @@ import { RouterLink } from 'vue-router';
 import LoginModal from './LoginModal.vue';
 import RegisterModal from './RegisterModal.vue';
 import { useUserStore } from '@/stores/userStore';
+import { useMatchStore } from '@/stores/matchStore';
 
 const store = useUserStore();
+const matchStore = useMatchStore();
 
 const logout = function() {
+  matchStore.clearMatchList();
   store.logout();
 }
 

@@ -27,19 +27,19 @@
                     </div>
                     <div class="border mb-5">
                         <h4 id="programContent">프로그램 소개</h4>
-                        <ProgramInfo />
+                        
                     </div>
                     <div class="border mb-5">
                         <h4 id="programVideo">참고 영상</h4>
-                        <ProgramInfo />
+                        
                     </div>
                     <div class="border mb-5">
                         <h4 id="mentorInfo">멘토 정보</h4>
-                        <ProgramInfo />
+                        
                     </div>
                     <div class="border mb-5">
                         <h4 id="review">후기</h4>
-                        <ProgramInfo />
+                        
                     </div>
                 </div>
             </div>

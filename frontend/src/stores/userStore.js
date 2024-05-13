@@ -33,6 +33,26 @@ export const useUserStore = defineStore("user", () => {
     });
   }
 
+  const userLoginPromise = function (email, password) {
+    return axios.post(`${USER_REST_API}/login`, null, {
+      params: {
+        email: email,
+        password: password,
+      }
+    })
+    .then(response => {
+      console.log(response)
+      isUser.value = true;
+      isMentor.value = false;
+      loginUser.value = response.data;
+      errMsg.value = ''
+      $('#loginModal').modal('hide');
+    })
+    .catch(error => {
+      errMsg.value = error.response.data;
+    });
+  }
+
   const mentorLogin = function (email, password) {
     axios.post(`${MENTOR_REST_API}/login`, null, {
       params: {
@@ -67,7 +87,6 @@ export const useUserStore = defineStore("user", () => {
         isUser.value = false;
         loginUser.value = null;
         router.push('/');
-        
       })
     }
   }
@@ -104,5 +123,5 @@ export const useUserStore = defineStore("user", () => {
     })
   }
 
-  return { loginUser, isUser, isMentor, errMsg, userLogin, mentorLogin, logout, userCreate, mentorCreate };
+  return { loginUser, isUser, isMentor, errMsg, userLogin, userLoginPromise, mentorLogin, logout, userCreate, mentorCreate };
 });

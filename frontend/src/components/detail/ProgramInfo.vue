@@ -11,7 +11,7 @@
   <div class="d-flex justify-content-around border m-3">
     <img class="border" src="@/assets/common/thumbnail-demo.jpg"/>
     <div class="border rounded w-50">
-      <div v-for="time in store.program.times" :key="time.id">
+      <div v-for="time in computedTimes" :key="time.id">
         <div class="d-flex m-3">
           <div :class="{ 'text-body-tertiary': !time.sunday }">
             <div class="me-1 fs-5" v-if="time.sunday">일</div>
@@ -54,12 +54,11 @@
           </div>
           <div class="d-flex align-items-center">
             <div class="me-2">
-              <button :class="{ 
-                          'btn btn-outline-secondary btn-md': !isReservedByUser(time) && !isFull(time),
-                          'btn-success': isReservedByUser(time)
+              <button class="btn btn-md" :class="{ 
+                          'btn-outline-secondary': time.reserved || !isFull(time),
                         }"
                       :disabled="isFull(time)">
-                <template v-if="isReservedByUser(time)">
+                <template v-if="time.reserved">
                   예약 취소
                 </template>
                 <template v-else-if="isFull(time)">
@@ -81,17 +80,39 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRoute } from 'vue-router'
 import { useProgramStore } from "@/stores/programStore";
 import { useUserStore } from "@/stores/userStore";
+import { useMatchStore } from "@/stores/matchStore";
 
 const store = useProgramStore()
 const userStore = useUserStore()
+const matchStore = useMatchStore()
 const route = useRoute();
+
+const computedTimes = computed(()=>{
+  console.log('computed')
+  if (!store.program.times) return store.program.times;
+  const newTimes = store.program.times.map(time=>{
+    let reserved = false;
+    if (!userStore.loginUser) reserved = false; // 로그인한 사용자가 없으면 예약된 것으로 처리하지 않음
+    for (const match of matchStore.matchList) {
+      if (match.timeId === time.id) reserved =  true; // 예약된 경우 true 반환
+      break;
+    }
+    return {
+      ...time,
+      reserved
+    }
+  });
+ 
+  return newTimes
+})
 
 onMounted(() => {
   store.getProgram(route.params.id)
+
 })
 
 const getDate = function(dateString) {
@@ -103,11 +124,15 @@ const isFull = function(time) {
   return time.reserveNum === time.capacity;
 };
 
-const isReservedByUser = function(time) {
-  
-  const userId = getCurrentUserId(); // 현재 사용자의 ID를 가져오는 함수라고 가정합니다.
-  return time.reservedUsers.includes(userId);
-};
+
+onMounted(() => {
+
+
+  if (userStore.loginUser) {
+    console.log(userStore.loginUser.id)
+    matchStore.getMatchListByUser(userStore.loginUser.id);
+  }
+});
 
 </script>
 
