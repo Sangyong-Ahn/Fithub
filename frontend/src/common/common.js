@@ -1,12 +1,10 @@
-const defaultLatLng = {
+export const defaultLatLng = {
   lat: 37.5004462,
   lng: 127.037236,
 }
 
 export async function initMap(mapDiv, lat, lng){
   return new Promise((resolve)=>{
-
-
     if(typeof naver !== 'undefined'){
       const mapOptions = {
         center: new naver.maps.LatLng(lat, lng),

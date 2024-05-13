@@ -1,5 +1,7 @@
 <template>
   <!-- Regist Modal -->
+  <div>
+    
   <div class="modal fade" id="registModal" tabindex="-1" aria-labelledby="registModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -34,6 +36,15 @@
           <div class="m-3">
             <!-- 전화번호 입력 -->
             <input type="text" v-model="user.phoneNumber" class="form-control custom-input" id="registPhoneNumber" placeholder="전화번호를 입력하세요( - 제외)">
+          </div>
+          <div class="m-3">
+            <!-- 위치 선택 -->
+            <UserMap 
+              :id="'user'"
+              :lat="user.latitude"
+              :lng="user.longitude"
+              @update-lat-lng="updateLatLng"
+            />
           </div>
           <div style="color: red">{{ store.errMsg }}</div>
 
@@ -82,6 +93,15 @@
             <!-- 전화번호 입력 -->
             <input type="text" v-model="mentor.phoneNumber" class="form-control custom-input" id="mentorRegistPhoneNumber" placeholder="전화번호를 입력하세요( - 제외)">
           </div>
+          <div class="m-3">
+            <!-- 위치 선택 -->
+            <UserMap
+              :id="'mentor'"
+              :lat="mentor.latitude"
+              :lng="mentor.longitude"
+              @update-lat-lng="updateLatLng"
+            />
+          </div>
           <div style="color: red">{{ store.errMsg }}</div>
 
         </div>
@@ -92,19 +112,22 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from "@/stores/userStore";
+import UserMap from "@/components/user/UserMap.vue";
+import { defaultLatLng } from "@/common/common";
 
 const store = useUserStore()
 const user = ref({
-  email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: ''
+  email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: defaultLatLng.lat, longitude: defaultLatLng.lng,
 })
 
 const mentor = ref({
-  email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: ''
+  email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: defaultLatLng.lat, longitude: defaultLatLng.lng,
 })
 
 const userCreate = function () {
@@ -118,13 +141,23 @@ const mentorCreate = function () {
 const resetInputs = function() {
   // 사용자 회원가입 입력 초기화
   user.value = {
-    email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: ''
+    email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: defaultLatLng.lat, longitude: defaultLatLng.lng,
   };
-
   // 멘토 회원가입 입력 초기화
   mentor.value = {
-    email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: ''
+    email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: defaultLatLng.lat, longitude: defaultLatLng.lng,
   };
+}
+
+const updateLatLng = (latLng) => {
+  if(latLng.id=='user'){
+    user.value.latitude = latLng.lat;
+    user.value.longitude = latLng.lng;
+  }
+  else if(latLng.id=='mentor'){
+    mentor.value.latitude = latLng.lat;
+    mentor.value.longitude = latLng.lng;
+  }
 }
 
 </script>

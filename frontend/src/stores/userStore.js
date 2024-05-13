@@ -104,5 +104,5 @@ export const useUserStore = defineStore("user", () => {
     })
   }
 
-  return { loginUser, isUser, isMentor, errMsg, userLogin, mentorLogin, logout, userCreate };
+  return { loginUser, isUser, isMentor, errMsg, userLogin, mentorLogin, logout, userCreate, mentorCreate };
 });
