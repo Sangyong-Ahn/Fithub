@@ -1,5 +1,7 @@
 <template>
   <!-- Regist Modal -->
+  <div>
+    
   <div class="modal fade" id="registModal" tabindex="-1" aria-labelledby="registModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -34,6 +36,14 @@
           <div class="m-3">
             <!-- 전화번호 입력 -->
             <input type="text" v-model="user.phoneNumber" class="form-control custom-input" id="registPhoneNumber" placeholder="전화번호를 입력하세요( - 제외)">
+          </div>
+          <div class="m-3">
+            <!-- 위치 선택 -->
+            <Location 
+              :lat="latitude"
+              :lng="longitude"
+              @update-lat-lng="updateLatLng"
+            />
           </div>
           <div style="color: red">{{ store.errMsg }}</div>
 
@@ -92,11 +102,14 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from "@/stores/userStore";
+import Location from "@/components/user/Location.vue";
+import { defaultLatLng } from "@/common/common";
 
 const store = useUserStore()
 const user = ref({
@@ -107,11 +120,18 @@ const mentor = ref({
   email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: ''
 })
 
+const latitude = ref(defaultLatLng.lat)
+const longitude = ref(defaultLatLng.lng)
+
 const userCreate = function () {
+    user.value.latitude = latitude.value
+    user.value.longitude = longitude.value
     store.userCreate(user.value)
 }
 
 const mentorCreate = function () {
+    mentor.value.latitude = latitude.value
+    mentor.value.longitude = longitude.value
     store.mentorCreate(mentor.value)
 }
 
@@ -125,6 +145,14 @@ const resetInputs = function() {
   mentor.value = {
     email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: ''
   };
+
+  latitude.value = defaultLatLng.lat;
+  longitude.value = defaultLatLng.lng;
+}
+
+const updateLatLng = (latLng) => {
+  latitude.value = latLng.lat;
+  longitude.value = latLng.lng;
 }
 
 </script>
