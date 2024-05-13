@@ -40,6 +40,7 @@
           <div class="m-3">
             <!-- 위치 선택 -->
             <Location 
+              :id="'userMap'"
               :lat="latitude"
               :lng="longitude"
               @update-lat-lng="updateLatLng"
@@ -92,6 +93,15 @@
             <!-- 전화번호 입력 -->
             <input type="text" v-model="mentor.phoneNumber" class="form-control custom-input" id="mentorRegistPhoneNumber" placeholder="전화번호를 입력하세요( - 제외)">
           </div>
+          <div class="m-3">
+            <!-- 위치 선택 -->
+            <Location
+              :id="'mentorMap'"
+              :lat="latitude"
+              :lng="longitude"
+              @update-lat-lng="updateLatLng"
+            />
+          </div>
           <div style="color: red">{{ store.errMsg }}</div>
 
         </div>
@@ -140,6 +150,9 @@ const resetInputs = function() {
   user.value = {
     email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: ''
   };
+  
+  latitude.value = defaultLatLng.lat;
+  longitude.value = defaultLatLng.lng;
 
   // 멘토 회원가입 입력 초기화
   mentor.value = {

@@ -1,21 +1,25 @@
 <template>
     <div>
-        <div id="userMap" style="width:100%; height: 300px;"></div>
+        <div :id="id" style="width:100%; height: 300px;"></div>
     </div>
 </template>
 
 <script setup>
-import { initMap, defaultLatLng } from "@/common/common";
-import { onMounted, watch } from "vue";
+import { initMap } from "@/common/common";
+import { onMounted } from "vue";
 
 const props = defineProps({
+    id: String,
     lat: Number,
     lng: Number,
 })
 const emit = defineEmits(["update-location"])
 
+const id=props.id;
+console.log(props)
+
 onMounted(async () => {
-    const map = await initMap("userMap", props.lat, props.lng)
+    const map = await initMap(id, props.lat, props.lng)
 
     const position = new naver.maps.LatLng(props.lat, props.lng);
     let marker = new naver.maps.Marker({
