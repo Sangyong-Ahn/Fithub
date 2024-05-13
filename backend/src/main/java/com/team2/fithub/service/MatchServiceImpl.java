@@ -1,5 +1,7 @@
 package com.team2.fithub.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,5 +78,10 @@ public class MatchServiceImpl implements MatchService{
 	        e.printStackTrace();
 	        return 0;
 	    }
+	}
+
+	@Override
+	public List<Match> findAllMatchById(int userId) {
+		return matchDao.selectMatchByUser(userId);
 	}
 }

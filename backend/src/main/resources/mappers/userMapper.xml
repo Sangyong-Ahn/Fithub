@@ -5,8 +5,8 @@
 <mapper namespace="com.team2.fithub.model.dao.UserDao">
 
 	<insert id="insertUser" parameterType="User">
-		INSERT INTO user (email, password, name, dateOfBirth, gender, phoneNumber)
-		VALUES(#{email}, #{password}, #{name}, #{dateOfBirth}, #{gender}, #{phoneNumber})
+		INSERT INTO user (email, password, name, dateOfBirth, gender, phoneNumber, latitude, longitude)
+		VALUES(#{email}, #{password}, #{name}, #{dateOfBirth}, #{gender}, #{phoneNumber}, #{latitude}, #{longitude})
 	</insert>
 	
 	<select id="selectUserByEmail" parameterType="String" resultType="User">

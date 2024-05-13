@@ -14,6 +14,11 @@
 		WHERE id = #{id}
 	</select>
 	
+	<select id="selectMatchByUser" parameterType="int" resultType="Match">
+		SELECT * FROM `match`
+		WHERE userId = #{userId}
+	</select>
+	
 	<delete id="deleteMatch" parameterType="int">
 		DELETE FROM `match`
 		WHERE id = #{id}

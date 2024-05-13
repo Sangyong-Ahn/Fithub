@@ -220,11 +220,11 @@ public class MentorRestController {
 			Mentor mentor = ms.findMentorByEmail(email);
 
 			if (mentor == null) {
-				return new ResponseEntity<>("Mentor not found for email: " + email, HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>("해당 유저가 존재하지 않습니다." + email, HttpStatus.NOT_FOUND);
 			}
 
 			if (!mentor.getPassword().equals(password)) {
-				return new ResponseEntity<>("Wrong password", HttpStatus.UNAUTHORIZED);
+				return new ResponseEntity<>("비밀번호가 일치하지 않습니다.", HttpStatus.UNAUTHORIZED);
 			}
 
 			// 로그인 성공 시 세션에 사용자 정보 저장
