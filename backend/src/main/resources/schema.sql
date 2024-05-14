@@ -206,7 +206,7 @@ BEGIN
         SET @programEndDate = @programStartDate + INTERVAL FLOOR(RAND() * 30) DAY;
         SET @thumbnail = CONCAT('https://example.com/thumbnail/program', i + 1, '.jpg');
         SET @content = CONCAT('프로그램 내용 ', i + 1);
-        SET @youtubeUrl = CONCAT('https://www.youtube.com/watch?v=', SUBSTRING(MD5(RAND()), 1, 10));
+        SET @youtubeUrl = CONCAT('https://www.youtube.com/watch?v=gSz5n4sLENI');
         SET @latitude = RAND() * (37.701 - 37.426) + 37.426; -- 서울 위도 범위 내에서 무작위 위도 생성
         SET @longitude = RAND() * (127.183 - 126.764) + 126.764; -- 서울 경도 범위 내에서 무작위 경도 생성
         

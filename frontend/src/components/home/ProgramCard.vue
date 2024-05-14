@@ -1,5 +1,5 @@
 <template>
-    <div class="card flex-row m-2 p-3">
+    <div class="card flex-row m-2 p-3 rounded-4">
         <img src="@/assets/common/thumbnail-demo.jpg"/>
         <div class="card-body">
             <h5>{{ program.title }}</h5>

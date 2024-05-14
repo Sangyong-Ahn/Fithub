@@ -31,7 +31,6 @@ onMounted(async () => {
     naver.maps.Event.addListener(map, 'click', e => update(e.coord));
 
     function update(coord){
-        console.log(coord)
         marker.setPosition(coord);
         // map.setCenter(coord);
         // TODO: 화면을 한 번이라도 resize 하기 전까지 중앙 위치가 잘못 잡히는 문제

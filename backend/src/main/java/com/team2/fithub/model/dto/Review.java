@@ -10,6 +10,8 @@ public class Review {
     private String content;
     private int score;
     private Date createdAt;
+    
+    private User userInfo;
 
     // 생성자
     public Review() {
@@ -71,4 +73,12 @@ public class Review {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+	public User getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(User userInfo) {
+		this.userInfo = userInfo;
+	}
 }

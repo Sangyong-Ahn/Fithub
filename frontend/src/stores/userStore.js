@@ -12,6 +12,15 @@ export const useUserStore = defineStore("user", () => {
   const isUser = ref(false)
   const isMentor = ref(false)
   const errMsg = ref('')
+  const user = ref({})
+
+  const getUser = function (id) {
+    axios.get(`${USER_REST_API}/${id}`)
+    .then(response => {
+      console.log(response.data)
+      user.value = response.data
+    })
+  }
 
   const userLogin = function (email, password) {
     axios.post(`${USER_REST_API}/login`, null, {
@@ -123,5 +132,5 @@ export const useUserStore = defineStore("user", () => {
     })
   }
 
-  return { loginUser, isUser, isMentor, errMsg, userLogin, userLoginPromise, mentorLogin, logout, userCreate, mentorCreate };
+  return { user, getUser, loginUser, isUser, isMentor, errMsg, userLogin, userLoginPromise, mentorLogin, logout, userCreate, mentorCreate };
 });

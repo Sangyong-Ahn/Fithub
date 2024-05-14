@@ -1,76 +1,82 @@
 <template>
-  <!-- 상단 -->
-  <div class="d-flex justify-content-between border">
-    <div class="fs-3 ms-3">{{ store.program.title }}</div>
-    <div class="text-end">
-        <div>예약 기간: {{ getDate(store.program.reservationStartDate) }} ~ {{ getDate(store.program.reservationEndDate) }}</div>
-        <div>프로그램 기간: {{ getDate(store.program.reservationStartDate) }} ~ {{ getDate(store.program.reservationEndDate) }}</div>
+  <div class="border m-3 rounded-4 bg-white">
+    <!-- 상단 -->
+    <div class="d-flex justify-content-between align-items-center mx-5">
+      <div class="fs-3 m-3">{{ store.program.title }}</div>
+      <div class="text-end m-3">
+          <div>예약 기간: {{ getDate(store.program.reservationStartDate) }} ~ {{ getDate(store.program.reservationEndDate) }}</div>
+          <div>프로그램 기간: {{ getDate(store.program.programStartDate) }} ~ {{ getDate(store.program.programEndDate) }}</div>
+      </div>
     </div>
-  </div>
-  <!-- 내용 -->
-  <div class="d-flex justify-content-around border m-3">
-    <img class="border" src="@/assets/common/thumbnail-demo.jpg"/>
-    <div class="border rounded w-50">
-      <div v-for="time in computedTimes" :key="time.id">
-        <div class="d-flex m-3">
-          <div :class="{ 'text-body-tertiary': !time.sunday }">
-            <div class="me-1 fs-5" v-if="time.sunday">일</div>
-            <div class="me-1 fs-5" v-else>일</div>
-          </div>
-          <div :class="{ 'text-body-tertiary': !time.monday }">
-            <div class="me-1 fs-5" v-if="time.monday">월</div>
-            <div class="me-1 fs-5" v-else>월</div>
-          </div>
-          <div :class="{ 'text-body-tertiary': !time.tuesday }">
-            <div class="me-1 fs-5" v-if="time.tuesday">화</div>
-            <div class="me-1 fs-5" v-else>화</div>
-          </div>
-          <div :class="{ 'text-body-tertiary': !time.wednesday }">
-            <div class="me-1 fs-5" v-if="time.wednesday">수</div>
-            <div class="me-1 fs-5" v-else>수</div>
-          </div>
-          <div :class="{ 'text-body-tertiary': !time.thursday }">
-            <div class="me-1 fs-5" v-if="time.thursday">목</div>
-            <div class="me-1 fs-5" v-else>목</div>
-          </div>
-          <div :class="{ 'text-body-tertiaryight': !time.friday }">
-            <div class="me-1 fs-5" v-if="time.friday">금</div>
-            <div class="me-1 fs-5" v-else>금</div>
-          </div>
-          <div :class="{ 'text-body-tertiary': !time.saturday }">
-            <div class="me-1 fs-5" v-if="time.saturday">토</div>
-            <div class="me-1 fs-5" v-else>토</div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-between mx-4">
-          <div class="d-flex align-items-center">
-            <div class="border border-secondary rounded px-3 py-1 me-2">
-              {{ time.startTime.slice(0, 5) }}
+    <!-- 내용 -->
+    <div class="d-flex justify-content-around m-3 mt-0">
+      <img class="border rounded-4" src="@/assets/common/thumbnail-demo.jpg"/>
+      <div class="border rounded-4 custom-width">
+        <div v-for="time in computedTimes" :key="time.id">
+          <div class="d-flex mx-4 mt-3 mb-2">
+            <div :class="{ 'text-body-tertiary': !time.sunday }">
+              <div class="me-1 fs-5" v-if="time.sunday">일</div>
+              <div class="me-1 fs-5" v-else>일</div>
             </div>
-            <span class="fs-5 text-muted">~</span>
-            <div class="border border-secondary rounded px-3 py-1 ms-2">
-              {{ time.endTime.slice(0, 5) }}
+            <div :class="{ 'text-body-tertiary': !time.monday }">
+              <div class="me-1 fs-5" v-if="time.monday">월</div>
+              <div class="me-1 fs-5" v-else>월</div>
+            </div>
+            <div :class="{ 'text-body-tertiary': !time.tuesday }">
+              <div class="me-1 fs-5" v-if="time.tuesday">화</div>
+              <div class="me-1 fs-5" v-else>화</div>
+            </div>
+            <div :class="{ 'text-body-tertiary': !time.wednesday }">
+              <div class="me-1 fs-5" v-if="time.wednesday">수</div>
+              <div class="me-1 fs-5" v-else>수</div>
+            </div>
+            <div :class="{ 'text-body-tertiary': !time.thursday }">
+              <div class="me-1 fs-5" v-if="time.thursday">목</div>
+              <div class="me-1 fs-5" v-else>목</div>
+            </div>
+            <div :class="{ 'text-body-tertiaryight': !time.friday }">
+              <div class="me-1 fs-5" v-if="time.friday">금</div>
+              <div class="me-1 fs-5" v-else>금</div>
+            </div>
+            <div :class="{ 'text-body-tertiary': !time.saturday }">
+              <div class="me-1 fs-5" v-if="time.saturday">토</div>
+              <div class="me-1 fs-5" v-else>토</div>
             </div>
           </div>
-          <div class="d-flex align-items-center">
-            <div class="me-2">
-              <button class="btn btn-md" :class="{ 
-                          'btn-outline-secondary': time.reserved || !isFull(time),
-                        }"
-                      :disabled="isFull(time)">
-                <template v-if="time.reserved">
-                  예약 취소
-                </template>
-                <template v-else-if="isFull(time)">
-                  마감
-                </template>
-                <template v-else>
-                  {{ time.price }}원
-                </template>
-              </button>
+          <div class="d-flex justify-content-between mx-4">
+            <div class="d-flex align-items-center">
+              <div class="border border-secondary rounded px-3 py-1 me-2">
+                {{ time.startTime.slice(0, 5) }}
+              </div>
+              <span class="fs-5 text-muted">~</span>
+              <div class="border border-secondary rounded px-3 py-1 ms-2">
+                {{ time.endTime.slice(0, 5) }}
+              </div>
             </div>
-            <div>
-              <span class="fs-4">{{ time.reserveNum }} / {{ time.capacity }}</span>
+            <div class="d-flex align-items-center">
+              <div class="me-2">
+                <button class="btn btn-md" :class="{ 
+                            'btn-outline-secondary': time.reserved || !isFull(time),
+                          }"
+                        :disabled="isFull(time)">
+                  <template v-if="time.reserved">
+                    예약 취소
+                  </template>
+                  <template v-else-if="isFull(time)">
+                    마감
+                  </template>
+                  <template v-else>
+                    {{ time.price }}원
+                  </template>
+                </button>
+              </div>
+              <div class="ms-2 text-center" style="width:150px">
+                <span class="fs-6">{{ time.reserveNum }} / {{ time.capacity }}</span>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" :class="{ 'bg-success': time.reserveNum !== time.capacity, 'bg-danger': time.reserveNum === time.capacity }" :style="{ width: (time.reserveNum / time.capacity * 100) + '%' }">
+                    </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -92,7 +98,6 @@ const matchStore = useMatchStore()
 const route = useRoute();
 
 const computedTimes = computed(()=>{
-  console.log('computed')
   if (!store.program.times) return store.program.times;
   const newTimes = store.program.times.map(time=>{
     let reserved = false;
@@ -129,7 +134,6 @@ onMounted(() => {
 
 
   if (userStore.loginUser) {
-    console.log(userStore.loginUser.id)
     matchStore.getMatchListByUser(userStore.loginUser.id);
   }
 });
@@ -139,5 +143,8 @@ onMounted(() => {
 <style scoped>
 img {
   width: 250px;
+}
+.custom-width {
+  width: 60%;
 }
 </style>

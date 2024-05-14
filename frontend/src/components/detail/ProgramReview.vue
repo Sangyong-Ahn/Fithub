@@ -1,0 +1,87 @@
+<template>
+    <div class="d-flex m-3 p-3 border rounded-4 bg-white align-items-center">
+        <div class="fs-1 mx-3">{{ averageRating.toFixed(1) }}</div>
+        <div class="">
+            <div class="stars">
+                <span v-for="star in 5" :key="star" :class="{ 'filled': star <= averageRating }">&#9733;</span>
+            </div>
+            <div>
+                {{ latestReviews.length }}개의 후기
+            </div>
+        </div>
+    </div>
+    <div class="m-3 p-3 border rounded-4 bg-white text-center">
+        <div v-if="latestReviews.length > 0">
+
+            <div class="border rounded-4 mb-3 bg-light" v-for="review in latestReviews" :key="review.id">
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <img class="border rounded-5 m-3 mb-0"src="@/assets/common/thumbnail-demo.jpg" style="width:45px">
+                        <div class="fw-bold">{{ review.userInfo.name }}</div>
+                        <div class="fw-bold text-secondary mx-3">{{ formatDate(review.createdAt) }}</div>
+                    </div>
+                    <div class="d-flex align-items-center me-5">
+                        <div class="stars">
+                            <span v-for="star in 5" :key="star" :class="{ 'filled': star <= review.score }">&#9733;</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="border rounded-4 bg-white text-start p-3 mx-5 mb-3">
+                    {{ review.content }}
+                </div>
+            </div>
+
+        </div>
+
+        <div v-else>
+
+            후기가 없습니다.
+
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { useProgramStore } from '@/stores/programStore';
+import { computed } from 'vue';
+
+const store = useProgramStore();
+
+const latestReviews = computed(() => {
+    if (store.program["mentorInfo"] && store.program["mentorInfo"].reviews) {
+        return store.program["mentorInfo"].reviews;
+    } else {
+        return [];
+    }
+});
+
+const averageRating = computed(() => {
+    if (store.program && store.program["mentorInfo"]) {
+        return store.program["mentorInfo"].reviewAvgScore;
+    } else {
+        return 0;
+    }
+});
+
+const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}.${month}.${day}`;
+};
+</script>
+
+<style scoped>
+.stars {
+    color: gray;
+}
+
+.stars span {
+    font-size: 15px;
+}
+
+.stars .filled {
+    color: gold;
+}
+</style>

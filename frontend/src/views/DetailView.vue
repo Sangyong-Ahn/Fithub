@@ -21,25 +21,27 @@
                     </div>
                 </nav>
                 <div data-bs-spy="scroll" data-bs-target="#program-navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example p-3 rounded-2" tabindex="0">
-                    <div class="border mb-5">
-                        <h4 id="programInfo">프로그램 정보</h4>
+                    <div class="border mb-5 rounded-4 bg-light">
+                        <h4 class="m-3" id="programInfo">프로그램 정보</h4>
                         <ProgramInfo />
                     </div>
-                    <div class="border mb-5">
-                        <h4 id="programContent">프로그램 소개</h4>
+                    <div class="border mb-5 rounded-4 bg-light">
+                        <h4 class="m-3" id="programContent">프로그램 소개</h4>
+                        <ProgramContent />
+                    </div>
+                    <div class="border mb-5 rounded-4 bg-light">
+                        <h4 class="m-3" id="programVideo">참고 영상</h4>
+                        <ProgramVideo />
+                    </div>
+                    <div class="border mb-5 rounded-4 bg-light">
+                        <h4 class="m-3" id="mentorInfo">멘토 정보</h4>
                         
                     </div>
-                    <div class="border mb-5">
-                        <h4 id="programVideo">참고 영상</h4>
-                        
-                    </div>
-                    <div class="border mb-5">
-                        <h4 id="mentorInfo">멘토 정보</h4>
-                        
-                    </div>
-                    <div class="border mb-5">
-                        <h4 id="review">후기</h4>
-                        
+                    <div class="d-flex justify-content-center">
+                        <div class="border mb-5 rounded-4 bg-light w-75">
+                            <h4 class="m-3" id="review">후기</h4>
+                            <ProgramReview />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -53,6 +55,10 @@ import { useRoute } from 'vue-router'
 import { useProgramStore } from "@/stores/programStore";
 import { onMounted } from "vue";
 import ProgramInfo from "@/components/detail/ProgramInfo.vue"
+import ProgramContent from "@/components/detail/ProgramContent.vue"
+import ProgramVideo from "@/components/detail/ProgramVideo.vue"
+
+import ProgramReview from "@/components/detail/ProgramReview.vue"
 
 const store = useProgramStore()
 const route = useRoute();
