@@ -29,6 +29,7 @@ export const useProgramStore = defineStore("program", () => {
   const getProgram = function (id) {
     axios.get(`${REST_API}/${id}`)
       .then((response) => {
+        console.log('get program')
         program.value = response.data
     })
   }

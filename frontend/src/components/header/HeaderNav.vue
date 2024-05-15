@@ -27,6 +27,9 @@
                 </template>
                 <!-- 유저가 로그인한 상태 -->
                 <template v-else-if="store.isUser">
+                  <li class="d-flex nav-item align-items-center">
+                    <div>{{ store.loginUser.name }}님 반갑습니다</div>
+                  </li>
                   <li class="nav-item">
                     <button type="button" class="btn">마이페이지</button>
                   </li>
@@ -36,6 +39,9 @@
                 </template>
                 <!-- 멘토가 로그인한 상태 -->
                 <template v-else-if="store.isMentor">
+                  <li class="d-flex nav-item align-items-center">
+                    <div>{{ store.loginUser.name }}님 반갑습니다</div>
+                  </li>
                   <li class="nav-item">
                     <button type="button" class="btn">게시글작성</button>
                   </li>

@@ -34,8 +34,8 @@ public class MatchRestController {
 		try {
 			int result = ms.addMatch(match);
 			if(result == 1)
-				return new ResponseEntity<>(result, HttpStatus.CREATED);
-			return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>(match, HttpStatus.CREATED);
+			return new ResponseEntity<>("예약에 실패했습니다.", HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			return exceptionHandling(e);
 		}

@@ -20,5 +20,26 @@ export const useMatchStore = defineStore("match", () => {
     matchList.value = [];
   };
 
-  return { matchList, getMatchListByUser, clearMatchList };
+  const insertMatch = function (match) {
+    axios.post(REST_API, match)
+      .then((response) => {
+        getMatchListByUser(match.userId)
+        console.log('matchList Update')
+      })
+      .catch((error) => {
+        console.error('예약에 실패했습니다.', error);
+      });
+  };
+
+  const deleteMatch = function (id) {
+    axios.delete(`${REST_API}/${id}`)
+      .then(() => {
+        matchList.value = matchList.value.filter(match => match.id !== id);
+      })
+      .catch((error) => {
+        console.error('예약 취소에 실패했습니다.', error);
+      });
+  };
+
+  return { matchList, getMatchListByUser, clearMatchList, insertMatch, deleteMatch };
 });

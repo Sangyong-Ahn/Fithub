@@ -58,16 +58,17 @@
                 <button class="btn btn-md" :class="{ 
                             'btn-outline-secondary': time.reserved || !isFull(time),
                           }"
-                        :disabled="isFull(time)">
-                  <template v-if="time.reserved">
+                        :disabled="!time.reserved && isFull(time)"
+                        @click="time.reserved ? deleteMatch(time.id) : insertMatch(time.id)">
+                  <div v-if="time.reserved">
                     예약 취소
-                  </template>
-                  <template v-else-if="isFull(time)">
+                  </div>
+                  <div v-else-if="isFull(time)">
                     마감
-                  </template>
-                  <template v-else>
+                  </div>
+                  <div v-else>
                     {{ time.price }}원
-                  </template>
+                  </div>
                 </button>
               </div>
               <div class="ms-2 text-center" style="width:150px">
@@ -86,7 +87,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { watch, onMounted, computed } from "vue";
 import { useRoute } from 'vue-router'
 import { useProgramStore } from "@/stores/programStore";
 import { useUserStore } from "@/stores/userStore";
@@ -111,13 +112,11 @@ const computedTimes = computed(()=>{
       reserved
     }
   });
- 
   return newTimes
 })
 
 onMounted(() => {
   store.getProgram(route.params.id)
-
 })
 
 const getDate = function(dateString) {
@@ -131,12 +130,34 @@ const isFull = function(time) {
 
 
 onMounted(() => {
-
-
   if (userStore.loginUser) {
     matchStore.getMatchListByUser(userStore.loginUser.id);
   }
 });
+
+const insertMatch = (timeId) => {
+  if (!userStore.loginUser) {
+    alert("로그인이 필요합니다.");
+    return;
+  }
+  matchStore.insertMatch({ timeId: timeId, mentorId: store.program.mentorId, userId: userStore.loginUser.id })
+};
+
+const deleteMatch = (timeId) => {
+  const match = matchStore.matchList.find(m => m.timeId === timeId && m.userId === userStore.loginUser.id);
+  if (match) {
+    matchStore.deleteMatch(match.id)
+  } else {
+    alert("예약을 찾을 수 없습니다.");
+  }
+};
+
+watch(() => matchStore.matchList, (newMatchList, oldMatchList) => {
+  // matchList의 변화가 감지되었을 때 실행되는 로직
+  // 예약된 프로그램 정보를 업데이트하는 등의 작업을 수행할 수 있음
+  console.log('watch processed')
+  store.getProgram(route.params.id);
+}, { deep: true });
 
 </script>
 
