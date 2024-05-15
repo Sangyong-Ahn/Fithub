@@ -33,9 +33,11 @@
                         <h4 class="m-3" id="programVideo">참고 영상</h4>
                         <ProgramVideo />
                     </div>
-                    <div class="border mb-5 rounded-4 bg-light">
-                        <h4 class="m-3" id="mentorInfo">멘토 정보</h4>
-                        
+                    <div class="d-flex justify-content-center">
+                        <div class="border mb-5 rounded-4 bg-light w-75">
+                            <h4 class="m-3" id="mentorInfo">멘토 정보</h4>
+                            <ProgramMentor />
+                        </div>
                     </div>
                     <div class="d-flex justify-content-center">
                         <div class="border mb-5 rounded-4 bg-light w-75">
@@ -57,7 +59,7 @@ import { onMounted } from "vue";
 import ProgramInfo from "@/components/detail/ProgramInfo.vue"
 import ProgramContent from "@/components/detail/ProgramContent.vue"
 import ProgramVideo from "@/components/detail/ProgramVideo.vue"
-
+import ProgramMentor from "@/components/detail/ProgramMentor.vue"
 import ProgramReview from "@/components/detail/ProgramReview.vue"
 
 const store = useProgramStore()

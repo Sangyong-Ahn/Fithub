@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex m-3 p-3 border rounded-4 bg-white align-items-center">
         <div class="fs-1 mx-3">{{ averageRating.toFixed(1) }}</div>
-        <div class="">
+        <div>
             <div class="stars">
                 <span v-for="star in 5" :key="star" :class="{ 'filled': star <= averageRating }">&#9733;</span>
             </div>
@@ -12,8 +12,7 @@
     </div>
     <div class="m-3 p-3 border rounded-4 bg-white text-center">
         <div v-if="latestReviews.length > 0">
-
-            <div class="border rounded-4 mb-3 bg-light" v-for="review in latestReviews" :key="review.id">
+            <div class="border rounded-4 mb-3 bg-light" v-for="review in displayedReviews" :key="review.id">
                 <div class="d-flex justify-content-between">
                     <div class="d-flex align-items-center">
                         <img class="border rounded-5 m-3 mb-0"src="@/assets/common/thumbnail-demo.jpg" style="width:45px">
@@ -30,22 +29,22 @@
                     {{ review.content }}
                 </div>
             </div>
-
+            <button class="btn btn-outline-secondary" @click="toggleShowAll">
+                {{ showAll ? '접기' : '전체 보기' }}
+            </button>
         </div>
-
         <div v-else>
-
             후기가 없습니다.
-
         </div>
     </div>
 </template>
 
 <script setup>
 import { useProgramStore } from '@/stores/programStore';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const store = useProgramStore();
+const showAll = ref(false);
 
 const latestReviews = computed(() => {
     if (store.program["mentorInfo"] && store.program["mentorInfo"].reviews) {
@@ -62,6 +61,14 @@ const averageRating = computed(() => {
         return 0;
     }
 });
+
+const displayedReviews = computed(() => {
+    return showAll.value ? latestReviews.value : latestReviews.value.slice(0, 5);
+});
+
+const toggleShowAll = () => {
+    showAll.value = !showAll.value;
+};
 
 const formatDate = (isoString) => {
     const date = new Date(isoString);
