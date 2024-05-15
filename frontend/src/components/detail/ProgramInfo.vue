@@ -140,10 +140,15 @@ const insertMatch = (timeId) => {
     alert("로그인이 필요합니다.");
     return;
   }
+  if (userStore.isMentor) {
+    alert("일반 회원 계정으로만 신청이 가능합니다.");
+    return;
+  }
   matchStore.insertMatch({ timeId: timeId, mentorId: store.program.mentorId, userId: userStore.loginUser.id })
 };
 
 const deleteMatch = (timeId) => {
+  
   const match = matchStore.matchList.find(m => m.timeId === timeId && m.userId === userStore.loginUser.id);
   if (match) {
     matchStore.deleteMatch(match.id)
@@ -153,9 +158,6 @@ const deleteMatch = (timeId) => {
 };
 
 watch(() => matchStore.matchList, (newMatchList, oldMatchList) => {
-  // matchList의 변화가 감지되었을 때 실행되는 로직
-  // 예약된 프로그램 정보를 업데이트하는 등의 작업을 수행할 수 있음
-  console.log('watch processed')
   store.getProgram(route.params.id);
 }, { deep: true });
 

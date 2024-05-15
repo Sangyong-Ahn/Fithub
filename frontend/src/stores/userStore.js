@@ -87,7 +87,6 @@ export const useUserStore = defineStore("user", () => {
       .then(() => {
         isMentor.value = false;
         loginUser.value = null;
-        router.push('/');
       })
     }
     else if(isUser){
@@ -95,7 +94,6 @@ export const useUserStore = defineStore("user", () => {
       .then(() => {
         isUser.value = false;
         loginUser.value = null;
-        router.push('/');
       })
     }
   }

@@ -118,7 +118,7 @@
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from "@/stores/userStore";
-import UserMap from "@/components/user/UserMap.vue";
+import UserMap from "@/components/util/UserMap.vue";
 import { defaultLatLng } from "@/common/common";
 
 const store = useUserStore()

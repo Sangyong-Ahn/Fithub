@@ -12,19 +12,19 @@
 	<select id="selectChat" parameterType="map" resultType="Chat">
 		SELECT * FROM chat
 		WHERE mentorId = #{mentorId} AND userId = #{userId}
-		ORDER BY createdAt DESC
+		ORDER BY createdAt ASC
 	</select>
 	
 	<select id="selectChatByUser" parameterType="int" resultType="Chat">
 		SELECT * FROM chat
 		WHERE userId = #{userId}
-		ORDER BY mentorId, createdAt DESC
+		ORDER BY mentorId, createdAt ASC
 	</select>
 	
 	<select id="selectChatByMentor" parameterType="int" resultType="Chat">
 		SELECT * FROM chat
 		WHERE mentorId = #{mentorId}
-		ORDER BY userId, createdAt DESC
+		ORDER BY userId, createdAt ASC
 	</select>
 	
 	<delete id="deleteChat" parameterType="int">
