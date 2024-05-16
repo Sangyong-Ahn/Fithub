@@ -32,19 +32,12 @@ async function update() {
     const map = await initMap(mapDiv, lat, lng, zoom);
 
     for(const program of programStore.programList){
-        const lowestPrice = getLowestPrice(program);
-        const markerStyle = `
-        background-color: white;
-        border: 1px solid gray;
-        border-radius: 5px;
-        padding: 5px;
-        `
         const marker = new naver.maps.Marker({
             position: new naver.maps.LatLng(program.latitude, program.longitude),
             map: map,
             icon:{
                 content: `
-                <div class="marker">${lowestPrice.toLocaleString()}~</div>
+                <div class="marker">${getLowestPrice(program).toLocaleString()}~</div>
                 <div class="marker-pin"></div>
                 `,
                 size: new naver.maps.Size(32, 32),
