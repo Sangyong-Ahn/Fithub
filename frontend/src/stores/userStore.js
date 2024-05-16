@@ -42,7 +42,7 @@ export const useUserStore = defineStore("user", () => {
     });
   }
 
-  const userLoginPromise = function (email, password) {
+  const userLoginPromise = async function (email, password) {
     return axios.post(`${USER_REST_API}/login`, null, {
       params: {
         email: email,

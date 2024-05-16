@@ -43,9 +43,12 @@ async function update() {
             position: new naver.maps.LatLng(program.latitude, program.longitude),
             map: map,
             icon:{
-                content: `<div style="${markerStyle}">${lowestPrice.toLocaleString()}~</div>`,
+                content: `
+                <div class="marker">${lowestPrice.toLocaleString()}~</div>
+                <div class="marker-pin"></div>
+                `,
                 size: new naver.maps.Size(32, 32),
-                anchor: new naver.maps.Point(16, 16),
+                anchor: new naver.maps.Point(32, 32),
             }
         });
         
@@ -62,5 +65,30 @@ function clickEvent(program){
 
 </script>
 
-<style scoped>
+<style>
+.marker {
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+    z-index: -1;
+}
+.marker-pin {
+    position: absolute;
+    bottom: -5px;
+    left: calc(50% - 6px);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid gray;
+    
+}
+.marker-pin::before {
+    content: "";
+    position: absolute;
+    bottom: 1.5px;
+    left: -6px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid white;
+}
 </style>

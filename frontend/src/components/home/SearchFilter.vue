@@ -5,7 +5,7 @@
     <div class="exercise-grid">
       <div class="exercise-item" v-for="category in categoryStore.categoryList" :key="category.id">
         <input type="radio" class="btn-check" :id="'btnradio' + category.id" name="exercise" v-model="categoryId" :value="category.id">
-        <label class="btn btn-outline-secondary" :for="'btnradio' + category.id">
+        <label class="btn btn-outline-secondary btn-category" :for="'btnradio' + category.id">
           <img :src="getImagePath(category.id)">
         </label>
         <p style="font-size:12px">{{ category.name }}</p>
@@ -20,7 +20,7 @@
       <div class="d-flex justify-content-around flex-wrap">
         <div class="d-flex" v-for="(day, index) in days" :key="index">
           <input type="checkbox" class="btn-check" :id="'btncheckbox' + index" name="day" v-model="isSelected[index]" :value="day">
-          <label class="btn btn-outline-secondary" :for="'btncheckbox' + index">{{ day }}</label>
+          <label class="btn btn-outline-secondary btn-day" :for="'btncheckbox' + index">{{ day }}</label>
         </div>
       </div>
       
@@ -34,7 +34,7 @@
         </div>
         <!-- 종료 시간 입력 -->
         <div class="m-1">
-          <div class="m-2">종료 시간</div></br>
+          <div class="m-2">종료 시간</div>
           <input type="time" class="form-control" v-model="endTime">
         </div>
 
@@ -100,11 +100,19 @@ const programSearch = function () {
 img {
   width: 40px;
 }
-.btn-outline-secondary {
+
+.btn-category {
   padding: 3px;
   margin: 15px;
   border-radius: 0;
 }
+
+.btn-day {
+  padding: 3px;
+  margin: 0px;
+  border-radius: 0;
+}
+
 .exercise-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
