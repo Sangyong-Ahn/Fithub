@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   
   `profileImage` varchar(100) DEFAULT NULL,
-  `latitude` FLOAT DEFAULT NULL,		
-  `longitude` FLOAT DEFAULT NULL
+  `latitude` DECIMAL(10,7) DEFAULT NULL,		
+  `longitude` DECIMAL(10,7) DEFAULT NULL
   
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS `mentor` (
   `profileImage` varchar(100) DEFAULT NULL,
   `content` TEXT DEFAULT NULL,
   `certificate` VARCHAR(100) DEFAULT NULL,
-  `latitude` FLOAT DEFAULT NULL,		
-  `longitude` FLOAT DEFAULT NULL
+  `latitude` DECIMAL(10,7) DEFAULT NULL,		
+  `longitude` DECIMAL(10,7) DEFAULT NULL
   
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
@@ -58,8 +58,8 @@ CREATE TABLE IF NOT EXISTS `program` (
   `thumbnail` VARCHAR(100) NOT NULL,      -- 대표 이미지 경로
   `content` TEXT NOT NULL,                -- 내용
   `youtubeUrl` VARCHAR(100) NOT NULL,    -- YouTube URL
-  `latitude` FLOAT NOT NULL,              -- 위도
-  `longitude` FLOAT NOT NULL,             -- 경도
+  `latitude` DECIMAL(10,7) NOT NULL,              -- 위도
+  `longitude` DECIMAL(10,7) NOT NULL,             -- 경도
   `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 생성 일시
   
   PRIMARY KEY (`id`),
@@ -220,7 +220,7 @@ BEGIN
         VALUES 
             (@programId, RAND() < 0.5, RAND() < 0.5, RAND() < 0.5, RAND() < 0.5, RAND() < 0.5, RAND() < 0.5, RAND() < 0.5,
              SEC_TO_TIME(FLOOR(RAND() * 86400)), SEC_TO_TIME(FLOOR(RAND() * 86400)),
-             FLOOR(RAND() * 100) + 10, FLOOR(RAND() * 15) + 5);
+             FLOOR(RAND()*(100-10+1)+10)*1000 , FLOOR(RAND() * 15) + 5);
         
         SET i = i + 1;
     END WHILE;

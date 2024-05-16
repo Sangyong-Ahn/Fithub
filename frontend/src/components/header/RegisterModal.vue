@@ -119,15 +119,15 @@
 import { ref } from "vue";
 import { useUserStore } from "@/stores/userStore";
 import UserMap from "@/components/util/UserMap.vue";
-import { defaultLatLng } from "@/common/common";
+import { mapParams } from "@/common/common";
 
 const store = useUserStore()
 const user = ref({
-  email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: defaultLatLng.lat, longitude: defaultLatLng.lng,
+  email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: mapParams.lat, longitude: mapParams.lng,
 })
 
 const mentor = ref({
-  email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: defaultLatLng.lat, longitude: defaultLatLng.lng,
+  email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: mapParams.lat, longitude: mapParams.lng,
 })
 
 const userCreate = function () {
@@ -141,11 +141,11 @@ const mentorCreate = function () {
 const resetInputs = function() {
   // 사용자 회원가입 입력 초기화
   user.value = {
-    email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: defaultLatLng.lat, longitude: defaultLatLng.lng,
+    email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: mapParams.lat, longitude: mapParams.lng,
   };
   // 멘토 회원가입 입력 초기화
   mentor.value = {
-    email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: defaultLatLng.lat, longitude: defaultLatLng.lng,
+    email: '', password: '', name: '', dateOfBirth: '', gender: '', phoneNumber: '', latitude: mapParams.lat, longitude: mapParams.lng,
   };
 }
 

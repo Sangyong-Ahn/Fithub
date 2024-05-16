@@ -1,14 +1,16 @@
-export const defaultLatLng = {
+export const mapParams = {
   lat: 37.5004462,
   lng: 127.037236,
+  zoomOut: 12,
+  zoomIn: 16,
 }
 
-export async function initMap(mapDiv, lat, lng){
+export async function initMap(mapDiv, lat, lng, zoom=mapParams.zoomOut){
   return new Promise((resolve)=>{
     if(typeof naver !== 'undefined'){
       const mapOptions = {
         center: new naver.maps.LatLng(lat, lng),
-        zoom: 14
+        zoom,
       };
 
       resolve(new naver.maps.Map(mapDiv, mapOptions))
