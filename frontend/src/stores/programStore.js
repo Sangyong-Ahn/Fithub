@@ -46,13 +46,14 @@ export const useProgramStore = defineStore("program", () => {
     });
   }
 
-  const insertProgram = function (program) {
+  const insertProgram = function (program, image) {
     console.log(program);
     const formData = new FormData();
     const json = JSON.stringify(program);
     console.log(json)
     const blob = new Blob([json], { type: "application/json" });
     formData.append("program", blob);
+    formData.append("file", image);
 
     axios.post(`${REST_API}`, formData, {
       headers: {

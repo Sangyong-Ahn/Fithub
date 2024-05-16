@@ -189,6 +189,7 @@ const removeTime = (index) => {
 // 폼 제출 시 처리할 메서드
 const insertProgram = function () {
   // 여기서 폼 데이터를 처리합니다.
+  const imageInput = document.getElementById('thumbnail');
 
   programStore.insertProgram({
     mentorId: userStore.loginUser.id,
@@ -197,12 +198,14 @@ const insertProgram = function () {
     reservationStartDate: reservationStartDate.value,
     reservationEndDate: reservationEndDate.value, 
     programStartDate: programStartDate.value, 
-    programStartDate: programStartDate.value, 
+    programEndDate: programEndDate.value, 
     thumbnail: thumbnail.value,
     content: content.value,
     youtubeUrl: youtubeUrl.value,
-    times: times.value
-  })
+    times: times.value,
+    latitude: 44, // TODO,
+    longitude: 44, // TODO
+  }, imageInput?.files[0])
 };
 
 </script>
