@@ -201,7 +201,7 @@ const insertProgram = function () {
     thumbnail: thumbnail.value,
     content: content.value,
     youtubeUrl: youtubeUrl.value,
-    times: times
+    times: times.value
   })
 };
 
