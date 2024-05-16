@@ -50,6 +50,7 @@
                             <h4 class="m-3" id="review">위치</h4>
                                 <div class="d-flex flex-fill m-3 p-3 border rounded-4 bg-white align-items-center">
                                     <div class="flex-fill" id="map-container">
+                                        <!-- TODO: 동기 처리 -->
                                         <UserMap
                                             :id="'program'"
                                             :lat="programStore.program.latitude"
@@ -88,7 +89,6 @@ const route = useRoute();
 
 onMounted(async () => {
     await programStore.getProgram(route.params.id)
-    console.log(programStore.program.latitude)
 })
 
 onMounted(() => {

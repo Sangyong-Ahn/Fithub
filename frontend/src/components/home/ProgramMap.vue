@@ -17,7 +17,6 @@ watch(()=> programStore.programList, async () => update())
 watch(()=> userStore.loginUser, async () => update())
 
 async function update() {
-    console.log(userStore.loginUser)
     const mapDiv = document.getElementById("map");
 
     let lat = userStore.loginUser?.latitude || mapParams.lat;

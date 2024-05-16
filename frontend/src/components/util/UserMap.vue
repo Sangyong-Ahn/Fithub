@@ -23,9 +23,7 @@ const id=`${props.id}Map`;
 const isMarkable = props.isMarkable || false;
 
 const draw = async () => {
-    console.log(props.lat)
     const map = await initMap(id, props.lat, props.lng)
-    console.log("MAP FIN")
 
     const position = new naver.maps.LatLng(props.lat, props.lng);
     let marker = new naver.maps.Marker({
@@ -33,7 +31,6 @@ const draw = async () => {
         map: map
     });
     
-    // update(position);
     const update = (coord) => emit("update-lat-lng", {id:props.id, lat:coord._lat, lng:coord._lng});
     update(position);
 
@@ -43,7 +40,7 @@ const draw = async () => {
 }
 
 onMounted(async () => draw())
-watch(()=> [props.lat, props.lng], async () => { console.log("CHANGE"); await draw()})
+watch(()=> [props.lat, props.lng], async () => await draw())
 </script>
 
 <style scoped>
