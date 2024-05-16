@@ -55,7 +55,9 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import { useProgramStore } from "@/stores/programStore";
-import { onMounted } from "vue";
+import { useChatStore } from "@/stores/chatStore";
+import { useUserStore } from "@/stores/userStore";
+import { onMounted, watch } from "vue";
 import ProgramInfo from "@/components/detail/ProgramInfo.vue"
 import ProgramContent from "@/components/detail/ProgramContent.vue"
 import ProgramVideo from "@/components/detail/ProgramVideo.vue"
@@ -63,6 +65,8 @@ import ProgramMentor from "@/components/detail/ProgramMentor.vue"
 import ProgramReview from "@/components/detail/ProgramReview.vue"
 
 const store = useProgramStore()
+const chatStore = useChatStore()
+const userStore = useUserStore()
 const route = useRoute();
 
 onMounted(() => {
@@ -80,6 +84,12 @@ onMounted(() => {
         }
     });
 })
+
+watch(() => store.program, (newVal, oldVal) => {
+    if (newVal && userStore.loginUser && userStore.isUser) {
+        chatStore.getChatList(store.program.mentorId, userStore.loginUser.id);
+    }
+});
 </script>
 
 <style scoped>

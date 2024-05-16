@@ -9,12 +9,12 @@
         </div>
 
         <!-- Modal Body -->
-        <div class="modal-body bg-light scrollbar">
+        <div ref="modalBody" class="modal-body bg-light scrollbar">
           <template v-for="chat in chatStore.chatList" :key="chat.id">
             <div v-if="chat.user" class="row justify-content-end mb-3">
-              <div class="col-auto" style="max-width: 70%;">
+              <div class="text-end" style="max-width: 70%;">
                 <div class="text-end" style="font-size:13px;">{{ new Date(chat.createdAt).toLocaleString() }}</div>
-                <div class="border rounded-4 bg-white px-3 py-2 text-end" style="word-wrap: break-word;">
+                <div class="border rounded-4 bg-white px-3 py-2" style="display: inline-block; word-wrap: break-word;">
                   <div>{{ chat.content }}</div>
                 </div>
               </div>
@@ -51,7 +51,7 @@
 </template>
   
 <script setup>
-import { watch, ref } from 'vue';
+import { watch, ref, onMounted, nextTick } from 'vue';
 import { useUserStore } from '@/stores/userStore';
 import { useProgramStore } from '@/stores/programStore';
 import { useChatStore } from '@/stores/chatStore';
@@ -60,17 +60,24 @@ const userStore = useUserStore();
 const programStore = useProgramStore();
 const chatStore = useChatStore();
 
-const content = ref('')
+const content = ref('');
+const modalBody = ref(null);
+
+watch(() => chatStore.chatList, (newVal, oldVal) => {
+  nextTick(() => {
+    scrollToBottom();
+  });
+}, { deep: true });
 
 watch(() => userStore.loginUser, (newVal, oldVal) => {
-if (newVal) {
-  console.log('chatList update')
+  if (newVal) {
+    console.log('chatList update');
     chatStore.getChatList(programStore.program.mentorId, userStore.loginUser.id);
-}
+  }
 });
 
 const insertChat = function() {
-  if (typeof content === 'string' && content.trim().length === 0) {
+  if (typeof content.value === 'string' && content.value.trim().length === 0) {
     return;
   }
   chatStore.insertChat(
@@ -80,9 +87,30 @@ const insertChat = function() {
       content: content.value,
       user: true
     }
-  )
+  );
   content.value = '';
-}
+  nextTick(() => {
+    scrollToBottom();
+  });
+};
+
+const scrollToBottom = () => {
+  if (modalBody.value) {
+    modalBody.value.scrollTo({
+      top: modalBody.value.scrollHeight,
+      behavior: 'smooth'
+    });
+  }
+};
+
+onMounted(() => {
+  const chatModal = document.getElementById('chatModal');
+  chatModal.addEventListener('shown.bs.modal', () => {
+    nextTick(() => {
+      scrollToBottom();
+    });
+  });
+});
 
 </script>
 
@@ -90,21 +118,20 @@ const insertChat = function() {
 .scrollbar { 
   width: 100%;
   height: 600px;
-  overflow-y: scroll; /*  */
+  overflow-y: scroll; 
 }
 
 /* 스크롤바의 폭 너비 */
 .scrollbar::-webkit-scrollbar {
-    width: 11px;  
+  width: 11px;  
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-    background: rgb(171, 231, 6); /* 스크롤바 색상 */
-    border-radius: 10px; /* 스크롤바 둥근 테두리 */
+  background: rgb(171, 231, 6); /* 스크롤바 색상 */
+  border-radius: 10px; /* 스크롤바 둥근 테두리 */
 }
 
 .scrollbar::-webkit-scrollbar-track {
-    background: rgba(171, 231, 6, .1);  /*스크롤바 뒷 배경 색상*/
+  background: rgba(171, 231, 6, .1);  /*스크롤바 뒷 배경 색상*/
 }
 </style>
-  
