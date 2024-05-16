@@ -14,11 +14,12 @@
       </div>
     </div>
     <div class="d-flex justify-content-center gap-5 my-3">
-      <button class="btn btn-outline-secondary btn-lg px-5">후기 작성</button>
+      <button class="btn btn-outline-secondary btn-lg px-5"@click="openReviewModal">후기 작성</button>
       <button class="btn btn-outline-secondary btn-lg px-5" @click="openChatModal">문의하기</button>
     </div>
   </div>
 
+  <UserReviewModal/>
   <UserChatModal/>
 </template>
 
@@ -27,6 +28,7 @@ import { computed } from 'vue';
 import { useProgramStore } from '@/stores/programStore';
 import { useUserStore } from '@/stores/userStore';
 import UserChatModal from '@/components/util/UserChatModal.vue'
+import UserReviewModal from '@/components/util/UserReviewModal.vue'
 
 const store = useProgramStore();
 const userStore = useUserStore();
@@ -47,6 +49,20 @@ const openChatModal = function () {
   const modal = new bootstrap.Modal(document.getElementById('chatModal'));
   modal.show();
 };
+
+const openReviewModal = function () {
+  if (!userStore.loginUser) {
+    alert('로그인 해주세요');
+    return;
+  }
+  if (!userStore.isUser) {
+    alert("일반 회원 계정으로만 작성이 가능합니다.");
+    return;
+  }
+  const modal = new bootstrap.Modal(document.getElementById('reviewModal'));
+  modal.show();
+};
+
 
 </script>
 
