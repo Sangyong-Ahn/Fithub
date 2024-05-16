@@ -220,7 +220,7 @@ BEGIN
         VALUES 
             (@programId, RAND() < 0.5, RAND() < 0.5, RAND() < 0.5, RAND() < 0.5, RAND() < 0.5, RAND() < 0.5, RAND() < 0.5,
              SEC_TO_TIME(FLOOR(RAND() * 86400)), SEC_TO_TIME(FLOOR(RAND() * 86400)),
-             FLOOR(RAND() * 100) + 10, FLOOR(RAND() * 15) + 5);
+             FLOOR(RAND()*(100-10+1)+10)*1000 , FLOOR(RAND() * 15) + 5);
         
         SET i = i + 1;
     END WHILE;
