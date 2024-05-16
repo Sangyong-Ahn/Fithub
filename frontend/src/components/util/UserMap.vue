@@ -1,23 +1,28 @@
 <template>
     <div>
-        <div :id="id" style="width:100%; height: 300px;"></div>
+        <div :id="id" :style="{width: width, height: height}"></div>
     </div>
 </template>
 
 <script setup>
 import { initMap } from "@/common/common";
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 
 const props = defineProps({
     id: String,
     lat: Number,
     lng: Number,
+    width: String,
+    height: String,
+    isMarkable: String,
 })
+
 const emit = defineEmits(["update-lat-lng"])
 
 const id=`${props.id}Map`;
+const isMarkable = props.isMarkable || false;
 
-onMounted(async () => {
+const draw = async () => {
     const map = await initMap(id, props.lat, props.lng)
 
     const position = new naver.maps.LatLng(props.lat, props.lng);
@@ -26,19 +31,16 @@ onMounted(async () => {
         map: map
     });
     
+    const update = (coord) => emit("update-lat-lng", {id:props.id, lat:coord._lat, lng:coord._lng});
     update(position);
 
-    naver.maps.Event.addListener(map, 'click', e => update(e.coord));
-
-    function update(coord){
-        marker.setPosition(coord);
-        // map.setCenter(coord);
-        // TODO: 화면을 한 번이라도 resize 하기 전까지 중앙 위치가 잘못 잡히는 문제
-        emit("update-lat-lng", {id:props.id, lat:coord._lat, lng:coord._lng});
-
+    if(isMarkable){
+        naver.maps.Event.addListener(map, 'click', e => update(e.coord));
     }
-})
+}
 
+onMounted(async () => draw())
+watch(()=> [props.lat, props.lng], async () => await draw())
 </script>
 
 <style scoped>

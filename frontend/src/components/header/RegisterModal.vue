@@ -43,6 +43,9 @@
               :id="'user'"
               :lat="user.latitude"
               :lng="user.longitude"
+              :width="'100%'"
+              :height="'300px'"
+              isMarkable="'true'"
               @update-lat-lng="updateLatLng"
             />
           </div>
@@ -95,10 +98,13 @@
           </div>
           <div class="m-3">
             <!-- 위치 선택 -->
-            <UserMap
+            <UserMap 
               :id="'mentor'"
               :lat="mentor.latitude"
               :lng="mentor.longitude"
+              :width="'100%'"
+              :height="'300px'"
+              isMarkable="'true'"
               @update-lat-lng="updateLatLng"
             />
           </div>

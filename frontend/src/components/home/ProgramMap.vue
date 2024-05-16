@@ -13,11 +13,10 @@ import { initMap, mapParams, getLowestPrice } from "@/common/common.js";
 const programStore = useProgramStore()
 const userStore = useUserStore()
 
-watch(()=> programStore.programList, async () => update())
-watch(()=> userStore.loginUser, async () => update())
+watch(()=> programStore.programList, async () => await update())
+watch(()=> userStore.loginUser, async () => await update())
 
 async function update() {
-    console.log(userStore.loginUser)
     const mapDiv = document.getElementById("map");
 
     let lat = userStore.loginUser?.latitude || mapParams.lat;
