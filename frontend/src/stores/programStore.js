@@ -26,8 +26,8 @@ export const useProgramStore = defineStore("program", () => {
 
   const program = ref({})
 
-  const getProgram = function (id) {
-    axios.get(`${REST_API}/${id}`)
+  const getProgram = async function (id) {
+    return axios.get(`${REST_API}/${id}`)
       .then((response) => {
         program.value = response.data
     })

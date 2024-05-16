@@ -45,6 +45,22 @@
                             <ProgramReview />
                         </div>
                     </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="border mb-5 rounded-4 bg-light w-75 .flex-fill">
+                            <h4 class="m-3" id="review">위치</h4>
+                                <div class="d-flex flex-fill m-3 p-3 border rounded-4 bg-white align-items-center">
+                                    <div class="flex-fill" id="map-container">
+                                        <UserMap
+                                            :id="'program'"
+                                            :lat="programStore.program.latitude"
+                                            :lng="programStore.program.longitude"
+                                            :width= "'100%'"
+                                            :height="'300px'"
+                                        />
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-1"></div>
@@ -57,20 +73,22 @@ import { useRoute } from 'vue-router'
 import { useProgramStore } from "@/stores/programStore";
 import { useChatStore } from "@/stores/chatStore";
 import { useUserStore } from "@/stores/userStore";
-import { onMounted, watch } from "vue";
+import { computed, onMounted, watch } from "vue";
 import ProgramInfo from "@/components/detail/ProgramInfo.vue"
 import ProgramContent from "@/components/detail/ProgramContent.vue"
 import ProgramVideo from "@/components/detail/ProgramVideo.vue"
 import ProgramMentor from "@/components/detail/ProgramMentor.vue"
 import ProgramReview from "@/components/detail/ProgramReview.vue"
+import UserMap from "@/components/util/UserMap.vue"
 
-const store = useProgramStore()
+const programStore = useProgramStore()
 const chatStore = useChatStore()
 const userStore = useUserStore()
 const route = useRoute();
 
-onMounted(() => {
-    store.getProgram(route.params.id)
+onMounted(async () => {
+    await programStore.getProgram(route.params.id)
+    console.log(programStore.program.latitude)
 })
 
 onMounted(() => {
@@ -85,9 +103,9 @@ onMounted(() => {
     });
 })
 
-watch(() => store.program, (newVal, oldVal) => {
+watch(() => programStore.program, (newVal, oldVal) => {
     if (newVal && userStore.loginUser && userStore.isUser) {
-        chatStore.getChatList(store.program.mentorId, userStore.loginUser.id);
+        chatStore.getChatList(programStore.program.mentorId, userStore.loginUser.id);
     }
 });
 </script>
