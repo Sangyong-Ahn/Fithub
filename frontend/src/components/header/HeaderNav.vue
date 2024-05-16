@@ -43,7 +43,7 @@
                     <div>{{ store.loginUser.name }}님 반갑습니다</div>
                   </li>
                   <li class="nav-item">
-                    <button type="button" class="btn">게시글작성</button>
+                    <button type="button" class="btn" @click="$router.push({ name: 'programCreate' })">게시글작성</button>
                   </li>
                   <li class="nav-item">
                     <button type="button" class="btn">마이페이지</button>

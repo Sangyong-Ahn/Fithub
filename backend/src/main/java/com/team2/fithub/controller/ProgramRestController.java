@@ -50,6 +50,7 @@ public class ProgramRestController {
 			@RequestPart(value = "file", required = false) MultipartFile file) {
 		try {
 			if (file == null || file.isEmpty()) {
+				System.out.println("응 왔어~");
 				return new ResponseEntity<>("No Thumnail.", HttpStatus.BAD_REQUEST);
 			}
 			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -72,8 +73,10 @@ public class ProgramRestController {
 				return new ResponseEntity<>("Failed to upload file.", HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 			int result = ps.addProgram(program);
-			if (result == 1)
+			if (result == 1) {
+				System.out.println("생성됨");
 				return new ResponseEntity<>(result, HttpStatus.CREATED);
+			}
 			return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			return exceptionHandling(e);

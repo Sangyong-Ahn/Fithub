@@ -46,5 +46,23 @@ export const useProgramStore = defineStore("program", () => {
     });
   }
 
-  return { originalProgramList, programList, getProgramList, program, getProgram, programSearch, isSpecified };
+  const insertProgram = function (program) {
+    console.log(program);
+    const formData = new FormData();
+    formData.append('program', JSON.stringify(program));
+
+    axios.post(`${REST_API}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  return { originalProgramList, programList, getProgramList, program, getProgram, programSearch, isSpecified, insertProgram };
 });
