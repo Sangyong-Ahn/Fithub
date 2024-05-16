@@ -6,27 +6,38 @@
 
 <script setup>
 import { useProgramStore } from '@/stores/programStore';
-import { onMounted, watch } from "vue";
-import * as common from "@/common/common.js";
+import { useUserStore } from '@/stores/userStore';
+import { watch } from "vue";
+import { initMap, mapParams, getLowestPrice } from "@/common/common.js";
 
-const store = useProgramStore()
-onMounted(()=>{
-})
+const programStore = useProgramStore()
+const userStore = useUserStore()
 
-watch(async ()=> store.programList, async () => {
+watch(()=> programStore.programList, async () => update())
+watch(()=> userStore.loginUser, async () => update())
+
+async function update() {
+    console.log(userStore.loginUser)
     const mapDiv = document.getElementById("map");
-    const map = await common.initMap(mapDiv, store.programList[0].latitude, store.programList[0].longitude);
-    console.log('watch processing')
-    console.log(store.programList)
-    for(const program of store.programList){
-        const lowestPrice = common.getLowestPrice(program);
 
+    let lat = userStore.loginUser?.latitude || mapParams.lat;
+    let lng = userStore.loginUser?.longitude || mapParams.lng;
+    let zoom = mapParams.zoomOut;
+    
+    if(programStore.isSpecified && programStore.programList.length > 0){
+        lat = programStore.programList[0]?.latitude;
+        lng = programStore.programList[0]?.longitude;
+        zoom = mapParams.zoomIn;
+    }
+    const map = await initMap(mapDiv, lat, lng, zoom);
+
+    for(const program of programStore.programList){
         const marker = new naver.maps.Marker({
             position: new naver.maps.LatLng(program.latitude, program.longitude),
             map: map,
             icon:{
                 content: `
-                <div class="marker">${lowestPrice.toLocaleString()}~</div>
+                <div class="marker">${getLowestPrice(program).toLocaleString()}~</div>
                 <div class="marker-pin"></div>
                 `,
                 size: new naver.maps.Size(32, 32),
@@ -36,12 +47,12 @@ watch(async ()=> store.programList, async () => {
         
         naver.maps.Event.addListener(marker, 'click', clickEvent(program));
     }
-})
+}
 
 function clickEvent(program){
     return function(e) {
-        store.programList = [program]
-        store.isSpecified = true
+        programStore.programList = [program]
+        programStore.isSpecified = true
     }
 }
 
