@@ -59,7 +59,7 @@ public class ReviewRestController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> userRemove(@PathVariable("id") int id) {
+	public ResponseEntity<?> reviewRemove(@PathVariable("id") int id) {
 		try {
 			Review review = rs.findReview(id);
 	        if (review == null) {
