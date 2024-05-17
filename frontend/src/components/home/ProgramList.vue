@@ -1,14 +1,17 @@
 <template>
-    <div class="border mb-3 p-2 d-flex justify-content-around" style="height:100px; align-items:center;">
+    <div class="mb-1 p-2 d-flex justify-content-around rounded-5">
         <div>
             <input type="radio" class="btn-check" name="sortOptions" id="newest" value="newest" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
-            <label class="btn btn-outline-secondary rounded-5 mx-2" for="newest">최신순</label>
+            <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="newest">최신순</label>
 
             <input type="radio" class="btn-check" name="sortOptions" id="lowestPrice" value="lowestPrice" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
-            <label class="btn btn-outline-secondary rounded-5 mx-2" for="lowestPrice">가격 낮은순</label>
+            <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="lowestPrice">가격 낮은순</label>
 
             <input type="radio" class="btn-check" name="sortOptions" id="highestRating" value="highestRating" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
-            <label class="btn btn-outline-secondary rounded-5 mx-2" for="highestRating">별점 높은순</label>
+            <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="highestRating">별점 높은순</label>
+
+            <input type="radio" class="btn-check" name="sortOptions" id="fastestReserve" value="fastestReserve" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
+            <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="fastestReserve">예약 오픈순</label>
         </div>
     </div>
     <div class="border scrollbar">
@@ -56,6 +59,9 @@ const sortPrograms = () => {
         case 'highestRating':
             store.programList.sort((a, b) => b.mentorInfo.reviewAvgScore - a.mentorInfo.reviewAvgScore);
             break;
+        case 'fastestReserve':
+            store.programList.sort((a, b) => new Date(a.reservationStartDate) - new Date(b.reservationStartDate));
+            break;
         default:
             break;
     }
@@ -72,7 +78,7 @@ const goBack = function() {
 
 .scrollbar { 
   width: 100%;
-  height: 685px;
+  height: 750px;
   overflow-y: scroll; /*  */
 }
 
