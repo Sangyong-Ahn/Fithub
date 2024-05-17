@@ -115,15 +115,17 @@
           </div>
           <div class="mx-4 mb-4">
             <label class="form-label">장소</label>
-            <UserMap
-              :id="'programCreate'"
-              :lat="latitude"
-              :lng="longitude"
-              :width="'100%'"
-              :height="'300px'"
-              :isMarkable="'true'"
-              @update-lat-lng="updateLatLng"
-            />
+            <div class="mb-3 border rounded-4 bg-white p-3">
+              <UserMap
+                :id="'programCreate'"
+                :lat="latitude"
+                :lng="longitude"
+                :width="'100%'"
+                :height="'300px'"
+                :isMarkable="'true'"
+                @update-lat-lng="updateLatLng"
+              />
+            </div>
           </div>
         </form>
 
