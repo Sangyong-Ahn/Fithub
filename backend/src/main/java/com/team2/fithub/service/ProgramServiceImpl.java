@@ -60,6 +60,11 @@ public class ProgramServiceImpl implements ProgramService{
 	}
 	
 	@Override
+    public int updateProgramThumbnailSavePath(int programId, String thumbnailSavePath) {
+        return programDao.updateProgramThumbnailSavePath(programId, thumbnailSavePath);
+    }
+	
+	@Override
     public int updateProgramThumbnail(int programId, String thumbnail) {
         return programDao.updateProgramThumbnail(programId, thumbnail);
     }

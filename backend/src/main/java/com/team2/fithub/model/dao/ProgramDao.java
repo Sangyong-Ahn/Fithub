@@ -9,6 +9,8 @@ public interface ProgramDao {
 	
 	int insertProgram(Program program);
 	
+	int updateProgramThumbnailSavePath(int id, String thumbnailSavePath);
+	
 	int updateProgramThumbnail(int id, String thumbnail);
 	
 	String selectProgramThumbnailPath(int id);

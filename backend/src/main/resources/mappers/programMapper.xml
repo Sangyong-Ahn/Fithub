@@ -17,6 +17,12 @@
 		)
 	</insert>
 	
+	<update id="updateProgramThumbnailSavePath" parameterType="map">
+	    UPDATE program
+	    SET thumbnailSavePath = #{thumbnailSavePath}
+	    WHERE id = #{id}
+	</update>
+	
 	<update id="updateProgramThumbnail" parameterType="map">
 	    UPDATE program
 	    SET thumbnail = #{thumbnail}
@@ -24,7 +30,7 @@
 	</update>
 	
 	<select id="selectProgramThumbnailPath" parameterType="int" resultType="string">
-	    SELECT thumbnail
+	    SELECT thumbnailSavePath
 	    FROM program
 	    WHERE id = #{id}
 	</select>
