@@ -11,6 +11,7 @@ export async function initMap(mapDiv, lat, lng, zoom=mapParams.zoomOut){
       const mapOptions = {
         center: new naver.maps.LatLng(lat, lng),
         zoom,
+        mapTypeId: naver.maps.MapTypeId.HYBRID,
       };
 
       resolve(new naver.maps.Map(mapDiv, mapOptions))
@@ -28,7 +29,8 @@ export async function initMap(mapDiv, lat, lng, zoom=mapParams.zoomOut){
     
       const mapOptions = {
         center: new naver.maps.LatLng(lat, lng),
-        zoom: 14
+        zoom: 14,
+        mapTypeId: naver.maps.MapTypeId.HYBRID,
       };
 
       resolve(new naver.maps.Map(mapDiv, mapOptions));
