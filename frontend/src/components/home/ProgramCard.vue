@@ -1,6 +1,5 @@
 <template>
-    <div class="card flex-row m-2 p-3 rounded-4">
-        <img src="@/assets/common/thumbnail-demo.jpg"/>
+    <div class="card program-card flex-row m-2 p-3 rounded-4" :style="bgStyle">
         <div class="card-body">
             <h5>{{ program.title }}</h5>
             <p>{{ program.mentorInfo.name }} 멘토</p>
@@ -13,11 +12,27 @@
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
     program: Object
 }) 
 
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
+
+let imgUrl = props.program.thumbnail;
+const img = new Image();
+const bgStyle = reactive({})
+
+new Promise((resolve)=>{
+  img.src = imgUrl;
+  img.onload = () => resolve()
+  img.onerror = () => {
+    // console.error("Nonvalid Thumbnail Image Url")
+    imgUrl = '/src/assets/common/thumbnail-demo.jpg'
+    resolve();
+  }
+}).then(()=>{
+  bgStyle['background-image'] =`linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url('${imgUrl}')`
+})
 
 const currentDate = new Date();
 
@@ -46,6 +61,18 @@ img {
 .card-body {
     padding: 0px 16px;
 }
+
+.card-body > p {
+  color: #9d9d9d;
+}
+
+.program-card {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color:white
+}
+
 .card-text {
     margin-bottom: 0px;
 }
