@@ -59,6 +59,7 @@ function clickEvent(program){
 
 <style>
 .marker {
+    color: black;
     background-color: white;
     border: 1px solid gray;
     border-radius: 5px;

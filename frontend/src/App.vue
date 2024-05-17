@@ -12,9 +12,13 @@ import HeaderNav from '@/components/header/HeaderNav.vue';
 
 import { RouterView } from 'vue-router';
 import { useRoute } from 'vue-router';
-import { watch } from 'vue';
+import { onMounted, watch } from 'vue';
 
 const route = useRoute();
+
+onMounted(()=>{
+  document.querySelector("html").setAttribute('data-bs-theme', 'dark')
+})
 
 watch(route, (newRoute, oldRoute)=>{
   window.scrollTo(0,0);
@@ -23,6 +27,17 @@ watch(route, (newRoute, oldRoute)=>{
 
 </script>
 
-<style scoped>
+<style>
+.btn {
+  border-color: lightgreen;
+  background-color: black;
+  color:lightgreen;
+}
 
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+  border-color: lightgreen;
+  background-color: gray;
+
+  color:lightgreen;
+}
 </style>

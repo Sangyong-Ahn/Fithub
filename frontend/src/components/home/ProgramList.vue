@@ -80,6 +80,9 @@ const goBack = function() {
   width: 100%;
   height: 750px;
   overflow-y: scroll; /*  */
+  background-color: black;
+  border-radius: 5px;
+  border: 1px solid lightgreen;
 }
 
 /* 스크롤바의 폭 너비 */
@@ -88,7 +91,7 @@ const goBack = function() {
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-    background: rgb(171, 231, 6); /* 스크롤바 색상 */
+    background: lightgreen; /* 스크롤바 색상 */
     border-radius: 10px; /* 스크롤바 둥근 테두리 */
 }
 
