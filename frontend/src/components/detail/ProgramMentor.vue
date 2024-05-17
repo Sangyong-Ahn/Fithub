@@ -16,13 +16,9 @@
           </div>
         </div>
         <div class="d-flex justify-content-center gap-5 my-3">
-          <button class="btn btn-outline-secondary btn-lg px-5">후기 작성</button>
+          <button class="btn btn-outline-secondary btn-lg px-5"@click="openReviewModal">후기 작성</button>
           <button class="btn btn-outline-secondary btn-lg px-5" @click="openChatModal">문의하기</button>
         </div>
-      </div>
-      <div class="d-flex justify-content-center gap-5 my-3">
-        <button class="btn btn-outline-secondary btn-lg px-5"@click="openReviewModal">후기 작성</button>
-        <button class="btn btn-outline-secondary btn-lg px-5" @click="openChatModal">문의하기</button>
       </div>
     </div>
 
