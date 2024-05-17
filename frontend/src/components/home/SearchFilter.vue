@@ -17,10 +17,12 @@
     <!-- 2. 날짜 시간 설정하는 영역 -->
     <div class="w-50">
       <p class="d-flex m-3">2. 시간대 선택</p>
-      <div class="d-flex justify-content-center flex-wrap">
-        <div class="mx-2" v-for="(day, index) in days" :key="index">
-          <input type="checkbox" class="btn-check " :id="'btncheckbox' + index" name="day" v-model="isSelected[index]" :value="day">
-          <label class="btn btn-sm btn-outline-secondary rounded-5" :for="'btncheckbox' + index">{{ day }}</label>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-lg-1 px-3 py-1" v-for="(day, index) in days" :key="index">
+            <input type="checkbox" class="btn-check " :id="'btncheckbox' + index" name="day" v-model="isSelected[index]" :value="day">
+            <label class="btn btn-sm btn-outline-secondary rounded-5" :for="'btncheckbox' + index">{{ day }}</label>
+          </div>
         </div>
       </div>
       
