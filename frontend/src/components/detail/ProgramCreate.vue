@@ -226,7 +226,6 @@ const insertProgram = function () {
 };
 
 const updateLatLng = (latLng) => {
-  console.log('UPPP')
   latitude.value = latLng.lat;
   longitude.value = latLng.lng;
 }
