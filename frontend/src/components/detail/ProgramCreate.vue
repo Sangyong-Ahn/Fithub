@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-1"></div>
-      <div class="col-10 border rounded-4 bg-light p-4">
+      <div class="col-10 border rounded-4 bg-light p-4 mb-5">
         <h2 class="mb-5">게시글 작성</h2>
         <!-- 프로그램 생성 폼 -->
         <form @submit.prevent="insert">
@@ -31,7 +31,7 @@
           </div>
 
 
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-around mb-3">
             <div class="mb-3">
               <label for="reservationStartDate" class="form-label">예약 시작일</label>
               <input type="date" class="form-control" id="reservationStartDate" v-model="reservationStartDate">
@@ -88,13 +88,13 @@
 
             <!-- 시간대 제거 버튼 -->
             <div class="text-end" v-if="times.length > 1 && index !== 0">
-              <button type="button" class="btn btn-sm btn-outline-danger" @click="removeTime(index)">제거하기</button>
+              <button type="button" class="btn btn-sm btn-outline-danger bg-white" @click="removeTime(index)">제거하기</button>
             </div>
           </div>
 
           <!-- 시간대 추가 버튼 -->
           <div class="mx-4 mb-4">
-            <button type="button" class="btn btn-sm btn-outline-secondary" @click="addTime">추가하기</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary bg-white" @click="addTime">추가하기</button>
           </div>
 
           <!-- 나머지 입력 칸 -->
@@ -110,27 +110,26 @@
             <label for="youtubeUrl" class="form-label">YouTube URL</label>
             <input type="text" class="form-control" id="youtubeUrl" v-model="youtubeUrl">
           </div>
-          <div class="mx-4 mb-4">
-            <button type="submit" @click="insertProgram" class="btn btn-primary">등록하기</button>
-          </div>
+          
           <div class="mx-4 mb-4">
             <label class="form-label">장소</label>
-            <div class="mb-3 border rounded-4 bg-white p-3">
+            <div class="mb-3 border rounded-4 bg-white p-3 w-75">
               <UserMap
                 :id="'programCreate'"
                 :lat="latitude"
                 :lng="longitude"
                 :width="'100%'"
-                :height="'300px'"
+                :height="'500px'"
                 :isMarkable="'true'"
                 @update-lat-lng="updateLatLng"
               />
             </div>
           </div>
+
+          <div class="mx-4 mb-4 text-end">
+            <button type="submit" @click="insertProgram" class="btn btn-outline-secondary bg-white">등록하기</button>
+          </div>
         </form>
-
-        <div>{{ times }}</div>
-
       </div>
       <div class="col-1"></div>
     </div>
