@@ -113,6 +113,18 @@
           <div class="mx-4 mb-4">
             <button type="submit" @click="insertProgram" class="btn btn-primary">등록하기</button>
           </div>
+          <div class="mx-4 mb-4">
+            <label class="form-label">장소</label>
+            <UserMap
+              :id="'programCreate'"
+              :lat="latitude"
+              :lng="longitude"
+              :width="'100%'"
+              :height="'300px'"
+              :isMarkable="'true'"
+              @update-lat-lng="updateLatLng"
+            />
+          </div>
         </form>
 
         <div>{{ times }}</div>
@@ -128,6 +140,7 @@ import { ref } from 'vue';
 import { useCategoryStore } from '@/stores/categoryStore';
 import { useProgramStore } from '@/stores/programStore';
 import { useUserStore } from '@/stores/userStore';
+import UserMap from "@/components/util/UserMap.vue";
 
 const categoryStore = useCategoryStore();
 const programStore = useProgramStore();
@@ -143,6 +156,8 @@ const programEndDate = ref('');
 const thumbnail = ref('');
 const content = ref('');
 const youtubeUrl = ref('');
+const latitude = ref(userStore.loginUser.latitude);
+const longitude = ref(userStore.loginUser.longitude);
 
 // 카테고리 관련 상태 변수
 const categories = categoryStore.categoryList; // 카테고리 목록
@@ -203,10 +218,16 @@ const insertProgram = function () {
     content: content.value,
     youtubeUrl: youtubeUrl.value,
     times: times.value,
-    latitude: 44, // TODO,
-    longitude: 44, // TODO
+    latitude: latitude.value,
+    longitude: longitude.value,
   }, imageInput?.files[0])
 };
+
+const updateLatLng = (latLng) => {
+  console.log('UPPP')
+  latitude.value = latLng.lat;
+  longitude.value = latLng.lng;
+}
 
 </script>
 
