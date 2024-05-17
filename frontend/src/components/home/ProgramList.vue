@@ -1,6 +1,15 @@
 <template>
-    <div class="border mb-3" style="height:100px">
-        뭔가 여기 들어올 예정
+    <div class="border mb-3 p-2 d-flex justify-content-around" style="height:100px; align-items:center;">
+        <div>
+            <input type="radio" class="btn-check" name="sortOptions" id="newest" value="newest" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
+            <label class="btn btn-outline-secondary rounded-5 mx-2" for="newest">최신순</label>
+
+            <input type="radio" class="btn-check" name="sortOptions" id="lowestPrice" value="lowestPrice" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
+            <label class="btn btn-outline-secondary rounded-5 mx-2" for="lowestPrice">가격 낮은순</label>
+
+            <input type="radio" class="btn-check" name="sortOptions" id="highestRating" value="highestRating" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
+            <label class="btn btn-outline-secondary rounded-5 mx-2" for="highestRating">별점 높은순</label>
+        </div>
     </div>
     <div class="border scrollbar">
         <div v-if="store.isSpecified">
@@ -27,11 +36,30 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { RouterLink } from "vue-router";
 import { useProgramStore } from "@/stores/programStore";
 import ProgramCard from "@/components/home/ProgramCard.vue"
+import { getLowestPrice } from '@/common/common.js';
 
 const store = useProgramStore()
+const selectedSort = ref('newest');
+
+const sortPrograms = () => {
+    switch (selectedSort.value) {
+        case 'newest':
+            store.programList.sort((a, b) => new Date(b.createAt) - new Date(a.createAt));
+            break;
+        case 'lowestPrice':
+            store.programList.sort((a, b) => getLowestPrice(a) - getLowestPrice(b));
+            break;
+        case 'highestRating':
+            store.programList.sort((a, b) => b.mentorInfo.reviewAvgScore - a.mentorInfo.reviewAvgScore);
+            break;
+        default:
+            break;
+    }
+};
 
 const goBack = function() {
     store.programList = store.originalProgramList
@@ -41,6 +69,7 @@ const goBack = function() {
 </script>
 
 <style scoped>
+
 .scrollbar { 
   width: 100%;
   height: 685px;
