@@ -128,6 +128,7 @@ import { ref } from 'vue';
 import { useCategoryStore } from '@/stores/categoryStore';
 import { useProgramStore } from '@/stores/programStore';
 import { useUserStore } from '@/stores/userStore';
+import { getDateString } from "@/common/common.js";
 
 const categoryStore = useCategoryStore();
 const programStore = useProgramStore();
@@ -136,10 +137,10 @@ const userStore = useUserStore();
 // 각 입력 필드에 대한 상태 변수
 const categoryId = ref(0)
 const title = ref('');
-const reservationStartDate = ref('');
-const reservationEndDate = ref('');
-const programStartDate = ref('');
-const programEndDate = ref('');
+const reservationStartDate = ref(getDateString());
+const reservationEndDate = ref(getDateString(7));
+const programStartDate = ref(getDateString(7));
+const programEndDate = ref(getDateString(14));
 const thumbnail = ref('');
 const content = ref('');
 const youtubeUrl = ref('');
