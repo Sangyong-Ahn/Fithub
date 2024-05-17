@@ -17,6 +17,18 @@
 		)
 	</insert>
 	
+	<update id="updateProgramThumbnail" parameterType="map">
+	    UPDATE program
+	    SET thumbnail = #{thumbnail}
+	    WHERE id = #{id}
+	</update>
+	
+	<select id="selectProgramThumbnailPath" parameterType="int" resultType="string">
+	    SELECT thumbnail
+	    FROM program
+	    WHERE id = #{id}
+	</select>
+	
 	<select id="selectProgram" resultType="Program">
 		SELECT * FROM program
 		WHERE id = #{id}

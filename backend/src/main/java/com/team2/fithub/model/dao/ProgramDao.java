@@ -8,6 +8,10 @@ import com.team2.fithub.model.dto.SearchCondition;
 public interface ProgramDao {
 	
 	int insertProgram(Program program);
+	
+	int updateProgramThumbnail(int id, String thumbnail);
+	
+	String selectProgramThumbnailPath(int id);
     
     Program selectProgram(int id);
 //    

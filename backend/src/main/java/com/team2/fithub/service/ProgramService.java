@@ -10,6 +10,10 @@ public interface ProgramService {
 	
 	int addProgram(Program program);
 	
+	int updateProgramThumbnail(int programId, String thumbnail);
+	
+	String getProgramThumbnailPath(int programId);
+	
 	Program findProgram(int id);
 	
 	List<Program> findAllProgram();

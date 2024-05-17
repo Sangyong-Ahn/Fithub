@@ -60,6 +60,16 @@ public class ProgramServiceImpl implements ProgramService{
 	}
 	
 	@Override
+    public int updateProgramThumbnail(int programId, String thumbnail) {
+        return programDao.updateProgramThumbnail(programId, thumbnail);
+    }
+	
+	@Override
+    public String getProgramThumbnailPath(int programId) {
+        return programDao.selectProgramThumbnailPath(programId);
+    }
+	
+	@Override
 	public Program findProgram(int id) {
 		Program program = programDao.selectProgram(id);
 		List<Time> times = timeDao.selectTimeByProgram(id);
