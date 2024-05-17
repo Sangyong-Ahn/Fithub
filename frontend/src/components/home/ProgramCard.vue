@@ -1,6 +1,5 @@
 <template>
-    <div class="card flex-row m-2 p-3 rounded-4">
-        <img src="@/assets/common/thumbnail-demo.jpg"/>
+    <div class="card program-card flex-row m-2 p-3 rounded-4">
         <div class="card-body">
             <h5>{{ program.title }}</h5>
             <p>{{ program.mentorInfo.name }} 멘토</p>
@@ -46,6 +45,19 @@ img {
 .card-body {
     padding: 0px 16px;
 }
+
+.card-body > p {
+  color: #9d9d9d;
+}
+
+.program-card {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url("@/assets/common/thumbnail-demo.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
+  color:white
+}
+
 .card-text {
     margin-bottom: 0px;
 }
