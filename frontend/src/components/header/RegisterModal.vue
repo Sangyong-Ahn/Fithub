@@ -45,7 +45,7 @@
               :lng="user.longitude"
               :width="'100%'"
               :height="'300px'"
-              isMarkable="'true'"
+              :isMarkable="'true'"
               @update-lat-lng="updateLatLng"
             />
           </div>
@@ -104,7 +104,7 @@
               :lng="mentor.longitude"
               :width="'100%'"
               :height="'300px'"
-              isMarkable="'true'"
+              :isMarkable="'true'"
               @update-lat-lng="updateLatLng"
             />
           </div>
