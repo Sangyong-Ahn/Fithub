@@ -13,7 +13,11 @@ public class SearchCondition {
     private boolean saturday;
     private String startTime; // 요일별 시작 시간
     private String endTime; // 요일별 종료 시간
+    
+    private double latitude;
+    private double longitude;
     private double distance; // 거리 조건
+    
     private String order; // 정렬 조건
     private String direction; // 정렬 방향
     
@@ -127,5 +131,21 @@ public class SearchCondition {
 
 	public void setDirection(String direction) {
 		this.direction = direction;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}	
 }

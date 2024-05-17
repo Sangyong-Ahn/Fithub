@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div class="d-flex">
+  <div class="d-flex gap-2">
     <!-- 2. 날짜 시간 설정하는 영역 -->
     <div class="w-50">
       <p class="d-flex m-3">2. 시간대 선택</p>
@@ -43,18 +43,28 @@
 
     <!-- 3. 거리 범위 설정하는 영역 -->
     <div class="w-50">
-      <p class="d-flex m-3">3. 거리 범위 선택</p>
+      <p class="d-flex m-3 mb-0">3. 거리 범위 선택</p>
+      <small class="ms-3 mb-3">(내 위치를 기준으로 검색하시려면 로그인이 필요합니다)</small>
+      <div class="mt-3 btn-group btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
+        <label class="btn btn-outline-secondary rounded-pill mx-2 my-1" v-for="(distance, index) in distances" :key="distance.value" :class="{ active: distance.value === selectedDistance }">
+          <input type="radio" class="button-check visually-hidden" name="distance" :value="distance.value" v-model="selectedDistance">
+          <span class="button-style">{{ distance.label }}</span>
+        </label>
+      </div>
     </div>
   </div>
 
-  <button class="btn btn-secondary mt-4 d-block mx-auto" @click="programSearch" type="submit">검색하기</button>
-  
+  <div class="d-flex justify-content-center mt-4">
+    <button class="btn btn-outline-secondary rounded-5 me-4" @click="resetFilters">초기화</button>
+    <button class="btn btn-outline-secondary rounded-5" @click="programSearch" type="submit">검색하기</button>
+  </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useCategoryStore } from "@/stores/categoryStore";
 import { useProgramStore } from '@/stores/programStore'
+import { useUserStore } from '@/stores/userStore';
 
 // 필터 내용에 관한것
 const categoryStore = useCategoryStore()
@@ -63,36 +73,59 @@ onMounted(() => {
 })
 const getImagePath = (idx) => `src/assets/sports/${idx}.png`;
 
-
-
 const days = ref(['일', '월', '화', '수', '목', '금', '토']);
 const isSelected = ref([false, false, false, false, false, false, false])
 const startTime = ref('00:00');
 const endTime = ref('23:59');
-  
+const defaultLatitude = 37.5004462;
+const defaultLongitude = 127.037236;
+const distances = [
+  { value: 1000, label: '1km 이내' },
+  { value: 3000, label: '3km 이내' },
+  { value: 5000, label: '5km 이내' },
+  { value: 10000, label: '10km 이내' },
+  { value: 15000, label: '15km 이내' },
+  { value: 20000, label: '20km 이내' }
+];
+const selectedDistance = ref(0); // 기본값은 0이고
 
 // 보낼 필터 객체에 대한것
 const programStore = useProgramStore()
+const userStore = useUserStore()
 
 const categoryId = ref(0);
 const order = ref("createdAt")
 const direction = ref("asc")
 
 const programSearch = function () {
+  const latitude = userStore.loginUser ? userStore.loginUser.latitude : defaultLatitude;
+  const longitude = userStore.loginUser ? userStore.loginUser.longitude : defaultLongitude;
+
   programStore.programSearch({
-      categoryId: categoryId.value,
-      sunday: isSelected.value[0],
-      monday: isSelected.value[1],
-      tuesday: isSelected.value[2],
-      wednesday: isSelected.value[3],
-      thursday: isSelected.value[4],
-      friday: isSelected.value[5],
-      saturday: isSelected.value[6],
-      startTime: startTime.value+":00",
-      endTime: endTime.value+":00",
-      order: order.value,
-      direction: direction.value
+    categoryId: categoryId.value,
+    sunday: isSelected.value[0],
+    monday: isSelected.value[1],
+    tuesday: isSelected.value[2],
+    wednesday: isSelected.value[3],
+    thursday: isSelected.value[4],
+    friday: isSelected.value[5],
+    saturday: isSelected.value[6],
+    startTime: startTime.value + ":00",
+    endTime: endTime.value + ":00",
+    latitude: latitude,
+    longitude: longitude,
+    distance: selectedDistance.value,
+    order: order.value,
+    direction: direction.value
   })
+}
+
+const resetFilters = function () {
+  categoryId.value = 0;
+  isSelected.value = [false, false, false, false, false, false, false];
+  startTime.value = '00:00';
+  endTime.value = '23:59';
+  selectedDistance.value = 0;
 }
 </script>
 

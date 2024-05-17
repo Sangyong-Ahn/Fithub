@@ -48,8 +48,17 @@
 	        <if test="categoryId != null and categoryId != 0">
 	            AND p.categoryId = #{categoryId}
 	        </if>
+	        <if test="distance != null and distance != 0">
+	            AND (
+	            6371000 * acos(
+	                cos(radians(#{latitude})) * cos(radians(latitude)) * cos(radians(longitude) - radians(#{longitude})) +
+	                sin(radians(#{latitude})) * sin(radians(latitude))
+	            )
+	        ) <![CDATA[ <= ]]> #{distance}
+	        </if>
 	    ORDER BY #{order} #{direction}
 	</select>
+
 
 
 	
