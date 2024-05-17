@@ -163,7 +163,7 @@ const days = [
 // 시간대 정보 배열
 const times = ref([{ 
   sunday: false, monday: false, tuesday: false, wednesday: false, thursday: false, friday: false, saturday: false, 
-  startTime: '', endTime: '', price: '', capacity: ''
+  startTime: '14:00', endTime: '15:00', price: '', capacity: ''
 }]);
 
 // 선택된 카테고리를 설정하는 메서드
@@ -174,9 +174,9 @@ const selectCategory = (category) => {
 
 // 시간대 추가 버튼 클릭 시 호출되는 메서드
 const addTime = () => {
-  times.value.push({ 
-    sunday: false, monday: false, tuesday: false, wednesday: false, thursday: false, friday: false, saturday: false, 
-    startTime: '', endTime: '', price: '', capacity: ''
+  console.log(times.value[times.value.length-1])
+  times.value.push({
+    ...times.value[times.value.length-1]
   });
 };
 
