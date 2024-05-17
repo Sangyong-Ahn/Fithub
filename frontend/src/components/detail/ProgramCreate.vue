@@ -31,20 +31,20 @@
           </div>
 
 
-          <div class="d-flex justify-content-around mb-3">
-            <div class="mb-3">
+          <div class="row">
+            <div class="mb-3 col-lg col-sm-6">
               <label for="reservationStartDate" class="form-label">예약 시작일</label>
               <input type="date" class="form-control" id="reservationStartDate" v-model="reservationStartDate">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-lg col-sm-6">
               <label for="reservationEndDate" class="form-label">예약 종료일</label>
               <input type="date" class="form-control" id="reservationEndDate" v-model="reservationEndDate">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-lg col-sm-6">
               <label for="programStartDate" class="form-label">프로그램 시작일</label>
               <input type="date" class="form-control" id="programStartDate" v-model="programStartDate">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-lg col-sm-6">
               <label for="programEndDate" class="form-label">프로그램 종료일</label>
               <input type="date" class="form-control" id="programEndDate" v-model="programEndDate">
             </div>
@@ -141,6 +141,7 @@ import { ref } from 'vue';
 import { useCategoryStore } from '@/stores/categoryStore';
 import { useProgramStore } from '@/stores/programStore';
 import { useUserStore } from '@/stores/userStore';
+import { getDateString } from "@/common/common.js";
 import UserMap from "@/components/util/UserMap.vue";
 
 const categoryStore = useCategoryStore();
@@ -150,10 +151,10 @@ const userStore = useUserStore();
 // 각 입력 필드에 대한 상태 변수
 const categoryId = ref(0)
 const title = ref('');
-const reservationStartDate = ref('');
-const reservationEndDate = ref('');
-const programStartDate = ref('');
-const programEndDate = ref('');
+const reservationStartDate = ref(getDateString());
+const reservationEndDate = ref(getDateString(7));
+const programStartDate = ref(getDateString(7));
+const programEndDate = ref(getDateString(14));
 const thumbnail = ref('');
 const content = ref('');
 const youtubeUrl = ref('');
@@ -178,7 +179,7 @@ const days = [
 // 시간대 정보 배열
 const times = ref([{ 
   sunday: false, monday: false, tuesday: false, wednesday: false, thursday: false, friday: false, saturday: false, 
-  startTime: '', endTime: '', price: '', capacity: ''
+  startTime: '14:00', endTime: '15:00', price: '', capacity: ''
 }]);
 
 // 선택된 카테고리를 설정하는 메서드
@@ -189,9 +190,9 @@ const selectCategory = (category) => {
 
 // 시간대 추가 버튼 클릭 시 호출되는 메서드
 const addTime = () => {
-  times.value.push({ 
-    sunday: false, monday: false, tuesday: false, wednesday: false, thursday: false, friday: false, saturday: false, 
-    startTime: '', endTime: '', price: '', capacity: ''
+  console.log(times.value[times.value.length-1])
+  times.value.push({
+    ...times.value[times.value.length-1]
   });
 };
 

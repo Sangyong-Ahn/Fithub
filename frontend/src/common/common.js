@@ -38,3 +38,16 @@ export async function initMap(mapDiv, lat, lng, zoom=mapParams.zoomOut){
 
 export const getLowestPrice = (program) => program.times.reduce((prev, cur) => prev < cur.price ? prev : cur.price, program.times[0].price)
 
+export const getDateString = (afterDay=0) => {
+  const date = new Date();
+  date.setDate(date.getDate() + afterDay);
+  
+  const yyyy = date.getFullYear(); // 년도
+  let mm = '' + (date.getMonth() + 1);  // 월
+  let dd = '' + date.getDate();  // 날짜
+
+  if(mm.length==1) mm = '0' + mm;
+  if(dd.length==1) dd = '0' + dd;
+  
+  return `${yyyy}-${mm}-${dd}`
+}
