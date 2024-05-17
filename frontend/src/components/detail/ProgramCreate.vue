@@ -31,20 +31,20 @@
           </div>
 
 
-          <div class="d-flex justify-content-between">
-            <div class="mb-3">
+          <div class="row">
+            <div class="mb-3 col-lg col-sm-6">
               <label for="reservationStartDate" class="form-label">예약 시작일</label>
               <input type="date" class="form-control" id="reservationStartDate" v-model="reservationStartDate">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-lg col-sm-6">
               <label for="reservationEndDate" class="form-label">예약 종료일</label>
               <input type="date" class="form-control" id="reservationEndDate" v-model="reservationEndDate">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-lg col-sm-6">
               <label for="programStartDate" class="form-label">프로그램 시작일</label>
               <input type="date" class="form-control" id="programStartDate" v-model="programStartDate">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-lg col-sm-6">
               <label for="programEndDate" class="form-label">프로그램 종료일</label>
               <input type="date" class="form-control" id="programEndDate" v-model="programEndDate">
             </div>
