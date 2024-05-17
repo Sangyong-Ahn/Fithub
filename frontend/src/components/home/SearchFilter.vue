@@ -5,7 +5,7 @@
     <div class="exercise-grid">
       <div class="exercise-item" v-for="category in categoryStore.categoryList" :key="category.id">
         <input type="radio" class="btn-check" :id="'btnradio' + category.id" name="exercise" v-model="categoryId" :value="category.id">
-        <label class="btn btn-outline-secondary btn-category" :for="'btnradio' + category.id">
+        <label class="btn btn-outline-secondary btn-category" :for="'btnradio' + category.id" style="background-color: #222;">
           <img :src="getImagePath(category.id)">
         </label>
         <p style="font-size:12px">{{ category.name }}</p>

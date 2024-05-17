@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-2"></div>
       <div class="col-8">
-        <div class="accordion-item border rounded-3 p-3 mb-5">
+        <div class="accordion-item border rounded-3 p-3 mb-5" id="condition-area">
           <h2 class="accordion-header">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
               검색 조건을 입력하세요
@@ -58,5 +58,9 @@ onMounted(() => {
 .accordion-button:not(.collapsed), .accordion-button:focus {
   box-shadow: none;
   background-color: transparent
+}
+
+#condition-area {
+  background-color: black;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="mb-1 p-2 d-flex justify-content-around rounded-5">
-        <div>
+        <div class="p-3" id="filter-area">
             <input type="radio" class="btn-check" name="sortOptions" id="newest" value="newest" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
             <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="newest">최신순</label>
 
@@ -97,6 +97,12 @@ const goBack = function() {
 
 .scrollbar::-webkit-scrollbar-track {
     background: rgba(171, 231, 6, .1);  /*스크롤바 뒷 배경 색상*/
+}
+
+#filter-area {
+    border-radius: 5px;
+    background-color: black;
+    border: 1px solid gray;
 }
 
 </style>
