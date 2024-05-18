@@ -30,6 +30,7 @@ import com.team2.fithub.model.dto.Chat;
 import com.team2.fithub.model.dto.User;
 import com.team2.fithub.service.ChatService;
 import com.team2.fithub.service.UserService;
+import com.team2.fithub.util.JwtUtil;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -42,7 +43,7 @@ public class UserRestController {
 	private final ChatService cs;
 
 	@Autowired
-	private HttpSession httpSession;
+	private JwtUtil jwtUtil;
 
 	@Autowired
 	public UserRestController(UserService us, ChatService cs) {
@@ -216,8 +217,7 @@ public class UserRestController {
 				return new ResponseEntity<>("비밀번호가 일치하지 않습니다.", HttpStatus.UNAUTHORIZED);
 			}
 
-			// 로그인 성공 시 세션에 사용자 정보 저장
-			httpSession.setAttribute("loginUser", user);
+			user.setAccessToken(jwtUtil.createToken(user.getEmail()));
 			return new ResponseEntity<>(user, HttpStatus.OK);
 		} catch (Exception e) {
 			return exceptionHandling(e);
@@ -227,8 +227,6 @@ public class UserRestController {
 	@GetMapping("/logout")
 	public ResponseEntity<String> userlogout() {
 		try {
-			// 세션에서 사용자 정보 삭제
-			httpSession.removeAttribute("loginUser");
 			return new ResponseEntity<>("Logged out successfully", HttpStatus.OK);
 		} catch (Exception e) {
 			return exceptionHandling(e);

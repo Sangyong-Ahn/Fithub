@@ -22,6 +22,8 @@ public class Mentor {
     private List<Review> reviews;
     private Double reviewAvgScore;
     
+    private String accessToken;
+    
     // 기본 생성자
  	public Mentor() {}
  	
@@ -152,5 +154,13 @@ public class Mentor {
 
 	public void setReviewAvgScore(Double reviewAvgScore) {
 		this.reviewAvgScore = reviewAvgScore;
+	}
+
+	public String getAccessToken() {
+		return accessToken;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
 	}
 }
