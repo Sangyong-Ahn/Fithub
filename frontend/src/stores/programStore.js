@@ -62,6 +62,14 @@ export const useProgramStore = defineStore("program", () => {
     })
     .then((response) => {
       console.log(response.data);
+      // 새로운 프로그램의 ID를 얻습니다.
+      const newProgramId = response.data.id;
+      // Pinia의 program 스토어를 업데이트하기 위해 getProgram을 호출합니다.
+      getProgram(newProgramId)
+      .then(() => {
+        // 프로그램 상세 페이지로 이동합니다.
+        router.push({ name: 'programDetail', params: { id: newProgramId } });
+      });
     })
     .catch((error) => {
       console.log(error);
