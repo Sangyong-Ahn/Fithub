@@ -22,7 +22,10 @@
                 </nav>
                 <div data-bs-spy="scroll" data-bs-target="#program-navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example p-3 rounded-2" tabindex="0">
                     <div class="border mb-5 rounded-4 bg-light">
-                        <h4 class="m-3" id="programInfo">프로그램 정보</h4>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4 class="mx-3 mt-3" id="programInfo">프로그램 정보</h4>
+                            <button v-if="showDeleteButton" class="btn btn-outline-danger mx-3 mt-3" @click="deleteProgram">삭제하기</button>
+                        </div>
                         <ProgramInfo />
                     </div>
                     <div class="border mb-5 rounded-4 bg-light">
@@ -86,6 +89,21 @@ const programStore = useProgramStore()
 const chatStore = useChatStore()
 const userStore = useUserStore()
 const route = useRoute();
+
+const deleteProgram = function () {
+    programStore.deleteProgram(route.params.id)
+}
+
+// 현재 날짜와 비교하여 삭제 버튼 표시 여부 결정
+const showDeleteButton = computed(() => {
+    if(userStore.loginUser !== null && userStore.isMentor && userStore.loginUser.id === programStore.program.mentorId) {
+        const now = new Date();
+        const reservationStartDate = new Date(programStore.program.reservationStartDate);
+        return now < reservationStartDate;
+    }
+    
+    return false;
+});
 
 onMounted(async () => {
     await programStore.getProgram(route.params.id)

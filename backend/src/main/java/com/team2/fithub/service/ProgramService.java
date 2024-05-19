@@ -21,4 +21,6 @@ public interface ProgramService {
 	List<Program> findAllProgram();
 	
 	List<Program> searchProgram(SearchCondition condition);
+
+	int removeProgram(int id);
 }

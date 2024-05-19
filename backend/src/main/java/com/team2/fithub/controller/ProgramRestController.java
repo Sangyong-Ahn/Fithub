@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -177,6 +178,19 @@ public class ProgramRestController {
 //		if (programs.isEmpty())
 //			return new ResponseEntity<>("검색 결과가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(programs, HttpStatus.OK);
+	}
+	
+	// 프로그램 삭제 요청 처리
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> programRemove(@PathVariable("id") int id) {
+	    try {
+	        // 프로그램을 삭제합니다.
+	        ps.removeProgram(id);
+	        return new ResponseEntity<>("프로그램이 성공적으로 삭제되었습니다.", HttpStatus.NO_CONTENT);
+	    } catch (Exception e) {
+	        // 예외가 발생한 경우 예외 처리
+	        return exceptionHandling(e);
+	    }
 	}
 
 	private ResponseEntity<String> exceptionHandling(Exception e) {

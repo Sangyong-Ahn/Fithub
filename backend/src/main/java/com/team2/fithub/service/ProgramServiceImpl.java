@@ -130,5 +130,10 @@ public class ProgramServiceImpl implements ProgramService{
 		}
 		return programList;
 	}
+	
+	@Override
+    public int removeProgram(int id) {
+        return programDao.deleteProgram(id);
+    }
 
 }

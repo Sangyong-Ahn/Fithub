@@ -77,7 +77,10 @@
 	    ORDER BY #{order} #{direction}
 	</select>
 
-
+	<delete id="deleteProgram" parameterType="int">
+	    DELETE FROM program
+	    WHERE id = #{id}
+	</delete>
 
 	
 </mapper>

@@ -27,4 +27,5 @@ public interface ProgramDao {
     
     List<Program> searchProgram(SearchCondition condition);
     
+    int deleteProgram(int id);
 }

@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `time` (
   `reserveNum` INT DEFAULT 0,		-- 현재 예약한 인원
   
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`programId`) REFERENCES `program`(`id`)
+  FOREIGN KEY (`programId`) REFERENCES `program`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
 
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `review` (
   
   PRIMARY KEY (`id`),
   FOREIGN KEY (`mentorId`) REFERENCES `mentor`(`id`),
-  FOREIGN KEY (`programId`) REFERENCES `program`(`id`),
+  FOREIGN KEY (`programId`) REFERENCES `program`(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`userId`) REFERENCES `user`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
