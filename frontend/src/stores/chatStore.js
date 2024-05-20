@@ -7,9 +7,6 @@ import { useUserStore } from './userStore';
 const REST_API = `http://localhost:8080/chat`
 
 export const useChatStore = defineStore("chat", () => {
-
-  const userStore = useUserStore();
-  const chatRoom = ref({})
   const chatList = ref([])
 
   const getChatList = function (mentorId, userId) {
@@ -36,17 +33,7 @@ export const useChatStore = defineStore("chat", () => {
       });
   };
 
-  const insertMentorChat = function (chat) {
-    console.log(chat)
-    axios.post(REST_API, chat)
-      .then((response) => {
-        userStore.getChatRooms(chat.mentorId)
-        chatRoom.chats.push(response.data)
-      })
-      .catch((error) => {
-        console.error('insert 실패');
-      });
-  };
+  
 
-  return { chatList, getChatList, insertChat, insertMentorChat, chatRoom };
+  return { chatList, getChatList, insertChat};
 });

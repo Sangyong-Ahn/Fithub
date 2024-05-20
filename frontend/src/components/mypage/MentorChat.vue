@@ -19,7 +19,7 @@
   
             <!-- Modal Body -->
             <div ref="modalBody" class="modal-body bg-light scrollbar">
-              <template v-for="chat in chatStore.chatRoom.chats" :key="chat.id">
+              <template v-for="chat in userStore.chatRoom.chats" :key="chat.id">
                 <div v-if="!chat.user" class="row justify-content-end mb-3">
                   <div class="text-end" style="max-width: 70%;">
                     <div class="text-end" style="font-size:13px;">{{ new Date(chat.createdAt).toLocaleString() }}</div>
@@ -33,7 +33,7 @@
                     <img class="border border-2" src="@/assets/common/thumbnail-demo.jpg" style="border-radius:50%; width:40px; height:40px">
                     <div class="mx-2">
                       <div class="text-start" style="font-size:13px;">{{ new Date(chat.createdAt).toLocaleString() }}</div>
-                      <div class="border rounded-4 bg-white px-3 py-2" style="word-wrap: break-word;">
+                      <div class="border rounded-4 bg-white px-3 py-2" style="display: inline-block; word-wrap: break-word;">
                         <div>{{ chat.content }}</div>
                       </div>
                     </div>
@@ -75,10 +75,10 @@
     if (typeof content.value === 'string' && content.value.trim().length === 0) {
       return;
     }
-    chatStore.insertMentorChat(
+    userStore.insertMentorChat(
       {
         mentorId: userStore.loginUser.id,
-        userId: chatStore.chatRoom.id,
+        userId: userStore.chatRoom.id,
         content: content.value,
         user: false
       }
@@ -99,7 +99,7 @@
   };
   
   const openChatRoom = (chatRoom) => {
-    chatStore.chatRoom = chatRoom
+    userStore.chatRoom = chatRoom
     const chatModal = new bootstrap.Modal(document.getElementById('chatModal'));
     chatModal.show();
   };

@@ -6,6 +6,7 @@ import { useChatStore } from './chatStore';
 
 const USER_REST_API = `http://localhost:8080/user`;
 const MENTOR_REST_API = `http://localhost:8080/mentor`;
+const CHAT_REST_API = `http://localhost:8080/chat`
 
 export const useUserStore = defineStore("user", () => {
   const chatStore = useChatStore();
@@ -169,12 +170,26 @@ export const useUserStore = defineStore("user", () => {
       });
   }
 
+  const chatRoom = ref({})
+
+  const insertMentorChat = function (chat) {
+    console.log(chat)
+    axios.post(CHAT_REST_API, chat)
+      .then((response) => {
+        getChatRooms(chat.mentorId)
+        chatRoom.value.chats.push(response.data)
+      })
+      .catch((error) => {
+        console.error('insert 실패');
+      });
+  };
+
 
   onMounted(loadSessionStorage);
 
   return {
     user, getUser, loginUser, isUser, isMentor, errMsg,
     userLogin, mentorLogin, logout, userCreate, mentorCreate, 
-    loadSessionStorage, updateUser, updateMentor, chatRooms, getChatRooms
+    loadSessionStorage, updateUser, updateMentor, chatRooms, getChatRooms, chatRoom, insertMentorChat
   };
 });

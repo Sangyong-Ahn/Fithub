@@ -24,7 +24,7 @@
                 <img class="border border-2" src="@/assets/common/thumbnail-demo.jpg" style="border-radius:50%; width:40px; height:40px">
                 <div class="mx-2">
                   <div class="text-start" style="font-size:13px;">{{ new Date(chat.createdAt).toLocaleString() }}</div>
-                  <div class="border rounded-4 bg-white px-3 py-2" style="word-wrap: break-word;">
+                  <div class="border rounded-4 bg-white px-3 py-2" style="display: inline-block; word-wrap: break-word;">
                     <div>{{ chat.content }}</div>
                   </div>
                 </div>
