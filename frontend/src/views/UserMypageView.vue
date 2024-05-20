@@ -24,13 +24,13 @@
                 <h1 class="h2">마이페이지</h1>
               </div>
               <div v-if="activeTab === 'user'" class="d-flex justify-content-center">
-                <UserPage :user="user" />
+                <UserProfile :user="user" />
               </div>
               <div v-if="activeTab === 'edit'" class="d-flex justify-content-center">
-                <EditUserInfo :user="user" />
+                <UserUpdate :user="user" />
               </div>
               <div v-if="activeTab === 'reservation'" class="d-flex justify-content-center">
-                <ReservationInfo :user="user" />
+                <UserReservation :user="user" />
               </div>
             </div>
           </div>
@@ -43,16 +43,17 @@
 <script>
 import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import UserPage from '@/components/mypage/UserPage.vue';
-import EditUserInfo from '@/components/mypage/EditUserInfo.vue';
-import ReservationInfo from '@/components/mypage/ReservationInfo.vue';
+import UserProfile from '@/components/mypage/UserProfile.vue';
+import UserUpdate from '@/components/mypage/UserUpdate.vue';
+import UserReservation from '@/components/mypage/UserReservation.vue';
 import { useUserStore } from '@/stores/userStore';
+
 
 export default {
   components: {
-    UserPage,
-    EditUserInfo,
-    ReservationInfo
+    UserProfile,
+    UserUpdate,
+    UserReservation
   },
   setup() {
     const store = useUserStore();

@@ -147,16 +147,16 @@ VALUES ("user1@user1", "userpass1", "username1", "11111111", "M", "11111111111",
        ("user8@user8", "userpass8", "username8", "11111118", "M", "11111111118", 37.56100278, 126.9996417),
        ("user9@user9", "userpass9", "username9", "11111119", "M", "11111111119", 37.56100278, 126.9996417);
        
-INSERT INTO mentor(email, password, name, dateOfBirth, gender, phoneNumber)
-VALUES ("mentor1@mentor1", "mentorpass1", "mentorname1", 11111111, "M", "11111111111"),
-	   ("mentor2@mentor2", "mentorpass2", "mentorname2", 11111112, "M", "11111111112"),
-       ("mentor3@mentor3", "mentorpass3", "mentorname3", 11111113, "M", "11111111113"),
-       ("mentor4@mentor4", "mentorpass4", "mentorname4", 11111114, "M", "11111111114"),
-       ("mentor5@mentor5", "mentorpass5", "mentorname5", 11111115, "M", "11111111115"),
-       ("mentor6@mentor6", "mentorpass6", "mentorname6", 11111116, "M", "11111111116"),
-       ("mentor7@mentor7", "mentorpass7", "mentorname7", 11111117, "M", "11111111117"),
-       ("mentor8@mentor8", "mentorpass8", "mentorname8", 11111118, "M", "11111111118"),
-       ("mentor9@mentor9", "mentorpass9", "mentorname9", 11111119, "M", "11111111119");
+INSERT INTO mentor(email, password, name, dateOfBirth, gender, phoneNumber, latitude, longitude)
+VALUES ("mentor1@mentor1", "mentorpass1", "mentorname1", 11111111, "M", "11111111111", 37.56100278, 126.9996417),
+	   ("mentor2@mentor2", "mentorpass2", "mentorname2", 11111112, "M", "11111111112", 37.56100278, 126.9996417),
+       ("mentor3@mentor3", "mentorpass3", "mentorname3", 11111113, "M", "11111111113", 37.56100278, 126.9996417),
+       ("mentor4@mentor4", "mentorpass4", "mentorname4", 11111114, "M", "11111111114", 37.56100278, 126.9996417),
+       ("mentor5@mentor5", "mentorpass5", "mentorname5", 11111115, "M", "11111111115", 37.56100278, 126.9996417),
+       ("mentor6@mentor6", "mentorpass6", "mentorname6", 11111116, "M", "11111111116", 37.56100278, 126.9996417),
+       ("mentor7@mentor7", "mentorpass7", "mentorname7", 11111117, "M", "11111111117", 37.56100278, 126.9996417),
+       ("mentor8@mentor8", "mentorpass8", "mentorname8", 11111118, "M", "11111111118", 37.56100278, 126.9996417),
+       ("mentor9@mentor9", "mentorpass9", "mentorname9", 11111119, "M", "11111111119", 37.56100278, 126.9996417);
 
 INSERT INTO category(name)
 VALUES ("헬스"), ("필라테스"), ("골프"), ("테니스"), ("탁구"), ("축구"), ("농구"), ("러닝"), ("산악"), ("싸이클"),
