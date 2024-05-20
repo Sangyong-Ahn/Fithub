@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10">
-                <nav id="program-navbar" class="navbar bg-white p-3 mb-4 justify-content-around border-bottom">
+                <nav id="program-navbar" class="navbar p-3 mb-4 justify-content-around border-bottom">
                     <div class="col-2 text-center">
                         <a class="nav nav-link text-body-secondary" href="#programInfo">프로그램 정보</a>
                     </div>

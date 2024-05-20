@@ -51,8 +51,8 @@
           </div>
 
           <!-- 시간대 입력 -->
-          <div v-for="(time, index) in times" :key="index" class="mx-4 mb-4">
-            <div class="mb-3 border rounded-4 bg-white p-3">
+          <div v-for="(time, index) in times" :key="index" class="mx-4 mb-4 my-3">
+            <div class="mb-3 border rounded-4 p-3">
               <label class="form-label">시간대 {{ index + 1 }}</label>
               <div class="d-flex align-items-center">
                 <!-- 요일 버튼 -->
@@ -88,13 +88,13 @@
 
             <!-- 시간대 제거 버튼 -->
             <div class="text-end" v-if="times.length > 1 && index !== 0">
-              <button type="button" class="btn btn-sm btn-outline-danger bg-white" @click="removeTime(index)">제거하기</button>
+              <button type="button" class="btn btn-sm btn-outline-danger" @click="removeTime(index)">제거하기</button>
             </div>
           </div>
 
           <!-- 시간대 추가 버튼 -->
           <div class="mx-4 mb-4">
-            <button type="button" class="btn btn-sm btn-outline-secondary bg-white" @click="addTime">추가하기</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" @click="addTime">추가하기</button>
           </div>
 
           <!-- 나머지 입력 칸 -->
@@ -113,7 +113,7 @@
           
           <div class="mx-4 mb-4">
             <label class="form-label">장소</label>
-            <div class="mb-3 border rounded-4 bg-white p-3 w-75">
+            <div class="mb-3 border rounded-4 w-100">
               <UserMap
                 :id="'programCreate'"
                 :lat="latitude"
@@ -127,7 +127,7 @@
           </div>
 
           <div class="mx-4 mb-4 text-end">
-            <button type="submit" @click="insertProgram" class="btn btn-outline-secondary bg-white">등록하기</button>
+            <button type="submit" @click="insertProgram" class="btn btn-outline-secondary">등록하기</button>
           </div>
         </form>
       </div>

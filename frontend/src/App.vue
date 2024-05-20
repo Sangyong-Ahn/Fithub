@@ -41,11 +41,23 @@ watch(route, (newRoute, oldRoute)=>{
   color:lightgreen;
 }
 
+.bg-light {
+  background-color: black !important;
+}
+
 @font-face {
     font-family: 'KCC-Hanbit';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
+}
+
+.bg-white {
+  border: 3px solid lightgreen !important;
+}
+
+.bg-white, .bg-white > * {
+  color: black;
 }
 
 body {

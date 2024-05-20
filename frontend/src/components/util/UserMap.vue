@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div :id="id" :style="{width: width, height: height}"></div>
+        <div :id="id" :style="{width: width, height: height, borderRadius: '5px'}"></div>
     </div>
 </template>
 
 <script setup>
-import { initMap } from "@/common/common";
+import { initMap, mapParams } from "@/common/common";
 import { onMounted, watch } from "vue";
 
 const props = defineProps({
@@ -23,7 +23,7 @@ const id=`${props.id}Map`;
 const isMarkable = props.isMarkable || false;
 
 const draw = async () => {
-    const map = await initMap(id, props.lat, props.lng)
+    const map = await initMap(id, props.lat, props.lng, mapParams.zoomIn)
 
     const position = new naver.maps.LatLng(props.lat, props.lng);
     let marker = new naver.maps.Marker({
