@@ -59,9 +59,9 @@ function clickEvent(program){
 
 <style>
 .marker {
-    color: white;
-    background-color: rgb(37, 37, 37);
-    border: 1px solid ,lightgreen;
+    color: black;
+    background-color: white;
+    border: 1px solid gray;
     border-radius: 5px;
     padding: 5px;
     z-index: -1;
@@ -72,7 +72,7 @@ function clickEvent(program){
     left: calc(50% - 6px);
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-top: 6px solid lightgreen;
+    border-top: 6px solid gray;
     
 }
 .marker-pin::before {
