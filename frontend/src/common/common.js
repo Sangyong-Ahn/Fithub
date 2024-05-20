@@ -71,7 +71,7 @@ export async function getGPTContent(title="테니스") {
       messages: [{ role: 'user', content}],
       model: 'gpt-4',
     });
-    console.log(response.choices[0].message.content)
+    
     return response.choices[0].message.content;
   } catch(e){
     console.error("CHAT GPT ERROR", e);
