@@ -136,4 +136,9 @@ public class ProgramServiceImpl implements ProgramService{
         return programDao.deleteProgram(id);
     }
 
+	@Override
+	public List<Program> getMentorProgram(int id) {
+		return programDao.selectProgramsByMentorId(id);
+	}
+
 }

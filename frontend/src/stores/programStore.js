@@ -86,5 +86,19 @@ export const useProgramStore = defineStore("program", () => {
     }
   };
 
-  return { originalProgramList, programList, getProgramList, program, getProgram, programSearch, isSpecified, insertProgram, deleteProgram };
+  const mentorPrograms = ref([]);
+  const getMentorPrograms = function (mentorId) {
+    console.log(mentorId);
+    axios.get(`${REST_API}/mentor/${mentorId}/programs`)
+    .then(response => {
+      mentorPrograms.value = response.data;
+      console.log("잘 받았습니다.");
+      console.log(mentorPrograms.value.length);
+    })
+    .catch(error => {
+      console.error('멘토 프로그램 리스트 가져오기 실패: ', error);
+    })
+  }
+
+  return { originalProgramList, programList, getProgramList, program, getProgram, programSearch, isSpecified, insertProgram, deleteProgram, getMentorPrograms };
 });

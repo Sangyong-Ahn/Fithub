@@ -89,5 +89,12 @@
 	    WHERE id = #{id}
 	</delete>
 
+	 <select id="selectProgramsByMentorId" parameterType="int" resultType="Program">
+        SELECT p.title, p.programStartDate, p.programEndDate, t.capacity, t.reserveNum
+        FROM mentor m
+        JOIN program p ON m.id = #{id}
+        JOIN time t ON p.id = t.programId
+        ORDER BY p.programStartDate;
+    </select>
 	
 </mapper>

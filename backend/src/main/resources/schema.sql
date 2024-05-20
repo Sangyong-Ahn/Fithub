@@ -95,13 +95,16 @@ CREATE TABLE IF NOT EXISTS `match` (
   `timeId` INT NOT NULL,           -- 시간 ID (외래 키)
   `mentorId` INT NOT NULL, -- 멘토 ID (외래 키)
   `userId` INT NOT NULL,   -- 사용자 ID (외래 키)
+  `programId` INT NOT NULL, -- (추가) 프로그램 ID (외래 키)
   `purchaseConfirm` BOOLEAN DEFAULT FALSE,       -- 최종 확인 여부(유저가 confirm)
   `createdAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 생성 일시
   
   PRIMARY KEY (`id`),
   FOREIGN KEY (`timeId`) REFERENCES `time`(`id`),
   FOREIGN KEY (`mentorId`) REFERENCES `mentor`(`id`),
-  FOREIGN KEY (`userId`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`userId`) REFERENCES `user`(`id`),
+  FOREIGN KEY (`programId`) REFERENCES `program`(`id`)
+  
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
 
