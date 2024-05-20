@@ -15,27 +15,25 @@
 
   <div class="d-flex gap-2">
     <!-- 2. 날짜 시간 설정하는 영역 -->
-    <div class="w-50">
+    <div class="w-50 container">
       <p class="d-flex m-3">2. 시간대 선택</p>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3 col-lg-1 px-3 py-1" v-for="(day, index) in days" :key="index">
-            <input type="checkbox" class="btn-check " :id="'btncheckbox' + index" name="day" v-model="isSelected[index]" :value="day">
-            <label class="btn btn-sm btn-outline-secondary rounded-5" :for="'btncheckbox' + index">{{ day }}</label>
-          </div>
+      <div class="row">
+        <div class="col-md-3 col-lg-1 px-3 py-1" v-for="(day, index) in days" :key="index">
+          <input type="checkbox" class="btn-check " :id="'btncheckbox' + index" name="day" v-model="isSelected[index]" :value="day">
+          <label class="btn btn-sm btn-outline-secondary rounded-5" :for="'btncheckbox' + index">{{ day }}</label>
         </div>
       </div>
       
       <!-- 시간 입력 -->
-      <div class="d-flex justify-content-around flex-wrap">
+      <div class="row">
 
         <!-- 시작 시간 입력 -->
-        <div class="m-1">
+        <div class="col-md-12 col-lg-6">
           <div class="m-2">시작 시간</div>
           <input type="time" class="form-control" v-model="startTime">
         </div>
         <!-- 종료 시간 입력 -->
-        <div class="m-1">
+        <div class="col-md-12 col-lg-6">
           <div class="m-2">종료 시간</div>
           <input type="time" class="form-control" v-model="endTime">
         </div>
