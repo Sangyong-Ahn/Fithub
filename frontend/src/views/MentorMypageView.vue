@@ -18,7 +18,7 @@
                 <a class="nav-link border text-secondary" @click="changeTab('review')" :class="{ active: activeTab === 'review' }">후기</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link border text-secondary" @click="changeTab('chat')" :class="{ active: activeTab === 'chat' }">문의방</a>
+                <a class="nav-link border text-secondary" @click="changeTab('chat')" :class="{ active: activeTab === 'chat' }">채팅방</a>
               </li>
             </ul>
           </div>
@@ -42,7 +42,7 @@
                 <MentorReview />
               </div>
               <div v-if="activeTab === 'chat'" class="d-flex justify-content-center">
-                <MentorChat :mentor="mentor" />
+                <MentorChat />
               </div>
             </div>
           </div>

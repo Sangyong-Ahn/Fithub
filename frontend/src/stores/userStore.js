@@ -2,10 +2,14 @@ import { ref, onMounted } from 'vue';
 import { defineStore } from "pinia";
 import axios from 'axios';
 
+import { useChatStore } from './chatStore';
+
 const USER_REST_API = `http://localhost:8080/user`;
 const MENTOR_REST_API = `http://localhost:8080/mentor`;
 
 export const useUserStore = defineStore("user", () => {
+  const chatStore = useChatStore();
+
   const loginUser = ref(null);
   const isUser = ref(false);
   const isMentor = ref(false);
@@ -153,12 +157,24 @@ export const useUserStore = defineStore("user", () => {
       });
   };
 
+  const chatRooms = ref([])
+
+  const getChatRooms = function (id) {
+    axios.get(`${MENTOR_REST_API}/${id}/chat`)
+      .then((response) => {
+        chatRooms.value = response.data
+      })
+      .catch((error) => {
+        console.error('Failed to get chat rooms:', error);
+      });
+  }
+
 
   onMounted(loadSessionStorage);
 
   return {
     user, getUser, loginUser, isUser, isMentor, errMsg,
     userLogin, mentorLogin, logout, userCreate, mentorCreate, 
-    loadSessionStorage, updateUser, updateMentor
+    loadSessionStorage, updateUser, updateMentor, chatRooms, getChatRooms
   };
 });

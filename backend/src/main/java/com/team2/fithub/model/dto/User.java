@@ -1,6 +1,7 @@
 package com.team2.fithub.model.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
 	private int id;
@@ -17,6 +18,7 @@ public class User {
     private Date createdAt;
     
     private String accessToken;
+    private List<Chat> chats;
 
     // 기본 생성자
  	public User() {}
@@ -124,5 +126,13 @@ public class User {
 
 	public void setAccessToken(String accessToken) {
 		this.accessToken = accessToken;
+	}
+
+	public List<Chat> getChats() {
+		return chats;
+	}
+
+	public void setChats(List<Chat> chats) {
+		this.chats = chats;
 	}
 }

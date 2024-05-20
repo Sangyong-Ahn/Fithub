@@ -41,7 +41,7 @@ private final ChatService cs;
 			System.out.println(chat);
 			int result = cs.addChat(chat);
 			if(result == 1)
-				return new ResponseEntity<>(result, HttpStatus.CREATED);
+				return new ResponseEntity<>(chat, HttpStatus.CREATED);
 			return new ResponseEntity<>("전송에 실패했습니다.", HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			return exceptionHandling(e);

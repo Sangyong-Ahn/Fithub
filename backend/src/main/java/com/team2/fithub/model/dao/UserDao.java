@@ -16,6 +16,8 @@ public interface UserDao {
 	// 전체 유저 확인
 	List<User> selectAllUser();
 	
+	List<User> selectUserChatWithMentor(int mentorId);
+	
 	// 회원정보 수정
 	int updateUser(User user);
 	

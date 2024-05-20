@@ -19,6 +19,13 @@
 		WHERE id = #{id}
 	</select>
 	
+	<select id="selectUserChatWithMentor" parameterType="int" resultType="User">
+		SELECT DISTINCT u.*
+		FROM `user` u
+		JOIN `chat` c ON u.id = c.userId
+		WHERE c.mentorId = #{mentorId};
+	</select>
+	
 	<select id="selectAllUser" resultType="User">
 		SELECT * FROM user
 	</select>

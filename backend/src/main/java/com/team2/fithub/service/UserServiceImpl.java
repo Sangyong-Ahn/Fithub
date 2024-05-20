@@ -55,4 +55,9 @@ public class UserServiceImpl implements UserService {
 	public int removeUser(int id) {
 		return userDao.deleteUser(id);
 	}
+
+	@Override
+	public List<User> findUserChatWithMentor(int mentorId) {
+		return userDao.selectUserChatWithMentor(mentorId);
+	}
 }
