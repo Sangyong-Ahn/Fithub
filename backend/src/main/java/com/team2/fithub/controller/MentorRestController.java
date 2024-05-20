@@ -29,9 +29,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.team2.fithub.model.dto.Chat;
 import com.team2.fithub.model.dto.Mentor;
 import com.team2.fithub.model.dto.Review;
+import com.team2.fithub.model.dto.User;
 import com.team2.fithub.service.ChatService;
 import com.team2.fithub.service.MentorService;
 import com.team2.fithub.service.ReviewService;
+import com.team2.fithub.service.UserService;
 import com.team2.fithub.util.JwtUtil;
 
 import jakarta.servlet.http.HttpSession;
@@ -44,15 +46,17 @@ public class MentorRestController {
 	private final MentorService ms;
 	private final ChatService cs;
 	private final ReviewService rs;
+	private final UserService us;
 
 	@Autowired
 	private JwtUtil jwtUtil;
 	
 	@Autowired
-	public MentorRestController(MentorService ms, ChatService cs, ReviewService rs) {
+	public MentorRestController(MentorService ms, ChatService cs, ReviewService rs, UserService us) {
 		this.ms = ms;
 		this.cs = cs;
 		this.rs = rs;
+		this.us = us;
 	}
 
 	@GetMapping("")
@@ -228,9 +232,20 @@ public class MentorRestController {
 			if (!mentor.getPassword().equals(password)) {
 				return new ResponseEntity<>("비밀번호가 일치하지 않습니다.", HttpStatus.UNAUTHORIZED);
 			}
-
+			
+			List<Review> reviews = rs.findReviewByMentor(mentor.getId());
+			for(Review review : reviews) {
+				User user = us.findUser(review.getUserId());
+				review.setUserInfo(user);
+			}
+			Double reviewAvgScore = rs.findReivewAvgScore(mentor.getId());
+			
+			mentor.setReviews(reviews);
+			mentor.setReviewAvgScore(reviewAvgScore);
+			
 			// 로그인 성공 시 세션에 사용자 정보 저장
 			mentor.setAccessToken(jwtUtil.createToken(mentor.getEmail()));
+			
 			return new ResponseEntity<>(mentor, HttpStatus.OK);
 		} catch (Exception e) {
 			return exceptionHandling(e);

@@ -1,5 +1,7 @@
 package com.team2.fithub.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +36,7 @@ public class ReviewRestController {
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<?> userReview(@RequestBody Review review) {
+	public ResponseEntity<?> reviewAdd(@RequestBody Review review) {
 		try {
 			int result = rs.addReview(review);
 			if(result == 1)
