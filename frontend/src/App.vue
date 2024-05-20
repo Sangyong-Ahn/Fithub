@@ -78,4 +78,8 @@ input {
   background-color: black !important;
 }
 
+body {
+  background-color: rgb(18, 18, 18) !important;
+}
+
 </style>

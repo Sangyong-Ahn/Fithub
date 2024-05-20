@@ -34,19 +34,19 @@
                         <ProgramVideo />
                     </div>
                     <div class="d-flex justify-content-center">
-                        <div class="border mb-5 rounded-4 bg-light w-75">
+                        <div class="border mb-5 rounded-4 bg-light">
                             <h4 class="m-3" id="mentorInfo">멘토 정보</h4>
                             <ProgramMentor />
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <div class="border mb-5 rounded-4 bg-light w-75">
+                        <div class="border mb-5 rounded-4 bg-light w-100">
                             <h4 class="m-3" id="review">후기</h4>
                             <ProgramReview />
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <div class="border mb-5 rounded-4 bg-light w-75 .flex-fill">
+                        <div class="border mb-5 rounded-4 bg-light w-100 .flex-fill">
                             <h4 class="m-3" id="review">위치</h4>
                                 <div class="d-flex flex-fill m-3">
                                     <div class="flex-fill" id="map-container">
@@ -56,7 +56,7 @@
                                             :lat="programStore.program.latitude"
                                             :lng="programStore.program.longitude"
                                             :width= "'100%'"
-                                            :height="'300px'"
+                                            :height="'600px'"
                                         />
                                     </div>
                                 </div>
