@@ -242,7 +242,7 @@ const generateContent = async () => {
   else {
     const textArea = document.getElementById("content");
     content.value = '';
-    textArea.placeholder = `"${title.value}"로 내용 생성 중`;
+    textArea.placeholder = `"${title.value}"로 내용 생성 중 (5-10초 소요)`;
     textArea.disabled = true;
     const gptContent = await getGPTContent(title.value);
     content.value = gptContent;

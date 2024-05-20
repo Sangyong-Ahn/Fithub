@@ -59,7 +59,9 @@ export async function getGPTContent(title="테니스") {
     지금 운동 레슨 관련된 게시글을 만들고 있어.
     제목은 ${title}이야.
     이 제목과 관련해서, 내 레슨을 모집 홍보하는 게시글 내용을
-    300자 이내로 작성해줘. (제목을 다시 쓸 필요는 없어)
+    300자 이내로 작성해줘. 
+    제목은 다시 쓸 필요 없고, 단락을 예쁘게 나눠줘. 
+    무료 레슨이 아니니깐 무료라는 말은 쓰면 안돼!
   `
   try {
     const openai = new OpenAI({
@@ -71,7 +73,7 @@ export async function getGPTContent(title="테니스") {
       messages: [{ role: 'user', content}],
       model: 'gpt-4',
     });
-    
+
     return response.choices[0].message.content;
   } catch(e){
     console.error("CHAT GPT ERROR", e);
