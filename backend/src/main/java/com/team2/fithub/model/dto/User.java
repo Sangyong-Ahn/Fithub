@@ -15,6 +15,8 @@ public class User {
     private Double latitude;
     private Double longitude;
     private Date createdAt;
+    
+    private String accessToken;
 
     // 기본 생성자
  	public User() {}
@@ -114,5 +116,13 @@ public class User {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getAccessToken() {
+		return accessToken;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
 	}
 }

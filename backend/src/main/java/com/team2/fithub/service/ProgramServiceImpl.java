@@ -60,6 +60,11 @@ public class ProgramServiceImpl implements ProgramService{
 	}
 	
 	@Override
+    public int updateProgramThumbnailSavePath(int programId, String thumbnailSavePath) {
+        return programDao.updateProgramThumbnailSavePath(programId, thumbnailSavePath);
+    }
+	
+	@Override
     public int updateProgramThumbnail(int programId, String thumbnail) {
         return programDao.updateProgramThumbnail(programId, thumbnail);
     }
@@ -125,5 +130,10 @@ public class ProgramServiceImpl implements ProgramService{
 		}
 		return programList;
 	}
+	
+	@Override
+    public int removeProgram(int id) {
+        return programDao.deleteProgram(id);
+    }
 
 }

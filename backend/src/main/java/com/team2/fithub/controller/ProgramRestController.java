@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,11 +25,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team2.fithub.model.dto.Program;
 import com.team2.fithub.model.dto.SearchCondition;
 import com.team2.fithub.service.ProgramService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/program")
@@ -92,9 +97,23 @@ public class ProgramRestController {
 	            // 새 파일을 저장합니다.
 	            Path filePath = uploadPath.resolve(newFileName);
 	            Files.copy(file.getInputStream(), filePath);
+	            
+	            // 백엔드 내부 파일 저장 경로
+	            String thumbnailSavePath = "/upload/thumbnail/" + newFileName;
+	            
+	            program.setThumbnailSavePath(thumbnailSavePath);
+	            
+	            ps.updateProgramThumbnailSavePath(programId, thumbnailSavePath);
+	            
+	            // 현재 요청의 주소와 포트번호를 가져옵니다.
+	            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+	            String serverAddress = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
 
-	            // 프로그램의 썸네일 경로 설정
-	            program.setThumbnail("/upload/thumbnail/" + newFileName);
+	            // 파일이 저장되는 전체 API 주소를 생성합니다.
+	            String fileApiPath = serverAddress + "/program/" + programId + "/thumbnail";
+
+	            // 프로그램 정보에 전체 API 주소를 저장합니다.
+	            program.setThumbnail(fileApiPath);
 
 	            // 프로그램 정보를 업데이트하여 썸네일 경로를 저장합니다.
 	            ps.updateProgramThumbnail(programId, program.getThumbnail());
@@ -104,7 +123,7 @@ public class ProgramRestController {
 	        }
 
 	        System.out.println("생성됨");
-	        return new ResponseEntity<>(result, HttpStatus.CREATED);
+	        return new ResponseEntity<>(program, HttpStatus.CREATED);
 	    } catch (Exception e) {
 	        return exceptionHandling(e);
 	    }
@@ -118,6 +137,7 @@ public class ProgramRestController {
     public ResponseEntity<Resource> getProgramThumbnail(@PathVariable int programId) {
         try {
             String thumbnailPath = ps.getProgramThumbnailPath(programId);
+            
             if (thumbnailPath == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
@@ -158,6 +178,19 @@ public class ProgramRestController {
 //		if (programs.isEmpty())
 //			return new ResponseEntity<>("검색 결과가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(programs, HttpStatus.OK);
+	}
+	
+	// 프로그램 삭제 요청 처리
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> programRemove(@PathVariable("id") int id) {
+	    try {
+	        // 프로그램을 삭제합니다.
+	        ps.removeProgram(id);
+	        return new ResponseEntity<>("프로그램이 성공적으로 삭제되었습니다.", HttpStatus.NO_CONTENT);
+	    } catch (Exception e) {
+	        // 예외가 발생한 경우 예외 처리
+	        return exceptionHandling(e);
+	    }
 	}
 
 	private ResponseEntity<String> exceptionHandling(Exception e) {

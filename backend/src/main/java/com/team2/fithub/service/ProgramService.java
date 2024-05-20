@@ -10,6 +10,8 @@ public interface ProgramService {
 	
 	int addProgram(Program program);
 	
+	int updateProgramThumbnailSavePath(int programId, String thumbnailSavePath);
+	
 	int updateProgramThumbnail(int programId, String thumbnail);
 	
 	String getProgramThumbnailPath(int programId);
@@ -19,4 +21,6 @@ public interface ProgramService {
 	List<Program> findAllProgram();
 	
 	List<Program> searchProgram(SearchCondition condition);
+
+	int removeProgram(int id);
 }

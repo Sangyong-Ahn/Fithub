@@ -62,11 +62,29 @@ export const useProgramStore = defineStore("program", () => {
     })
     .then((response) => {
       console.log(response.data);
+      const newProgramId = response.data.id;
+      getProgram(newProgramId)
+      .then(() => {
+        router.push({ name: 'programDetail', params: { id: newProgramId } });
+      });
     })
     .catch((error) => {
       console.log(error);
     });
   }
 
-  return { originalProgramList, programList, getProgramList, program, getProgram, programSearch, isSpecified, insertProgram };
+  const deleteProgram = function (id) {
+    if (confirm("정말로 이 프로그램을 삭제하시겠습니까?")) {
+      axios.delete(`${REST_API}/${id}`)
+      .then(() => {
+        alert("프로그램이 삭제되었습니다.");
+          router.push({ name: 'home' });
+      })
+      .catch ((error) => {
+        console.log(error);
+      })
+    }
+  };
+
+  return { originalProgramList, programList, getProgramList, program, getProgram, programSearch, isSpecified, insertProgram, deleteProgram };
 });

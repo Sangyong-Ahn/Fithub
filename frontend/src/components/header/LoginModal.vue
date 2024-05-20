@@ -67,7 +67,7 @@ const matchStore = useMatchStore();
 
 const userLogin = function() {
   // 비동기
-  store.userLoginPromise(userEmail.value, userPassword.value)
+  store.userLogin(userEmail.value, userPassword.value)
   .then(()=>{
     matchStore.getMatchListByUser(store.loginUser.id)
   })

@@ -12,6 +12,7 @@ public class Program {
     private Date reservationEndDate;
     private Date programStartDate;
     private Date programEndDate;
+    private String thumbnailSavePath;
     private String thumbnail;
     private String content;
     private String youtubeUrl;
@@ -154,5 +155,13 @@ public class Program {
 
 	public void setMentorInfo(Mentor mentorInfo) {
 		this.mentorInfo = mentorInfo;
+	}
+
+	public String getThumbnailSavePath() {
+		return thumbnailSavePath;
+	}
+
+	public void setThumbnailSavePath(String thumbnailSavePath) {
+		this.thumbnailSavePath = thumbnailSavePath;
 	}
 }

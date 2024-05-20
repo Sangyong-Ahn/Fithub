@@ -9,12 +9,15 @@
 
 <script setup>
 import HeaderNav from '@/components/header/HeaderNav.vue';
+import { useUserStore } from '@/stores/userStore';
 
 import { RouterView } from 'vue-router';
 import { useRoute } from 'vue-router';
 import { onMounted, watch } from 'vue';
 
 const route = useRoute();
+const userStore = useUserStore();
+userStore.loadSessionStorage();
 
 onMounted(()=>{
   document.querySelector("html").setAttribute('data-bs-theme', 'dark')

@@ -1,26 +1,24 @@
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue';
 import { defineStore } from "pinia";
-import router from '@/router'
-import axios from 'axios'
+import axios from 'axios';
 
-const USER_REST_API = `http://localhost:8080/user`
-const MENTOR_REST_API = `http://localhost:8080/mentor`
+const USER_REST_API = `http://localhost:8080/user`;
+const MENTOR_REST_API = `http://localhost:8080/mentor`;
 
 export const useUserStore = defineStore("user", () => {
-
-  const loginUser = ref(null)
-  const isUser = ref(false)
-  const isMentor = ref(false)
-  const errMsg = ref('')
-  const user = ref({})
+  const loginUser = ref(null);
+  const isUser = ref(false);
+  const isMentor = ref(false);
+  const errMsg = ref('');
+  const user = ref({});
 
   const getUser = function (id) {
     axios.get(`${USER_REST_API}/${id}`)
     .then(response => {
-      console.log(response.data)
-      user.value = response.data
+      console.log(response.data);
+      user.value = response.data;
     })
-  }
+  };
 
   const userLogin = function (email, password) {
     axios.post(`${USER_REST_API}/login`, null, {
@@ -30,37 +28,23 @@ export const useUserStore = defineStore("user", () => {
       }
     })
     .then(response => {
-      console.log(response)
+      console.log(response);
       isUser.value = true;
       isMentor.value = false;
       loginUser.value = response.data;
-      errMsg.value = ''
-      $('#loginModal').modal('hide');
-    })
-    .catch(error => {
-      errMsg.value = error.response.data;
-    });
-  }
+      errMsg.value = '';
+      
+      sessionStorage.setItem('accessToken', response.data["accessToken"]);
+      sessionStorage.setItem('loginUser', JSON.stringify(loginUser.value));
+      sessionStorage.setItem('isUser', isUser.value);
+      sessionStorage.setItem('isMentor', isMentor.value);
 
-  const userLoginPromise = async function (email, password) {
-    return axios.post(`${USER_REST_API}/login`, null, {
-      params: {
-        email: email,
-        password: password,
-      }
-    })
-    .then(response => {
-      console.log(response)
-      isUser.value = true;
-      isMentor.value = false;
-      loginUser.value = response.data;
-      errMsg.value = ''
       $('#loginModal').modal('hide');
     })
     .catch(error => {
       errMsg.value = error.response.data;
     });
-  }
+  };
 
   const mentorLogin = function (email, password) {
     axios.post(`${MENTOR_REST_API}/login`, null, {
@@ -73,62 +57,93 @@ export const useUserStore = defineStore("user", () => {
       isUser.value = false;
       isMentor.value = true;
       loginUser.value = response.data;
-      errMsg.value = ''
+      errMsg.value = '';
+      
+      sessionStorage.setItem('accessToken', response.data["accessToken"]);
+      sessionStorage.setItem('loginUser', JSON.stringify(loginUser.value));
+      sessionStorage.setItem('isUser', isUser.value);
+      sessionStorage.setItem('isMentor', isMentor.value);
+
       $('#mentorLoginModal').modal('hide');
     })
     .catch(error => {
       errMsg.value = error.response.data;
     });
-  }
+  };
 
   const logout = function () {
-    if(isMentor){
-      axios.get(`${MENTOR_REST_API}/logout`)
-      .then(() => {
+    sessionStorage.removeItem('accessToken');
+    sessionStorage.removeItem('loginUser');
+    sessionStorage.removeItem('isUser');
+    sessionStorage.removeItem('isMentor');
+    
+    if (isMentor.value) {
+      axios.get(`${MENTOR_REST_API}/logout`).then(() => {
         isMentor.value = false;
         loginUser.value = null;
-      })
-    }
-    else if(isUser){
-      axios.get(`${USER_REST_API}/logout`)
-      .then(() => {
+      });
+    } else if (isUser.value) {
+      axios.get(`${USER_REST_API}/logout`).then(() => {
         isUser.value = false;
         loginUser.value = null;
-      })
+      });
     }
-  }
+  };
 
   const userCreate = function (user) {
-    axios({
-      url: USER_REST_API,
-      method: 'POST',
-      data: user
-    })
+    axios.post(USER_REST_API, user)
     .then(() => {
-      errMsg.value = ''
-      alert('회원 가입에 성공했습니다.')
+      errMsg.value = '';
+      alert('회원 가입에 성공했습니다.');
       $('#registModal').modal('hide');
     })
-    .catch((error) => {
+    .catch(error => {
       errMsg.value = error.response.data;
-    })
-  }
+    });
+  };
 
   const mentorCreate = function (mentor) {
-    axios({
-      url: MENTOR_REST_API,
-      method: 'POST',
-      data: mentor
-    })
+    axios.post(MENTOR_REST_API, mentor)
     .then(() => {
-      errMsg.value = ''
-      alert('멘토 회원 가입에 성공했습니다.')
+      errMsg.value = '';
+      alert('멘토 회원 가입에 성공했습니다.');
       $('#mentorRegistModal').modal('hide');
     })
-    .catch((error) => {
+    .catch(error => {
       errMsg.value = error.response.data;
-    })
-  }
+    });
+  };
 
-  return { user, getUser, loginUser, isUser, isMentor, errMsg, userLogin, userLoginPromise, mentorLogin, logout, userCreate, mentorCreate };
+  const loadSessionStorage = function () {
+    const storedAccessToken = sessionStorage.getItem('accessToken');
+    const storedLoginUser = sessionStorage.getItem('loginUser');
+    const storedIsUser = sessionStorage.getItem('isUser');
+    const storedIsMentor = sessionStorage.getItem('isMentor');
+    
+    if (storedAccessToken) {
+      loginUser.value = JSON.parse(storedLoginUser);
+      isUser.value = storedIsUser === 'true';
+      isMentor.value = storedIsMentor === 'true';
+    }
+  };
+
+  const updateUser = function (id, updatedUser) {
+    return axios
+      .put(`${USER_REST_API}/${id}`, updatedUser)
+      .then((response) => {
+        console.log('사용자 정보 업데이트 성공:', response.data);
+        loginUser.value = response.data;
+        user.value = response.data;
+      })
+      .catch((error) => {
+        console.error('사용자 정보 업데이트 실패:', error);
+      });
+  };
+
+  onMounted(loadSessionStorage);
+
+  return {
+    user, getUser, loginUser, isUser, isMentor, errMsg,
+    userLogin, mentorLogin, logout, userCreate, mentorCreate, loadSessionStorage, updateUser
+  };
 });

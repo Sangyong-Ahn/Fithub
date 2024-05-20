@@ -9,6 +9,8 @@ public interface ProgramDao {
 	
 	int insertProgram(Program program);
 	
+	int updateProgramThumbnailSavePath(int id, String thumbnailSavePath);
+	
 	int updateProgramThumbnail(int id, String thumbnail);
 	
 	String selectProgramThumbnailPath(int id);
@@ -25,4 +27,5 @@ public interface ProgramDao {
     
     List<Program> searchProgram(SearchCondition condition);
     
+    int deleteProgram(int id);
 }

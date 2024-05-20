@@ -32,6 +32,7 @@ import com.team2.fithub.model.dto.Review;
 import com.team2.fithub.service.ChatService;
 import com.team2.fithub.service.MentorService;
 import com.team2.fithub.service.ReviewService;
+import com.team2.fithub.util.JwtUtil;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -45,8 +46,8 @@ public class MentorRestController {
 	private final ReviewService rs;
 
 	@Autowired
-	private HttpSession httpSession;
-
+	private JwtUtil jwtUtil;
+	
 	@Autowired
 	public MentorRestController(MentorService ms, ChatService cs, ReviewService rs) {
 		this.ms = ms;
@@ -228,7 +229,7 @@ public class MentorRestController {
 			}
 
 			// 로그인 성공 시 세션에 사용자 정보 저장
-			httpSession.setAttribute("loginMentor", mentor);
+			mentor.setAccessToken(jwtUtil.createToken(mentor.getEmail()));
 			return new ResponseEntity<>(mentor, HttpStatus.OK);
 		} catch (Exception e) {
 			return exceptionHandling(e);
@@ -238,8 +239,6 @@ public class MentorRestController {
 	@GetMapping("/logout")
 	public ResponseEntity<String> mentorLogout() {
 		try {
-			// 세션에서 사용자 정보 삭제
-			httpSession.removeAttribute("loginMentor");
 			return new ResponseEntity<>("Logged out successfully", HttpStatus.OK);
 		} catch (Exception e) {
 			return exceptionHandling(e);

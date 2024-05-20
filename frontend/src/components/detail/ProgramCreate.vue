@@ -137,7 +137,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useCategoryStore } from '@/stores/categoryStore';
 import { useProgramStore } from '@/stores/programStore';
 import { useUserStore } from '@/stores/userStore';
@@ -162,7 +162,7 @@ const latitude = ref(userStore.loginUser.latitude);
 const longitude = ref(userStore.loginUser.longitude);
 
 // 카테고리 관련 상태 변수
-const categories = categoryStore.categoryList; // 카테고리 목록
+const categories = computed(() => categoryStore.categoryList); // 카테고리 목록
 const selectedCategory = ref('운동을 선택하세요'); // 선택된 카테
 
 // 요일 정보
@@ -230,6 +230,9 @@ const updateLatLng = (latLng) => {
   longitude.value = latLng.lng;
 }
 
+onMounted(() => {
+  categoryStore.getCategoryList();
+});
 </script>
 
 <style scoped>

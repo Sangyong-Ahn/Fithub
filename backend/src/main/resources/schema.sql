@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS `program` (
   `reservationEndDate` DATE NOT NULL,   -- 예약 종료 일시
   `programStartDate` DATE NOT NULL,     -- 시작 일시
   `programEndDate` DATE NOT NULL,       -- 종료 일시
+  `thumbnailSavePath` VARCHAR(100) default NULL, 	-- 썸네일 저장 경로 + 파일명
   `thumbnail` VARCHAR(100) NOT NULL,      -- 대표 이미지 경로
   `content` TEXT NOT NULL,                -- 내용
   `youtubeUrl` VARCHAR(100) NOT NULL,    -- YouTube URL
@@ -85,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `time` (
   `reserveNum` INT DEFAULT 0,		-- 현재 예약한 인원
   
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`programId`) REFERENCES `program`(`id`)
+  FOREIGN KEY (`programId`) REFERENCES `program`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
 
@@ -115,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `review` (
   
   PRIMARY KEY (`id`),
   FOREIGN KEY (`mentorId`) REFERENCES `mentor`(`id`),
-  FOREIGN KEY (`programId`) REFERENCES `program`(`id`),
+  FOREIGN KEY (`programId`) REFERENCES `program`(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`userId`) REFERENCES `user`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
