@@ -4,9 +4,9 @@
     <div class="row">
       <div class="col-2"></div>
       <div class="col-8">
-        <div class="accordion-item border pb-1 mb-4" :class="{'collapsed': collapsed}">
+        <div class="accordion-item border rounded-3 pb-1 mb-4" id="condition-area">
           <h2 class="accordion-header">
-            <button id="toggle-btn" class="accordion-button text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" @click="toggle">
+            <button class="accordion-button text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
               <img src="@/assets/common/filter.png" id="filter-clicker" class="m-1">
             </button>
           </h2>
@@ -38,21 +38,12 @@ import ProgramList from '@/components/home/ProgramList.vue';
 import ProgramMap from '@/components/home/ProgramMap.vue';
 
 import { useProgramStore } from "@/stores/programStore";
-import { computed, onMounted, ref } from "vue";
+import { onMounted } from "vue";
 
 const store = useProgramStore()
 onMounted(() => {
     store.getProgramList()
 })
-
-const collapsed = ref(false)
-
-const toggle = () => {
-  const toggleBtn = document.getElementById('toggle-btn');
-  const isExpanded = toggleBtn.getAttribute('aria-expanded');
-  collapsed.value = isExpanded=='false'
-  console.log(isExpanded, collapsed.value)
-}
 
 </script>
 
@@ -78,10 +69,6 @@ const toggle = () => {
 
 #filter-clicker {
   height: 30px;
-}
-
-.collapsed {
-  border-color: lightgreen !important;
 }
 
 </style>
