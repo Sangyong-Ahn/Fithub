@@ -16,7 +16,7 @@
                 <div class="border rounded-4 mb-3 bg-light" v-for="review in displayedReviews" :key="review.id">
                     <div class="d-flex justify-content-between">
                         <div class="d-flex align-items-center">
-                            <img class="border rounded-5 m-3 mb-0" src="@/assets/common/thumbnail-demo.jpg" style="width:45px">
+                            <img class="border rounded-5 m-3 mb-0" src="@/assets/common/thumbnail-demo.jpg" style="width:45px; height: 45px; object-fit: cover;">
                             <div class="fw-bold">{{ review.userInfo.name }}</div>
                             <div class="fw-bold text-secondary mx-3">{{ formatDate(review.createdAt) }}</div>
                         </div>
