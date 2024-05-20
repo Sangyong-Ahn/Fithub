@@ -53,7 +53,11 @@
           <!-- 시간대 입력 -->
           <div v-for="(time, index) in times" :key="index" class="mx-4 mb-4 my-3">
             <div class="mb-3 border rounded-4 p-3">
-              <label class="form-label">시간대 {{ index + 1 }}</label>
+              <label class="form-label">시간대 {{ index + 1 }}</label> 
+              <span class="mx-2">
+                <input type="checkbox" class="btn-check" name="day">
+                <label class="btn btn-sm btn-outline-secondary rounded-3" style="border: 1px solid gray" @click="selectAllDays(index)">All</label>
+              </span>
               <div class="d-flex align-items-center">
                 <!-- 요일 버튼 -->
                 <div v-for="day in days" :key="day.value">
@@ -248,6 +252,25 @@ const generateContent = async () => {
     content.value = gptContent;
     textArea.placeholder = '';
     textArea.disabled = false;
+  }
+}
+
+const selectAllDays = (idx) => {
+  let isAlreadySelectedAll = true;
+  for(const day of ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']){
+    if(!times.value[idx][day]) {
+      isAlreadySelectedAll = false;
+    }
+  }
+
+  if(isAlreadySelectedAll){
+    for(const day of ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']){
+      times.value[idx][day] = false;
+    }
+  } else {
+    for(const day of ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']){
+      times.value[idx][day] = true;
+    }
   }
 }
 
