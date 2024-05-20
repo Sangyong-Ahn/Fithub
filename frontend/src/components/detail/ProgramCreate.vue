@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-1"></div>
       <div class="col-10 border rounded-4 bg-light p-4 mb-5">
-        <h2 class="mb-5">게시글 작성</h2>
+        <h2 class="mb-5">프로그램 생성</h2>
         <!-- 프로그램 생성 폼 -->
         <form @submit.prevent="insert">
 
