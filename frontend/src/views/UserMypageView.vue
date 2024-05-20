@@ -41,12 +41,13 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import UserProfile from '@/components/mypage/UserProfile.vue';
 import UserUpdate from '@/components/mypage/UserUpdate.vue';
 import UserReservation from '@/components/mypage/UserReservation.vue';
 import { useUserStore } from '@/stores/userStore';
+import axiosInstance from '@/axiosInstance';
 
 
 export default {
@@ -60,6 +61,15 @@ export default {
     const router = useRouter();
     const user = ref({ ...store.loginUser });
     const activeTab = ref('user');
+    
+    onMounted(async () => {
+      try {
+        await axiosInstance.get('/api/auth/verify-token'); // 서버에서 토큰 유효성 검증
+      } catch (error) {
+        store.logout();
+        router.push('/');
+      }
+    });
 
     const changeTab = (tabName) => {
       activeTab.value = tabName;

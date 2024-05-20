@@ -1,9 +1,8 @@
 package com.team2.fithub.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.team2.fithub.model.dto.Chat;
 import com.team2.fithub.model.dto.User;
@@ -32,7 +28,9 @@ import com.team2.fithub.service.ChatService;
 import com.team2.fithub.service.UserService;
 import com.team2.fithub.util.JwtUtil;
 
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/user")
@@ -206,8 +204,11 @@ public class UserRestController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<?> userLogin(@RequestParam String email, @RequestParam String password) {
+	public ResponseEntity<?> userLogin(@RequestParam String email, @RequestParam String password, HttpServletResponse response) {
+		
 		try {
+			Map<String, Object> result = new HashMap<>();
+			
 			User user = us.findUserByEmail(email);
 
 			if (user == null) {
@@ -217,8 +218,23 @@ public class UserRestController {
 			if (!user.getPassword().equals(password)) {
 				return new ResponseEntity<>("비밀번호가 일치하지 않습니다.", HttpStatus.UNAUTHORIZED);
 			}
+			
+			String accessToken= jwtUtil.createToken(user.getEmail());
+			
+			user.setAccessToken(accessToken);
+			String refreshToken = jwtUtil.createRefreshToken(user.getEmail());
+			
+			// refreshToken 쿠키에 넣어서 보냄
+			Cookie cookie = new Cookie("refreshToken", refreshToken);
+			cookie.setMaxAge(1000*60*60*24*14);
+			cookie.setHttpOnly(true);
+			cookie.setPath("/");
+			response.addCookie(cookie);
+			
+			result.put("accessToken", accessToken);
+			result.put("email", user.getEmail());
 
-			user.setAccessToken(jwtUtil.createToken(user.getEmail()));
+			
 			return new ResponseEntity<>(user, HttpStatus.OK);
 		} catch (Exception e) {
 			return exceptionHandling(e);
@@ -237,5 +253,30 @@ public class UserRestController {
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		e.printStackTrace();
 		return new ResponseEntity<String>("Sorry: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@GetMapping("/refresh-token")
+	public ResponseEntity<?> refreshAccessToken(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			Cookie[] cookies = request.getCookies();
+			if (cookies != null) {
+				for (Cookie cookie : cookies) {
+					if (cookie.getName().equals("refreshToken")) {
+						String refreshToken = cookie.getValue();
+						jwtUtil.validate(refreshToken);
+						String email = jwtUtil.getEmail(refreshToken);
+						String newAccessToken = jwtUtil.createToken(email);
+						
+						Map<String, String> result = new HashMap<>();
+						result.put("accessToken", newAccessToken);
+						
+						return new ResponseEntity<>(result, HttpStatus.OK);
+					}
+				}
+			}
+			return new ResponseEntity<>("Refresh token not found", HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Invalid refresh token", HttpStatus.UNAUTHORIZED);
+		}
 	}
 }
