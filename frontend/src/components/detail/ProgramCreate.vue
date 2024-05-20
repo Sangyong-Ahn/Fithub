@@ -104,7 +104,11 @@
           </div>
           <div class="mx-4 mb-4">
             <label for="content" class="form-label">내용</label>
-            <textarea class="form-control" id="content" v-model="content"></textarea>
+            <button id="btn-gpt" @click="generateContent" class="mx-2 btn btn-sm btn-outline-secondary bg-white" data-bs-toggle="tooltip" title="입력한 제목으로 자동 생성됩니다.">
+              <img src="@/assets/common/chatgpt.png">
+              GPT 생성
+            </button>
+            <textarea class="form-control" id="content" v-model="content" rows="10"></textarea>
           </div>
           <div class="mx-4 mb-4">
             <label for="youtubeUrl" class="form-label">YouTube URL</label>
@@ -141,7 +145,7 @@ import { onMounted, ref, computed } from 'vue';
 import { useCategoryStore } from '@/stores/categoryStore';
 import { useProgramStore } from '@/stores/programStore';
 import { useUserStore } from '@/stores/userStore';
-import { getDateString } from "@/common/common.js";
+import { getDateString, getGPTContent } from "@/common/common.js";
 import UserMap from "@/components/util/UserMap.vue";
 
 const categoryStore = useCategoryStore();
@@ -230,6 +234,24 @@ const updateLatLng = (latLng) => {
   longitude.value = latLng.lng;
 }
 
+const generateContent = async () => {
+  if(title.value.length<4){
+    alert("제목을 4글자 이상 입력하세요.")
+    return;
+  }
+  else {
+    const textArea = document.getElementById("content");
+    content.value = '';
+    textArea.placeholder = `"${title.value}"로 내용 생성 중`;
+    textArea.disabled = true;
+    const gptContent = await getGPTContent(title.value);
+    content.value = gptContent;
+    textArea.placeholder = '';
+    textArea.disabled = false;
+  }
+}
+
+
 onMounted(() => {
   categoryStore.getCategoryList();
 });
@@ -240,4 +262,9 @@ onMounted(() => {
   max-height: 200px; /* 드롭다운의 최대 높이를 지정 */
   overflow-y: auto;
 }
+
+#btn-gpt > img {
+  width: 15px;
+}
+
 </style>

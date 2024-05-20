@@ -1,3 +1,5 @@
+import OpenAI from "openai";
+
 export const mapParams = {
   lat: 37.5004462,
   lng: 127.037236,
@@ -50,4 +52,29 @@ export const getDateString = (afterDay=0) => {
   if(dd.length==1) dd = '0' + dd;
   
   return `${yyyy}-${mm}-${dd}`
+}
+
+export async function getGPTContent(title="테니스") {
+  const content = `
+    지금 운동 레슨 관련된 게시글을 만들고 있어.
+    제목은 ${title}이야.
+    이 제목과 관련해서, 내 레슨을 모집 홍보하는 게시글 내용을
+    300자 이내로 작성해줘. (제목을 다시 쓸 필요는 없어)
+  `
+  try {
+    const openai = new OpenAI({
+      apiKey: import.meta.env.VITE_OPEN_AI_API_KEY,
+      dangerouslyAllowBrowser: true,
+    });
+    
+    const response = await openai.chat.completions.create({
+      messages: [{ role: 'user', content}],
+      model: 'gpt-4',
+    });
+    console.log(response.choices[0].message.content)
+    return response.choices[0].message.content;
+  } catch(e){
+    console.error("CHAT GPT ERROR", e);
+    return "error";
+  }
 }
