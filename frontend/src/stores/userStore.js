@@ -140,10 +140,25 @@ export const useUserStore = defineStore("user", () => {
       });
   };
 
+  const updateMentor = function (id, mentor) {
+    return axios
+      .put(`${MENTOR_REST_API}/${id}`, mentor)
+      .then((response) => {
+        console.log('멘토 정보 업데이트 성공:', response.data);
+        loginUser.value = response.data;
+        sessionStorage.setItem('loginUser', JSON.stringify(loginUser.value));
+      })
+      .catch((error) => {
+        console.error('멘토 정보 업데이트 실패:', error);
+      });
+  };
+
+
   onMounted(loadSessionStorage);
 
   return {
     user, getUser, loginUser, isUser, isMentor, errMsg,
-    userLogin, mentorLogin, logout, userCreate, mentorCreate, loadSessionStorage, updateUser
+    userLogin, mentorLogin, logout, userCreate, mentorCreate, 
+    loadSessionStorage, updateUser, updateMentor
   };
 });

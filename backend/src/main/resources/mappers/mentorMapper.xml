@@ -25,7 +25,7 @@
 	
 	<update id="updateMentor" parameterType="Mentor">
 		UPDATE mentor 
-		SET password = #{password}, gender = #{gender}, phoneNumber = #{phoneNumber}, content = #{content}, latitude = #{latitude}, longitude = #{longitude}
+		SET password = #{password}, name = #{name}, phoneNumber = #{phoneNumber}, content = #{content}, latitude = #{latitude}, longitude = #{longitude}
 		WHERE id = #{id}
 	</update>
 	

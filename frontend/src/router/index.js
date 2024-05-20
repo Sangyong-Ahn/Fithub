@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import DetailView from '@/views/DetailView.vue'
 import ProgramCreate from '@/components/detail/ProgramCreate.vue'
-import MypageView from '@/views/MypageView.vue'
+import UserMypageView from '@/views/UserMypageView.vue'
+import MentorMypageView from '@/views/MentorMypageView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,9 +24,14 @@ const router = createRouter({
       component: ProgramCreate
     },
     {
-      path: '/mypage',
-      name: 'mypage',
-      component: MypageView,
+      path: '/user/mypage',
+      name: 'user-mypage',
+      component: UserMypageView,
+    },
+    {
+      path: '/mentor/mypage',
+      name: 'mentor-mypage',
+      component: MentorMypageView,
     },
   ]
 }

@@ -139,19 +139,20 @@ public class MentorRestController {
 
 	@PutMapping("/{id}")
 	// 지저분해서 수정 필요할듯
-	public ResponseEntity<?> mentorModify(@PathVariable("id") int id, @RequestPart("mentor") Mentor newMentor,
-			@RequestPart(value = "file", required = false) MultipartFile file) {
+//	public ResponseEntity<?> mentorModify(@PathVariable("id") int id, @RequestPart("mentor") Mentor newMentor,
+//			@RequestPart(value = "file", required = false) MultipartFile file) {
+	public ResponseEntity<?> mentorModify(@PathVariable("id") int id, @RequestBody Mentor newMentor) {
 		try {
 			Mentor mentor = ms.findMentor(id);
 			if (mentor == null) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
-
+			
+			if (newMentor.getName() != null) {
+				mentor.setName(mentor.getName());
+			}
 			if (newMentor.getPassword() != null) {
 				mentor.setPassword(newMentor.getPassword());
-			}
-			if (newMentor.getGender() != null) {
-				mentor.setGender(newMentor.getGender());
 			}
 			if (newMentor.getPhoneNumber() != null) {
 				mentor.setPhoneNumber(newMentor.getPhoneNumber());
@@ -165,29 +166,29 @@ public class MentorRestController {
 			if (newMentor.getLongitude() != null) {
 				mentor.setLongitude(newMentor.getLongitude());
 			}
-			if (file != null && !file.isEmpty()) {
-				String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-				String newFileName = id + "_profile" + getFileExtension(fileName);
-				String uploadDir = "C:/img/mentor";
-
-				Path uploadPath = Paths.get(uploadDir);
-				if (!Files.exists(uploadPath)) {
-					Files.createDirectories(uploadPath);
-				}
-				try {
-					Path existingFilePath = uploadPath.resolve(newFileName);
-					if (Files.exists(existingFilePath)) {
-						Files.delete(existingFilePath);
-					}
-					Path filePath = uploadPath.resolve(newFileName);
-					Files.copy(file.getInputStream(), filePath);
-				} catch (IOException e) {
-					return new ResponseEntity<>("Failed to upload file.", HttpStatus.INTERNAL_SERVER_ERROR);
-				}
-			}
+//			if (file != null && !file.isEmpty()) {
+//				String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+//				String newFileName = id + "_profile" + getFileExtension(fileName);
+//				String uploadDir = "C:/img/mentor";
+//
+//				Path uploadPath = Paths.get(uploadDir);
+//				if (!Files.exists(uploadPath)) {
+//					Files.createDirectories(uploadPath);
+//				}
+//				try {
+//					Path existingFilePath = uploadPath.resolve(newFileName);
+//					if (Files.exists(existingFilePath)) {
+//						Files.delete(existingFilePath);
+//					}
+//					Path filePath = uploadPath.resolve(newFileName);
+//					Files.copy(file.getInputStream(), filePath);
+//				} catch (IOException e) {
+//					return new ResponseEntity<>("Failed to upload file.", HttpStatus.INTERNAL_SERVER_ERROR);
+//				}
+//			}
 			int result = ms.modifyMentor(mentor);
 			if (result == 1)
-				return new ResponseEntity<>(result, HttpStatus.OK);
+				return new ResponseEntity<>(mentor, HttpStatus.OK);
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			return exceptionHandling(e);
