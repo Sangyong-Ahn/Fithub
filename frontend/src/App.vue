@@ -69,10 +69,14 @@ body {
   font-family: 'KCC-Hanbit';
 }
 
-.form-control:focus {
+.form-control:focus, .form-check-input:focus {
   border-color: lightgreen;
   box-shadow: none;
 } 
+
+.form-check-input:checked {
+  border-color: lightgreen !important;
+}
 
 input {
   background-color: black !important;
