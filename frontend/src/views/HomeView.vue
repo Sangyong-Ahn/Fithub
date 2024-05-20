@@ -12,7 +12,9 @@
           </h2>
           <div id="collapseOne" class="accordion-collapse collapse show mb-3" data-bs-parent="#filter-accordion">
             <div class="accordion-body px-4">
-              <SearchFilter />
+              <SearchFilter
+              @collapse="collapseFilter"
+               />
             </div>
           </div>
         </div>
@@ -51,12 +53,18 @@ const toggle = () => {
   const toggleBtn = document.getElementById('toggle-btn');
   const isExpanded = toggleBtn.getAttribute('aria-expanded');
   collapsed.value = isExpanded=='false'
-  console.log(isExpanded, collapsed.value)
+}
+
+const collapseFilter = () => {
+  collapsed.value = true;
 }
 
 </script>
 
 <style scoped>
+.accordion-item {
+  border-radius: 5px;
+}
 .accordion-button {
   display: inline-block;
   text-align: center;

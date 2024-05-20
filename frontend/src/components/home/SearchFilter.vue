@@ -79,6 +79,8 @@ onMounted(() => {
 })
 const getImagePath = (idx) => `src/assets/sports/${idx}.png`;
 
+const emit = defineEmits(["collapse"])
+
 const days = ref(['일', '월', '화', '수', '목', '금', '토']);
 const isSelected = ref([false, false, false, false, false, false, false])
 const startTime = ref('00:00');
@@ -124,6 +126,10 @@ const programSearch = function () {
     order: order.value,
     direction: direction.value
   })
+
+  const collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+  new bootstrap.Collapse(collapseElementList[1])
+  emit("collapse");
 }
 
 const selectAllDays = () => {
