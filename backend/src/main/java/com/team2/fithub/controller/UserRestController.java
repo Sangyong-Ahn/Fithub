@@ -176,7 +176,7 @@ public class UserRestController {
 			}
 			int result = us.modifyUser(user);
 			if (result == 1)
-				return new ResponseEntity<>(result, HttpStatus.OK);
+				return new ResponseEntity<>(user, HttpStatus.OK);
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			return exceptionHandling(e);
