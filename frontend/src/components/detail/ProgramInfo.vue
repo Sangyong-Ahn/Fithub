@@ -10,7 +10,7 @@
     </div>
     <!-- 내용 -->
     <div class="d-flex justify-content-around m-3 mt-0">
-      <img class="border rounded-4" src="@/assets/common/thumbnail-demo.jpg" />
+      <img class="border rounded-4" :src="store.program.thumbnail" />
       <div class="border rounded-4 custom-width">
         <div v-for="time in computedTimes" :key="time.id">
           <div class="d-flex mx-4 mt-3 mb-2">
@@ -182,8 +182,10 @@ watch(() => matchStore.matchList, (newMatchList, oldMatchList) => {
 <style scoped>
 img {
   width: 250px;
+  object-fit: contain;
 }
 .custom-width {
   width: 60%;
+  min-height: 150px;
 }
 </style>
