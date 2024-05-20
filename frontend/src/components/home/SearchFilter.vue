@@ -1,6 +1,7 @@
 <template>
-  <!-- 1. 운동 카테고리 설정하는 영역 -->
-  <div class="text-center">
+  <div>
+    <!-- 1. 운동 카테고리 설정하는 영역 -->
+    <div class="text-center">
     <p class="d-flex m-3">1. 운동 선택</p>
     <div class="exercise-grid">
       <div class="exercise-item" v-for="category in categoryStore.categoryList" :key="category.id">
@@ -57,6 +58,7 @@
   <div class="d-flex justify-content-center mt-5">
     <button class="btn btn-outline-secondary rounded-5 me-4" @click="resetFilters">초기화</button>
     <button class="btn btn-outline-secondary rounded-5" @click="programSearch" type="submit">검색하기</button>
+  </div>
   </div>
 </template>
 

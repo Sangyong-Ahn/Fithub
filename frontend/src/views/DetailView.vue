@@ -5,19 +5,19 @@
             <div class="col-10">
                 <nav id="program-navbar" class="navbar p-3 mb-4 justify-content-around border-bottom">
                     <div class="col-2 text-center">
-                        <a class="nav nav-link text-body-secondary" href="#programInfo">프로그램 정보</a>
+                        <a class="nav nav-link text-body" href="#programInfo">프로그램 정보</a>
                     </div>
                     <div class="col-2 text-center">
-                        <a class="nav nav-link text-body-secondary" href="#programContent">프로그램 소개</a>
+                        <a class="nav nav-link text-body" href="#programContent">프로그램 소개</a>
                     </div>
                     <div class="col-2 text-center">
-                        <a class="nav nav-link text-body-secondary" href="#programVideo">참고 영상</a>
+                        <a class="nav nav-link text-body" href="#programVideo">참고 영상</a>
                     </div>
                     <div class="col-2 text-center">
-                        <a class="nav nav-link text-body-secondary" href="#mentorInfo">멘토 정보</a>
+                        <a class="nav nav-link text-body" href="#mentorInfo">멘토 정보</a>
                     </div>
                     <div class="col-2 text-center">
-                        <a class="nav nav-link text-body-secondary" href="#review">후기</a>
+                        <a class="nav nav-link text-body" href="#review">후기</a>
                     </div>
                 </nav>
                 <div data-bs-spy="scroll" data-bs-target="#program-navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example p-3 rounded-2" tabindex="0">
@@ -48,7 +48,7 @@
                     <div class="d-flex justify-content-center">
                         <div class="border mb-5 rounded-4 bg-light w-75 .flex-fill">
                             <h4 class="m-3" id="review">위치</h4>
-                                <div class="d-flex flex-fill m-3 p-3 border rounded-4 bg-white align-items-center">
+                                <div class="d-flex flex-fill m-3">
                                     <div class="flex-fill" id="map-container">
                                         <!-- TODO: 동기 처리 -->
                                         <UserMap
@@ -111,5 +111,11 @@ watch(() => programStore.program, (newVal, oldVal) => {
 </script>
 
 <style scoped>
+#program-navbar {
+    background-color: black;
+}
 
+.active {
+    color:lightgreen !important
+}
 </style>

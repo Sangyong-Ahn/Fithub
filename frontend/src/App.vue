@@ -34,16 +34,15 @@ watch(route, (newRoute, oldRoute)=>{
   color:lightgreen;
 }
 
-.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active .btn:hover {
   border-color: lightgreen;
   background-color: gray;
 
-  color:lightgreen;
+  color:white;
 }
 
 .btn:hover {
   border-color: lightgreen;
-  
 }
 
 
@@ -59,7 +58,7 @@ watch(route, (newRoute, oldRoute)=>{
 }
 
 .bg-white {
-  border: 3px solid lightgreen !important;
+  border: 1px solid lightgreen !important;
 }
 
 .bg-white, .bg-white > * {

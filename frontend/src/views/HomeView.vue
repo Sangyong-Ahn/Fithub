@@ -11,7 +11,7 @@
             </button>
           </h2>
           <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#filter-accordion">
-            <div class="accordion-body">
+            <div class="accordion-body px-3">
               <SearchFilter />
             </div>
           </div>
@@ -64,5 +64,6 @@ onMounted(() => {
 
 #condition-area {
   background-color: black;
+  border-radius: 5px;
 }
 </style>
