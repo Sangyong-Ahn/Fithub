@@ -91,4 +91,7 @@ const resetInput = function() {
 </script>
 
 <style scoped>
+li {
+  margin-left: 6px;
+}
 </style>

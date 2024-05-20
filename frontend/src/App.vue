@@ -41,6 +41,12 @@ watch(route, (newRoute, oldRoute)=>{
   color:lightgreen;
 }
 
+.btn:hover {
+  border-color: lightgreen;
+  
+}
+
+
 .bg-light {
   background-color: black !important;
 }
@@ -57,10 +63,20 @@ watch(route, (newRoute, oldRoute)=>{
 }
 
 .bg-white, .bg-white > * {
-  color: black;
+  background-color: black !important
 }
 
 body {
   font-family: 'KCC-Hanbit';
 }
+
+.form-control:focus {
+  border-color: lightgreen;
+  box-shadow: none;
+} 
+
+input {
+  background-color: black !important;
+}
+
 </style>

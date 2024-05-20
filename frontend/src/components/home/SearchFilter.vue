@@ -152,4 +152,9 @@ img {
 .exercise-item {
   width: 100%;
 }
+
+input {
+  background-color: var(--bs-body-bg) !important;
+}
+
 </style>

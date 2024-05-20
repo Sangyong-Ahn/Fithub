@@ -1,41 +1,44 @@
 <template>
-    <div class="mb-1 p-2 d-flex justify-content-around rounded-5">
-        <div class="p-3" id="filter-area">
-            <input type="radio" class="btn-check" name="sortOptions" id="newest" value="newest" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
-            <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="newest">최신순</label>
+    <div>
+        <div class="mb-1 d-flex justify-content-around rounded-5">
+            <div class="p-3" id="filter-area">
+                <input type="radio" class="btn-check" name="sortOptions" id="newest" value="newest" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
+                <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="newest">최신순</label>
 
-            <input type="radio" class="btn-check" name="sortOptions" id="lowestPrice" value="lowestPrice" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
-            <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="lowestPrice">가격 낮은순</label>
+                <input type="radio" class="btn-check" name="sortOptions" id="lowestPrice" value="lowestPrice" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
+                <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="lowestPrice">가격 낮은순</label>
 
-            <input type="radio" class="btn-check" name="sortOptions" id="highestRating" value="highestRating" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
-            <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="highestRating">별점 높은순</label>
+                <input type="radio" class="btn-check" name="sortOptions" id="highestRating" value="highestRating" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
+                <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="highestRating">별점 높은순</label>
 
-            <input type="radio" class="btn-check" name="sortOptions" id="fastestReserve" value="fastestReserve" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
-            <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="fastestReserve">예약 오픈순</label>
+                <input type="radio" class="btn-check" name="sortOptions" id="fastestReserve" value="fastestReserve" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
+                <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="fastestReserve">예약 오픈순</label>
+            </div>
         </div>
-    </div>
     <div class="border scrollbar">
-        <div v-if="store.isSpecified">
-            <button class="btn btn-white d-flex align-items-center mt-2" @click="goBack">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 18L8 12L14 6" stroke="#3D454D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>                
-            </button>
-        </div>
-        <div v-if="store.programList && store.programList.length">
-            <RouterLink
-                v-for="program in store.programList"
-                :key="program.id"
-                :to="`/program/${program.id}`"
-                class="text-decoration-none"
-                >
-                <ProgramCard :program="program" />
-            </RouterLink>
-        </div>
-        <div v-else class="text-center mt-5 fs-4">
-            조건에 맞는 결과가 없습니다.
+            <div v-if="store.isSpecified">
+                <button class="btn btn-white d-flex align-items-center mt-2" @click="goBack">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14 18L8 12L14 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>                
+                </button>
+            </div>
+            <div v-if="store.programList && store.programList.length">
+                <RouterLink
+                    v-for="program in store.programList"
+                    :key="program.id"
+                    :to="`/program/${program.id}`"
+                    class="text-decoration-none"
+                    >
+                    <ProgramCard :program="program" />
+                </RouterLink>
+            </div>
+            <div v-else class="text-center mt-5 fs-4">
+                조건에 맞는 결과가 없습니다.
+            </div>
         </div>
     </div>
+    
 </template>
 
 <script setup>

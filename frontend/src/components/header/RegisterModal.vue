@@ -171,10 +171,11 @@ const updateLatLng = (latLng) => {
 <style scoped>
 .custom-input {
   height: 50px;
-  border-radius: 0;
+  border-radius: 5px;
 }
 .custom-gender {
   width: 50%;
   border-radius: 0;
 }
+
 </style>
