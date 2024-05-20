@@ -127,13 +127,13 @@ export const useUserStore = defineStore("user", () => {
     }
   };
 
-  const updateUser = function (id, updatedUser) {
+  const updateUser = function (id, user) {
     return axios
-      .put(`${USER_REST_API}/${id}`, updatedUser)
+      .put(`${USER_REST_API}/${id}`, user)
       .then((response) => {
         console.log('사용자 정보 업데이트 성공:', response.data);
         loginUser.value = response.data;
-        user.value = response.data;
+        sessionStorage.setItem('loginUser', JSON.stringify(loginUser.value));
       })
       .catch((error) => {
         console.error('사용자 정보 업데이트 실패:', error);

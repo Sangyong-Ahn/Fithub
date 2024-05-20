@@ -17,6 +17,7 @@
 	<select id="selectMatchByUser" parameterType="int" resultType="Match">
 		SELECT * FROM `match`
 		WHERE userId = #{userId}
+		ORDER BY createdAt DESC
 	</select>
 	
 	<delete id="deleteMatch" parameterType="int">

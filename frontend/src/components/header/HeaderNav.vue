@@ -31,7 +31,7 @@
                     <div>{{ store.loginUser.name }}님 반갑습니다</div>
                   </li>
                   <li class="nav-item">
-                    <button type="button" class="btn" @click="$router.push({ name: 'userPageView' })">마이페이지</button>
+                    <button type="button" class="btn" @click="$router.push({ name: 'mypage' })">마이페이지</button>
                   </li>
                   <li class="nav-item">
                     <button type="button" @click="logout" class="btn"> 로그아웃</button>

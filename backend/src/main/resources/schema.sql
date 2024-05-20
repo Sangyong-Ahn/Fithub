@@ -136,16 +136,16 @@ CREATE TABLE IF NOT EXISTS `chat` (
 
 
 
-INSERT INTO user(email, password, name, dateOfBirth, gender, phoneNumber)
-VALUES ("user1@user1", "userpass1", "username1", "11111111", "M", "11111111111"),
-	   ("user2@user2", "userpass2", "username2", "11111112", "M", "11111111112"),
-       ("user3@user3", "userpass3", "username3", "11111113", "M", "11111111113"),
-       ("user4@user4", "userpass4", "username4", "11111114", "M", "11111111114"),
-       ("user5@user5", "userpass5", "username5", "11111115", "M", "11111111115"),
-       ("user6@user6", "userpass6", "username6", "11111116", "M", "11111111116"),
-       ("user7@user7", "userpass7", "username7", "11111117", "M", "11111111117"),
-       ("user8@user8", "userpass8", "username8", "11111118", "M", "11111111118"),
-       ("user9@user9", "userpass9", "username9", "11111119", "M", "11111111119");
+INSERT INTO user(email, password, name, dateOfBirth, gender, phoneNumber, latitude, longitude)
+VALUES ("user1@user1", "userpass1", "username1", "11111111", "M", "11111111111", 37.56100278, 126.9996417),
+	   ("user2@user2", "userpass2", "username2", "11111112", "M", "11111111112", 37.56100278, 126.9996417),
+       ("user3@user3", "userpass3", "username3", "11111113", "M", "11111111113", 37.56100278, 126.9996417),
+       ("user4@user4", "userpass4", "username4", "11111114", "M", "11111111114", 37.56100278, 126.9996417),
+       ("user5@user5", "userpass5", "username5", "11111115", "M", "11111111115", 37.56100278, 126.9996417),
+       ("user6@user6", "userpass6", "username6", "11111116", "M", "11111111116", 37.56100278, 126.9996417),
+       ("user7@user7", "userpass7", "username7", "11111117", "M", "11111111117", 37.56100278, 126.9996417),
+       ("user8@user8", "userpass8", "username8", "11111118", "M", "11111111118", 37.56100278, 126.9996417),
+       ("user9@user9", "userpass9", "username9", "11111119", "M", "11111111119", 37.56100278, 126.9996417);
        
 INSERT INTO mentor(email, password, name, dateOfBirth, gender, phoneNumber)
 VALUES ("mentor1@mentor1", "mentorpass1", "mentorname1", 11111111, "M", "11111111111"),

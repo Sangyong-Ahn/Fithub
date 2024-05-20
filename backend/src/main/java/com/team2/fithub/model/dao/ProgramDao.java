@@ -16,6 +16,8 @@ public interface ProgramDao {
 	String selectProgramThumbnailPath(int id);
     
     Program selectProgram(int id);
+    
+    Program selectProgramByTimeId(int timeId);
 //    
 //    void updateProgram(Program program);
 //    

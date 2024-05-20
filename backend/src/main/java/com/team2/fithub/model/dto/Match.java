@@ -9,6 +9,10 @@ public class Match {
     private int userId;
     private boolean purchaseConfirm;
     private Date createdAt;
+    
+    private Program programInfo;
+    private Mentor mentorInfo;
+    private Time timeInfo;
 
     // 생성자
     public Match() {
@@ -62,4 +66,28 @@ public class Match {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+	public Program getProgramInfo() {
+		return programInfo;
+	}
+
+	public void setProgramInfo(Program programInfo) {
+		this.programInfo = programInfo;
+	}
+
+	public Mentor getMentorInfo() {
+		return mentorInfo;
+	}
+
+	public void setMentorInfo(Mentor mentorInfo) {
+		this.mentorInfo = mentorInfo;
+	}
+
+	public Time getTimeInfo() {
+		return timeInfo;
+	}
+
+	public void setTimeInfo(Time timeInfo) {
+		this.timeInfo = timeInfo;
+	}
 }
