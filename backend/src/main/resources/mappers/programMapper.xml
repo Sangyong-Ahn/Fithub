@@ -40,6 +40,13 @@
 		WHERE id = #{id}
 	</select>
 	
+	 <select id="selectProgramByTimeId" parameterType="int" resultType="Program">
+        SELECT p.*
+        FROM program p
+        JOIN time t ON p.id = t.programId
+        WHERE t.id = #{timeId}
+    </select>
+	
 	<select id="selectAllProgram" resultType="Program">
 		SELECT * FROM program
 	</select>

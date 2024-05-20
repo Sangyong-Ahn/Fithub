@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team2.fithub.model.dao.MatchDao;
+import com.team2.fithub.model.dao.MentorDao;
+import com.team2.fithub.model.dao.ProgramDao;
 import com.team2.fithub.model.dao.TimeDao;
 import com.team2.fithub.model.dto.Match;
+import com.team2.fithub.model.dto.Mentor;
+import com.team2.fithub.model.dto.Program;
 import com.team2.fithub.model.dto.Time;
 
 import jakarta.transaction.Transactional;
@@ -17,11 +21,15 @@ public class MatchServiceImpl implements MatchService{
 	
 	private MatchDao matchDao;
 	private TimeDao timeDao;
+	private ProgramDao programDao;
+	private MentorDao mentorDao;
 	
 	@Autowired
-    public MatchServiceImpl(MatchDao matchDao, TimeDao timeDao) {
+    public MatchServiceImpl(MatchDao matchDao, TimeDao timeDao, ProgramDao programDao, MentorDao mentorDao) {
         this.matchDao = matchDao;
         this.timeDao = timeDao;
+        this.programDao = programDao;
+        this.mentorDao = mentorDao;
     }
 	
 	@Override
@@ -82,6 +90,16 @@ public class MatchServiceImpl implements MatchService{
 
 	@Override
 	public List<Match> findAllMatchById(int userId) {
-		return matchDao.selectMatchByUser(userId);
+		List<Match> matches = matchDao.selectMatchByUser(userId);
+        for (Match match : matches) {
+        	Time time = timeDao.selectTime(match.getTimeId());
+            Program program = programDao.selectProgramByTimeId(match.getTimeId());
+            Mentor mentor = mentorDao.selectMentor(match.getMentorId());
+            
+            match.setProgramInfo(program);
+            match.setMentorInfo(mentor);
+            match.setTimeInfo(time);
+        }
+        return matches;
 	}
 }

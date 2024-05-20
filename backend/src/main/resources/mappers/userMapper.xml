@@ -25,7 +25,7 @@
 	
 	<update id="updateUser" parameterType="User">
 		UPDATE user 
-		SET password = #{password}, gender = #{gender}, phoneNumber = #{phoneNumber}, latitude = #{latitude}, longitude = #{longitude}
+		SET password = #{password}, name = #{name}, phoneNumber = #{phoneNumber}, latitude = #{latitude}, longitude = #{longitude}
 		WHERE id = #{id}
 	</update>
 	

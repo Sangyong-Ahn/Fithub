@@ -74,7 +74,7 @@
                     마감
                   </div>
                   <div v-else>
-                    {{ time.price }}원
+                    {{ time.price.toLocaleString() }}원
                   </div>
                 </button>
               </div>

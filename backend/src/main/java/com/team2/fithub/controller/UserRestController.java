@@ -126,20 +126,20 @@ public class UserRestController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> userUpdate(@PathVariable("id") int id, @RequestPart("user") User newUser,
-			@RequestPart(value = "file", required = false) MultipartFile file) {
+//	public ResponseEntity<?> userUpdate(@PathVariable("id") int id, @RequestPart("user") User newUser,
+//			@RequestPart(value = "file", required = false) MultipartFile file) {
+	public ResponseEntity<?> userUpdate(@PathVariable("id") int id, @RequestBody User newUser) {
 
 		try {
 			User user = us.findUser(id);
 			if (user == null) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
-
+			if (newUser.getName() != null) {
+				user.setName(newUser.getName());
+			}
 			if (newUser.getPassword() != null) {
 				user.setPassword(newUser.getPassword());
-			}
-			if (newUser.getGender() != null) {
-				user.setGender(newUser.getGender());
 			}
 			if (newUser.getPhoneNumber() != null) {
 				user.setPhoneNumber(newUser.getPhoneNumber());
@@ -150,30 +150,31 @@ public class UserRestController {
 			if (newUser.getLongitude() != null) {
 				user.setLongitude(newUser.getLongitude());
 			}
-			if (file != null && !file.isEmpty()) { // 업로드된 파일이 있다면
-				String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-				String newFileName = id + "_profile" + getFileExtension(fileName);
-				String uploadDir = "C:/img/user";
-
-				// 파일 저장 경로
-				Path uploadPath = Paths.get(uploadDir);
-				if (!Files.exists(uploadPath)) {
-					Files.createDirectories(uploadPath);
-				}
-				// 파일 저장
-				try {
-					// 기존 파일 삭제
-					Path existingFilePath = uploadPath.resolve(newFileName);
-					if (Files.exists(existingFilePath)) {
-						Files.delete(existingFilePath);
-					}
-					// 새 파일 저장
-					Path filePath = uploadPath.resolve(newFileName);
-					Files.copy(file.getInputStream(), filePath);
-				} catch (IOException e) {
-					return new ResponseEntity<>("Failed to upload file.", HttpStatus.INTERNAL_SERVER_ERROR);
-				}
-			}
+//			if (file != null && !file.isEmpty()) { // 업로드된 파일이 있다면
+//				String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+//				String newFileName = id + "_profile" + getFileExtension(fileName);
+//				String uploadDir = "C:/img/user";
+//
+//				// 파일 저장 경로
+//				Path uploadPath = Paths.get(uploadDir);
+//				if (!Files.exists(uploadPath)) {
+//					Files.createDirectories(uploadPath);
+//				}
+//				// 파일 저장
+//				try {
+//					// 기존 파일 삭제
+//					Path existingFilePath = uploadPath.resolve(newFileName);
+//					if (Files.exists(existingFilePath)) {
+//						Files.delete(existingFilePath);
+//					}
+//					// 새 파일 저장
+//					Path filePath = uploadPath.resolve(newFileName);
+//					Files.copy(file.getInputStream(), filePath);
+//				} catch (IOException e) {
+//					System.out.println("here");
+//					return new ResponseEntity<>("Failed to upload file.", HttpStatus.INTERNAL_SERVER_ERROR);
+//				}
+//			}
 			int result = us.modifyUser(user);
 			if (result == 1)
 				return new ResponseEntity<>(user, HttpStatus.OK);
