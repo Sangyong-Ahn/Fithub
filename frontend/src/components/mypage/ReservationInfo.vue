@@ -36,15 +36,15 @@
               <span v-if="match.timeInfo.friday">금 </span>
               <span v-if="match.timeInfo.saturday">토 </span>
             </div>
-            {{ match.timeInfo.startTime }} ~ {{ match.timeInfo.endTime }}
+            {{ match.timeInfo.startTime.slice(0, -3) }} ~ {{ match.timeInfo.endTime.slice(0, -3) }}
           </td>
           <td>{{ match.mentorInfo.name }}</td>
-          <td>{{ match.timeInfo.price }}원</td>
+          <td>{{ match.timeInfo.price.toLocaleString() }}원</td>
           <td>{{ match.timeInfo.reserveNum }} / {{ match.timeInfo.capacity }}</td>
           <td><button class="btn btn-outline-danger" @click="cancelMatch(match.id)">취소</button></td>
           <td>
             <router-link :to="{ name: 'programDetail', params: { id: match.programInfo.id }}">
-              <button class="btn btn-outline-secondary">작성하러 가기</button>
+              <button class="btn btn-outline-secondary">작성</button>
             </router-link>
           </td>
         </tr>
@@ -88,9 +88,5 @@ table {
 th, td {
   border: 1px solid #ddd;
   padding: 8px;
-}
-
-th {
-  background-color: #f2f2f2;
 }
 </style>

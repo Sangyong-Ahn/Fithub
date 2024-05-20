@@ -5,7 +5,7 @@
         <nav class="col-2">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
-              <li class="nav-item mt-5 pt-5">
+              <li class="nav-item mt-5">
                 <a class="nav-link border text-secondary" @click="changeTab('user')" :class="{ active: activeTab === 'user' }">내 정보</a>
               </li>
               <li class="nav-item">
@@ -17,7 +17,7 @@
             </ul>
           </div>
         </nav>
-        <div class="col-8 m-0">
+        <div class="col-9 m-0">
           <div class="d-flex justify-content-center">
             <div class="w-100">
               <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -77,3 +77,21 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+.nav-link {
+  color:white !important
+}
+.active {
+  color: lightgreen !important;
+}
+
+.nav {
+  padding-top: 20px;
+}
+.nav-item {
+  background-color: black;
+}
+
+</style>

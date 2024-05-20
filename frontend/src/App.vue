@@ -89,4 +89,16 @@ body {
   background-color: rgb(18, 18, 18) !important;
 }
 
+th {
+  background-color: var(--bs-body-bg);
+}
+td {
+  background-color: black;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
 </style>
