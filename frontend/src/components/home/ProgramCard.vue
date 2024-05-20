@@ -32,6 +32,7 @@ new Promise((resolve)=>{
   }
 }).then(()=>{
   bgStyle['background-image'] =`linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url('${imgUrl}')`
+  bgStyle['background-size'] = '100% 100%';
 })
 
 const currentDate = new Date();

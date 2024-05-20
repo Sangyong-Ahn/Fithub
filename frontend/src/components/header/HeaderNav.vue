@@ -6,7 +6,7 @@
       <div class="col-10">
         <nav class="navbar navbar-expand-md py-5">
           <div class="container-fluid">
-            <RouterLink class="navbar-brand" :to="{name: 'home'}">Fithub</RouterLink>
+            <RouterLink class="navbar-brand" :to="{name: 'home'}"><img src="@/assets/common/logo.png" height="60px"></RouterLink>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -91,4 +91,7 @@ const resetInput = function() {
 </script>
 
 <style scoped>
+li {
+  margin-left: 6px;
+}
 </style>

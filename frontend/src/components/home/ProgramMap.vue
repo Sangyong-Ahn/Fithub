@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="map" style="width:100%; height:800px"></div>
+        <div id="map" style="width:100%; height:820px; border-radius: 5px;"></div>
     </div>
 </template>
 
@@ -59,6 +59,7 @@ function clickEvent(program){
 
 <style>
 .marker {
+    color: black;
     background-color: white;
     border: 1px solid gray;
     border-radius: 5px;
