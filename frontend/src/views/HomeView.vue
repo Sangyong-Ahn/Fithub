@@ -4,14 +4,14 @@
     <div class="row">
       <div class="col-2"></div>
       <div class="col-8">
-        <div class="accordion-item border rounded-3 p-2 pb-4 mb-4" id="condition-area">
+        <div class="accordion-item border rounded-3 pb-1 mb-4" id="condition-area">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              검색 필터
+            <button class="accordion-button text-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <img src="@/assets/common/filter.png" id="filter-clicker" class="m-1">
             </button>
           </h2>
-          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#filter-accordion">
-            <div class="accordion-body px-3">
+          <div id="collapseOne" class="accordion-collapse collapse show mb-3" data-bs-parent="#filter-accordion">
+            <div class="accordion-body px-4">
               <SearchFilter />
             </div>
           </div>
@@ -66,4 +66,9 @@ onMounted(() => {
   background-color: black;
   border-radius: 5px;
 }
+
+#filter-clicker {
+  height: 30px;
+}
+
 </style>
