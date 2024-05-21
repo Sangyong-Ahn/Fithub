@@ -65,6 +65,7 @@ function clickEvent(program){
     border-radius: 5px;
     padding: 5px;
     z-index: -1;
+    word-break: keep-all;
 }
 .marker-pin {
     position: absolute;
