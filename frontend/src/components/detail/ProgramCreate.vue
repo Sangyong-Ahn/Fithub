@@ -56,7 +56,7 @@
               <label class="form-label">시간대 {{ index + 1 }}</label> 
               <span class="mx-2">
                 <input type="checkbox" class="btn-check" name="day">
-                <label class="btn btn-sm btn-outline-secondary rounded-3" style="border: 1px solid gray" @click="selectAllDays(index)">All</label>
+                <label class="btn btn-sm btn-outline-secondary rounded-3" style="border: 1px solid gray; word-break: keep-all;" @click="selectAllDays(index)">All</label>
               </span>
               <div class="d-flex align-items-center">
                 <!-- 요일 버튼 -->
