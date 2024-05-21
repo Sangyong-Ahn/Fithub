@@ -36,12 +36,15 @@ watch(route, (newRoute, oldRoute)=>{
   background-color: black;
   color:lightgreen;
 }
+.btn:hover {
+  border-color: lightgreen !important;
+  color:lightgreen !important;
+  background-color: gray !important;
+}
 
 .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active .btn:hover {
-  border-color: lightgreen;
-  background-color: gray;
-
-  color:white;
+  background-color: lightgreen;
+  color:black;
 }
 
 .btn:hover {

@@ -6,7 +6,7 @@
     <div class="exercise-grid">
       <div class="exercise-item" v-for="category in categoryStore.categoryList" :key="category.id">
         <input type="radio" class="btn-check" :id="'btnradio' + category.id" name="exercise" v-model="categoryId" :value="category.id">
-        <label class="btn btn-outline-secondary btn-category" :for="'btnradio' + category.id">
+        <label class="btn btn-category" :for="'btnradio' + category.id">
           <img :src="getImagePath(category.id)">
         </label>
         <p style="font-size:12px">{{ category.name }}</p>
@@ -21,11 +21,11 @@
       <div class="row">
         <div class="col-md-3 col-lg-1 py-1" v-for="(day, index) in days" :key="index">
           <input type="checkbox" class="btn-check " :id="'btncheckbox' + index" name="day" v-model="isSelected[index]" :value="day">
-          <label class="btn btn-sm btn-outline-secondary rounded-5" :for="'btncheckbox' + index">{{ day }}</label>
+          <label class="btn btn-sm rounded-5" :for="'btncheckbox' + index">{{ day }}</label>
         </div>
         <div class="col-md-3 col-lg-1 py-1">
           <input type="checkbox" class="btn-check" name="day">
-          <label class="btn btn-sm btn-outline-secondary rounded-5" style="border: 1px solid gray; word-break: keep-all;" @click="selectAllDays">All</label>
+          <label class="btn btn-sm rounded-5" style="border: 1px solid gray; word-break: keep-all;" @click="selectAllDays">All</label>
         </div>
       </div>
       
@@ -51,7 +51,7 @@
       <p class="d-flex my-3 mb-0">3. 거리 범위 선택</p>
       <small class="ms-3 mb-3" style="color:gray">(내 위치를 기준으로 검색하시려면 로그인이 필요합니다)</small>
       <div class="mt-3 btn-group btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
-        <label class="btn btn-outline-secondary rounded-pill mx-2 my-1" v-for="(distance, index) in distances" :key="distance.value" :class="{ active: distance.value === selectedDistance }">
+        <label class="btn rounded-pill mx-2 my-1" v-for="(distance, index) in distances" :key="distance.value" :class="{ active: distance.value === selectedDistance }">
           <input type="radio" class="button-check visually-hidden" name="distance" :value="distance.value" v-model="selectedDistance">
           <span class="button-style">{{ distance.label }}</span>
         </label>
@@ -60,8 +60,8 @@
   </div>
 
   <div class="d-flex justify-content-center mt-5">
-    <button class="btn btn-outline-secondary rounded-5 me-4" @click="resetFilters">초기화</button>
-    <button class="btn btn-outline-secondary rounded-5" @click="programSearch" type="submit">검색하기</button>
+    <button class="btn rounded-5 me-4" @click="resetFilters">초기화</button>
+    <button class="btn rounded-5" @click="programSearch" type="submit">검색하기</button>
   </div>
   </div>
 </template>

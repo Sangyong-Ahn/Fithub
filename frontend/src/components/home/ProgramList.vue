@@ -3,16 +3,16 @@
         <div class="mb-1 d-flex">
             <div class="p-3 w-100" id="filter-area">
                 <input type="radio" class="btn-check" name="sortOptions" id="newest" value="newest" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
-                <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="newest">최신순</label>
+                <label class="btn btn-sm rounded-5 mx-2" for="newest">최신순</label>
 
                 <input type="radio" class="btn-check" name="sortOptions" id="lowestPrice" value="lowestPrice" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
-                <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="lowestPrice">가격 낮은순</label>
+                <label class="btn btn-sm rounded-5 mx-2" for="lowestPrice">가격 낮은순</label>
 
                 <input type="radio" class="btn-check" name="sortOptions" id="highestRating" value="highestRating" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
-                <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="highestRating">별점 높은순</label>
+                <label class="btn btn-sm rounded-5 mx-2" for="highestRating">별점 높은순</label>
 
                 <input type="radio" class="btn-check" name="sortOptions" id="fastestReserve" value="fastestReserve" autocomplete="off" v-model="selectedSort" @change="sortPrograms">
-                <label class="btn btn-outline-secondary btn-sm rounded-5 mx-2" for="fastestReserve">예약 오픈순</label>
+                <label class="btn btn-sm rounded-5 mx-2" for="fastestReserve">예약 오픈순</label>
             </div>
         </div>
         <div class="border scrollbar">
