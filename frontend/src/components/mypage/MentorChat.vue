@@ -1,8 +1,11 @@
 <template>
-  <div class="w-50">
-    <h4 class="text-center my-5">채팅방 목록</h4>
-    <div v-for="chatRoom in userStore.chatRooms" :key="chatRoom.id" class="d-flex justify-content-around border rounded-5 py-3 my-5">
-        <div>{{ chatRoom.name }}님 과의 채팅</div>
+  <div class="w-50 mb-5">
+    <h4 class="text-center mb-4">채팅방 목록</h4>
+    <div v-for="chatRoom in userStore.chatRooms" :key="chatRoom.id" class="d-flex justify-content-around border rounded-5 py-3 px-4 my-2" style="background-color: #040404;">
+        <div class="flex-grow-1">
+          <img class="border rounded-5 me-2" src="@/assets/common/thumbnail-demo.jpg" style="width:30px; height:30px; object-fit: cover;">  
+          {{ chatRoom.name }}님 과의 채팅
+        </div>
         <button @click="openChatRoom(chatRoom)" class="btn btn-sm btn-primary">채팅하기</button>
     </div>
 
