@@ -83,7 +83,7 @@ const goBack = function() {
   width: 100%;
   height: 750px;
   overflow-y: scroll; /*  */
-  background-color: black;
+  background-color: #040404;
   border-radius: 5px;
   border: 1px solid lightgreen !important;
 }
@@ -104,7 +104,7 @@ const goBack = function() {
 
 #filter-area {
     border-radius: 5px;
-    background-color: black;
+    background-color: #040404;
     border: 1px solid gray;
 }
 

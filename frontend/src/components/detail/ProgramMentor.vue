@@ -82,4 +82,10 @@ const openReviewModal = function () {
 .stars .filled {
   color: gold;
 }
+
+.btn {
+  color: white;
+  border: 1px solid gray;
+}
+
 </style>

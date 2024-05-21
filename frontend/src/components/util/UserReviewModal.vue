@@ -96,14 +96,17 @@ color: gold;
 width: 100%;
 box-sizing: border-box;
 margin: 15px 0;
-background: #F3F4F8;
 border: 0;
 border-radius: 10px;
 height: 200px;
 resize: none;
 padding: 15px;
 font-size: 15px;
-font-family: sans-serif;
+}
+
+textarea:focus {
+  
+  outline: 1px solid lightgreen;
 }
 
 .submitBtn {
