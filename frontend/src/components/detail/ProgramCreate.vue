@@ -145,7 +145,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, computed, watch } from 'vue';
 import { useCategoryStore } from '@/stores/categoryStore';
 import { useProgramStore } from '@/stores/programStore';
 import { useUserStore } from '@/stores/userStore';
@@ -172,6 +172,33 @@ const longitude = ref(userStore.loginUser.longitude);
 // 카테고리 관련 상태 변수
 const categories = computed(() => categoryStore.categoryList); // 카테고리 목록
 const selectedCategory = ref('운동을 선택하세요'); // 선택된 카테
+
+watch(()=> categoryId.value, () => { // sample youtube link
+  let link = "";
+  switch(categoryId.value){
+    case 1: link='https://www.youtube.com/watch?v=1hVvgD_AG0k'; break;
+    case 2: link='https://www.youtube.com/watch?v=RMyfEJkBa88'; break;
+    case 3: link='https://www.youtube.com/watch?v=Vblc9NWuHwY'; break;
+    case 4: link='https://www.youtube.com/watch?v=pHYDdu20M_s'; break;
+    case 5: link='https://www.youtube.com/watch?v=m6jMnV4oICo'; break;
+    case 6: link='https://www.youtube.com/watch?v=_Lvxpj9oP8I'; break;
+    case 7: link='https://www.youtube.com/watch?v=JYJ4HpE2iXg'; break;
+    case 8: link='https://www.youtube.com/watch?v=ocoJnbADSoY'; break;
+    case 9: link='https://www.youtube.com/watch?v=MC-5wq17tAg'; break;
+    case 10: link='https://www.youtube.com/watch?v=Y1xasxEruqg'; break;
+    case 11: link='https://www.youtube.com/watch?v=9j02uBagHUs'; break;
+    case 12: link='https://www.youtube.com/watch?v=8MGbHuO9CTw'; break;
+    case 13: link='https://www.youtube.com/watch?v=jHCHZEka2jE'; break;
+    case 14: link='https://www.youtube.com/watch?v=8YR-B7FL43E'; break;
+    case 16: link='https://www.youtube.com/watch?v=iq2x5M-4b3g'; break;
+    case 17: link='https://www.youtube.com/watch?v=Tk0bWa0MJtA'; break;
+    case 18: link='https://www.youtube.com/watch?v=wmxDBtQD2xU'; break;
+    case 19: link='https://www.youtube.com/watch?v=YM1r5JhEo7I'; break;
+    case 20: link='https://www.youtube.com/watch?v=lonNlRU78Zg'; break;
+  }
+
+  youtubeUrl.value = link;
+})
 
 // 요일 정보
 const days = [
