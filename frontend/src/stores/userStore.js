@@ -1,4 +1,5 @@
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { defineStore } from "pinia";
 import axios from 'axios';
 
@@ -9,7 +10,7 @@ const MENTOR_REST_API = `http://localhost:8080/mentor`;
 const CHAT_REST_API = `http://localhost:8080/chat`
 
 export const useUserStore = defineStore("user", () => {
-  const chatStore = useChatStore();
+  const router = useRouter();
 
   const loginUser = ref(null);
   const isUser = ref(false);
@@ -93,6 +94,7 @@ export const useUserStore = defineStore("user", () => {
         loginUser.value = null;
       });
     }
+    router.push({ name: 'home' });
   };
 
   const userCreate = function (user) {
@@ -174,7 +176,7 @@ export const useUserStore = defineStore("user", () => {
 
   const insertMentorChat = function (chat) {
     console.log(chat)
-    axios.post(CHAT_REST_API, chat)
+    return axios.post(CHAT_REST_API, chat)
       .then((response) => {
         getChatRooms(chat.mentorId)
         chatRoom.value.chats.push(response.data)
