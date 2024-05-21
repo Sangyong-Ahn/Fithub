@@ -37,7 +37,7 @@
                         <ProgramVideo />
                     </div>
                     <div class="d-flex justify-content-center">
-                        <div class="border mb-5 rounded-4 bg-light">
+                        <div class="border mb-5 rounded-4 bg-light w-50">
                             <h4 class="m-3" id="mentorInfo">멘토 정보</h4>
                             <ProgramMentor />
                         </div>

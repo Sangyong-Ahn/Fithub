@@ -11,13 +11,13 @@
           <div>{{ mentorInfo.reviewAvgScore.toFixed(1) }} ({{ mentorInfo.reviews.length }})</div>
         </div>
         <div class="d-flex justify-content-center">
-          <div class="border border-3 rounded-4 w-75 my-3 p-3" style="height:200px;">
+          <div class="border border-3 rounded-4 w-75 my-3 p-3" style="min-height:200px;">
             개인 소개글 나오는 부분{{ mentorInfo.content }}
           </div>
         </div>
         <div class="d-flex justify-content-center gap-5 my-3">
           <button class="btn btn-outline-secondary btn-lg px-5" @click="openReviewModal">후기 작성</button>
-          <button class="btn btn-outline-secondary btn-lg px-5" @click="openChatModal">문의하기</button>
+          <button class="btn btn-outline-secondary btn-lg px-5" @click="openChatModal">채팅</button>
         </div>
       </div>
     </div>
