@@ -49,7 +49,7 @@
                         <span v-if="time.saturday">토 </span>
                         <span v-if="time.sunday">일 </span>
                       </td>
-                      <td :rowspan="time.users.length">{{ time.startTime.slice(0, -3) }} ddd~ {{ time.endTime.slice(0, -3) }}</td>
+                      <td :rowspan="time.users.length">{{ time.startTime }} ~ {{ time.endTime }}</td>
                       <td :rowspan="time.users.length">{{ time.reserveNum }} / {{ time.capacity }}</td>
                     </template>
                     <td>{{ user.name }}</td>
