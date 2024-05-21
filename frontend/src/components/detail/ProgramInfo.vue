@@ -112,7 +112,7 @@ new Promise((resolve)=>{
   img.src = imgUrl;
   img.onload = () => resolve()
   img.onerror = () => {
-    imgUrl = `/src/assets/common/${store.program.id}.jpg`
+    imgUrl = `/src/assets/common/sports/thumbnail/${store.program.id}.jpg`
     resolve();
   }
 })
@@ -195,6 +195,7 @@ watch(() => matchStore.matchList, (newMatchList, oldMatchList) => {
 img {
   width: 250px;
   object-fit: contain;
+  border: 1px solid black !important;
 }
 .custom-width {
   width: 60%;

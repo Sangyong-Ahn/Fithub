@@ -26,7 +26,7 @@ new Promise((resolve)=>{
   img.src = imgUrl;
   img.onload = () => resolve()
   img.onerror = () => {
-    imgUrl = `/src/assets/common/${props.program.id}.jpg`
+    imgUrl = `/src/assets/common/sports/thumbnail/${props.program.id}.jpg`
     resolve();
   }
 }).then(()=>{
@@ -70,7 +70,8 @@ img {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  color:white
+  color:white;
+  border: 1px solid black;
 }
 
 .card-text {
