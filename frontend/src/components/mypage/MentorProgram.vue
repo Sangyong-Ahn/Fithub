@@ -2,7 +2,7 @@
   <div class="w-100 m-3">
     <h4 class="mb-4">프로그램 리스트</h4>
     <div class="accordion" id="programAccordion">
-      <div v-for="program in mentorPrograms" :key="program.id" class="accordion-item">
+      <div v-for="program in programStore.mentorPrograms" :key="program.id" class="accordion-item">
         <span class="accordion-header" :id="'heading' + program.id">
             <div class="program-info p-3" data-bs-toggle="collapse" :data-bs-target="'#collapse' + program.id" aria-expanded="true" :aria-controls="'collapse' + program.id">
               <div class="fs-6">{{ program.title }}</div>
@@ -61,7 +61,7 @@
           </div>
         </div>
       </div>
-      <div v-if="mentorPrograms && mentorPrograms.length === 0" class="accordion-item">
+      <div v-if="programStore.mentorPrograms && programStore.mentorPrograms.length === 0" class="accordion-item">
         <span>
           <button class="accordion-button" type="button" disabled>
             프로그램이 없습니다.
@@ -77,12 +77,13 @@ import { onMounted } from 'vue';
 import { useProgramStore } from '@/stores/programStore';
 import { useUserStore } from '@/stores/userStore';
 
-const { mentorPrograms, getMentorPrograms } = useProgramStore();
+const programStore = useProgramStore();
 const { loginUser, isMentor } = useUserStore();
 
 onMounted(async () => {
   if (isMentor && loginUser && loginUser.id) {
-    await getMentorPrograms(loginUser.id);
+    console.log("mount")
+    await programStore.getMentorPrograms(loginUser.id);
   }
 });
 

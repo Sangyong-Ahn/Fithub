@@ -3,8 +3,6 @@ import { useRouter } from 'vue-router';
 import { defineStore } from "pinia";
 import axios from 'axios';
 
-import { useChatStore } from './chatStore';
-
 const USER_REST_API = `http://localhost:8080/user`;
 const MENTOR_REST_API = `http://localhost:8080/mentor`;
 const CHAT_REST_API = `http://localhost:8080/chat`
@@ -64,7 +62,7 @@ export const useUserStore = defineStore("user", () => {
       isMentor.value = true;
       loginUser.value = response.data;
       errMsg.value = '';
-      
+
       sessionStorage.setItem('accessToken', response.data["accessToken"]);
       sessionStorage.setItem('loginUser', JSON.stringify(loginUser.value));
       sessionStorage.setItem('isUser', isUser.value);
