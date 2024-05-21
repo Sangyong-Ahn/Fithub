@@ -112,7 +112,7 @@ new Promise((resolve)=>{
   img.src = imgUrl;
   img.onload = () => resolve()
   img.onerror = () => {
-    imgUrl = `/src/assets/common/thumbnail/${store.program.id}.jpg`
+    imgUrl = `/src/assets/common/sports/thumbnail/${store.program.id}.jpg`
     resolve();
   }
 })

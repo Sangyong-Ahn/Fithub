@@ -26,7 +26,7 @@ new Promise((resolve)=>{
   img.src = imgUrl;
   img.onload = () => resolve()
   img.onerror = () => {
-    imgUrl = `/src/assets/common/thumbnail/${props.program.id}.jpg`
+    imgUrl = `/src/assets/common/sports/thumbnail/${props.program.id}.jpg`
     resolve();
   }
 }).then(()=>{
