@@ -101,4 +101,8 @@ th, td {
   padding: 8px;
 }
 
+* { 
+  word-break: break-all;
+}
+
 </style>
