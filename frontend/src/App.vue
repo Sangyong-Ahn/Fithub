@@ -90,15 +90,15 @@ body {
 }
 
 th {
-  background-color: var(--bs-body-bg);
+  background-color: var(--bs-body-bg) !important;
 }
 td {
-  background-color: black;
+  background-color: black !important;
 }
 
 th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  border: 1px solid #ddd !important;
+  padding: 8px !important;
 }
 
 </style>

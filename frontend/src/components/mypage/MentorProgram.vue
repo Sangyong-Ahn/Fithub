@@ -3,15 +3,13 @@
     <h4 class="mb-4">프로그램 리스트</h4>
     <div class="accordion" id="programAccordion">
       <div v-for="program in mentorPrograms" :key="program.id" class="accordion-item">
-        <h2 class="accordion-header" :id="'heading' + program.id">
-          <button class="" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + program.id" aria-expanded="true" :aria-controls="'collapse' + program.id">
-            <div class="program-info">
+        <span class="accordion-header" :id="'heading' + program.id">
+            <div class="program-info p-3" data-bs-toggle="collapse" :data-bs-target="'#collapse' + program.id" aria-expanded="true" :aria-controls="'collapse' + program.id">
               <div class="fs-6">{{ program.title }}</div>
               <div class="fs-6">{{ formatDate(program.programStartDate) }} ~ {{ formatDate(program.programEndDate) }}</div>
               <div class="fs-6">인원: {{ calculateTotalReservations(program.times) }} / {{ calculateTotalCapacity(program.times) }}</div>
             </div>
-          </button>
-        </h2>
+        </span>
         <div :id="'collapse' + program.id" class="accordion-collapse collapse" :aria-labelledby="'heading' + program.id" data-bs-parent="#programAccordion">
           <div class="accordion-body">
             <table class="table">
@@ -51,7 +49,7 @@
                         <span v-if="time.saturday">토 </span>
                         <span v-if="time.sunday">일 </span>
                       </td>
-                      <td :rowspan="time.users.length">{{ time.startTime }} ~ {{ time.endTime }}</td>
+                      <td :rowspan="time.users.length">{{ time.startTime.slice(0, -3) }} ddd~ {{ time.endTime.slice(0, -3) }}</td>
                       <td :rowspan="time.users.length">{{ time.reserveNum }} / {{ time.capacity }}</td>
                     </template>
                     <td>{{ user.name }}</td>
@@ -64,11 +62,11 @@
         </div>
       </div>
       <div v-if="mentorPrograms && mentorPrograms.length === 0" class="accordion-item">
-        <h2 class="accordion-header">
+        <span>
           <button class="accordion-button" type="button" disabled>
             프로그램이 없습니다.
           </button>
-        </h2>
+        </span>
       </div>
     </div>
   </div>
@@ -107,7 +105,7 @@ const calculateTotalCapacity = (times) => {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
-  width:100%
+  text-align: center;
 }
 
 .program-title {
@@ -116,6 +114,11 @@ const calculateTotalCapacity = (times) => {
 
 .program-date {
   color: gray;
+}
+
+th {
+  /* border: 1px solid lightgreen !important */
+  background-color: #121212 !important;
 }
 
 </style>
