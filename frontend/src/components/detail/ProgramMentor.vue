@@ -2,7 +2,7 @@
   <div>
     <div>
       <div v-if="mentorInfo" class="text-center border m-3 rounded-4 bg-white p-3">
-        <img class="border m-3 mb-0" src="@/assets/common/thumbnail-demo.jpg" style="border-radius:50%; width:100px; height:100px; object-fit: cover;">
+        <img class="border m-3 mb-0" src="@/assets/common/profile-demo.png" style="border-radius:50%; width:100px; height:100px; object-fit: cover;">
         <div class="fs-5">{{ mentorInfo.name }} 멘토</div>
         <div class="d-flex justify-content-center align-items-center">
           <div class="stars me-2">

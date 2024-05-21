@@ -3,7 +3,7 @@
     <h4 class="text-center mb-4">채팅방 목록</h4>
     <div v-for="chatRoom in userStore.chatRooms" :key="chatRoom.id" class="d-flex justify-content-around border rounded-5 py-3 px-4 my-2" style="background-color: #040404;">
         <div class="flex-grow-1">
-          <img class="border rounded-5 me-2" src="@/assets/common/thumbnail-demo.jpg" style="width:30px; height:30px; object-fit: cover;">  
+          <img class="border rounded-5 me-2" src="@/assets/common/profile-demo.png" style="width:30px; height:30px; object-fit: cover;">  
           {{ chatRoom.name }}님 과의 채팅
         </div>
         <button @click="openChatRoom(chatRoom)" class="btn btn-sm btn-primary">채팅하기</button>
@@ -33,7 +33,7 @@
               </div>
               <div v-else class="row mb-3">
                 <div class="d-flex" style="max-width: 70%;">
-                  <img class="border border-2" src="@/assets/common/thumbnail-demo.jpg" style="border-radius:50%; width:40px; height:40px;">
+                  <img class="border border-2" src="@/assets/common/profile-demo.png" style="border-radius:50%; width:40px; height:40px;">
                   <div class="mx-2">
                     <div class="text-start" style="font-size:13px; color:gray">{{ new Date(chat.createdAt).toLocaleString() }}</div>
                     <div class="border rounded-4 bg-white px-3 py-2" style="display: inline-block; word-wrap: break-word; border: 1px solid white !important">
