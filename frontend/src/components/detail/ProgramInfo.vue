@@ -198,4 +198,8 @@ img {
   width: 60%;
   min-height: 150px;
 }
+.bg-success {
+    background-color: lightgreen !important;
+}
+
 </style>
