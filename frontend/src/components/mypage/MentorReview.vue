@@ -26,7 +26,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="border rounded-4 text-start p-3 mx-5 mb-3">
+                    <div class="border rounded-4 text-start p-3 mx-5 mb-3" style="word-break: break-all;">
                         {{ review.content }}
                     </div>
                 </div>
