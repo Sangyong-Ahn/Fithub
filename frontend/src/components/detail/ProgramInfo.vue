@@ -110,8 +110,10 @@ const img = new Image();
 
 new Promise((resolve)=>{
   img.src = imgUrl;
+  img.onload = () => resolve()
   img.onerror = () => {
-    imgUrl = '/src/assets/common/thumbnail-demo.jpg'
+    imgUrl = `/src/assets/common/${store.program.id}.jpg`
+    resolve();
   }
 })
 

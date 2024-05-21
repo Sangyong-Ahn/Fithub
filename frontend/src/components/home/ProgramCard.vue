@@ -26,8 +26,7 @@ new Promise((resolve)=>{
   img.src = imgUrl;
   img.onload = () => resolve()
   img.onerror = () => {
-    // console.error("Nonvalid Thumbnail Image Url")
-    imgUrl = '/src/assets/common/thumbnail-demo.jpg'
+    imgUrl = `/src/assets/common/${props.program.id}.jpg`
     resolve();
   }
 }).then(()=>{
