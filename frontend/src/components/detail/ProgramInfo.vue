@@ -10,7 +10,7 @@
     </div>
     <!-- 내용 -->
     <div class="d-flex justify-content-around m-3 mt-0">
-      <img class="border rounded-4" :src="imgUrl" />
+      <img class="border rounded-4" :src="imgUrl" @error="handleImageError" />
       <div class="border rounded-4 custom-width">
         <div v-for="time in computedTimes" :key="time.id">
           <div class="d-flex mx-4 mt-3 mb-2">
@@ -105,17 +105,20 @@ const userStore = useUserStore()
 const matchStore = useMatchStore()
 const route = useRoute();
 
-let imgUrl = store.program.thumbnail;
-const img = new Image();
+const imgUrl = ref('');
 
-new Promise((resolve)=>{
-  img.src = imgUrl;
-  img.onload = () => resolve()
-  img.onerror = () => {
-    imgUrl = `/src/assets/sports/thumbnail/${store.program.categoryId}.jpg`
-    resolve();
+const loadImage = () => {
+  const img = new Image();
+  img.src = store.program.thumbnail;
+
+  img.onload = () => {
+    imgUrl.value = store.program.thumbnail;
   }
-})
+
+  img.onerror = () => {
+    imgUrl.value = `/src/assets/sports/thumbnail/${store.program.categoryId}.jpg`;
+  }
+}
 
 const computedTimes = computed(() => {
   if (!store.program.times) return store.program.times;
@@ -137,7 +140,9 @@ const computedTimes = computed(() => {
 })
 
 onMounted(() => {
-  store.getProgram(route.params.id)
+  store.getProgram(route.params.id).then(() => {
+    loadImage();
+  });
 })
 
 const getDate = function(dateString) {
