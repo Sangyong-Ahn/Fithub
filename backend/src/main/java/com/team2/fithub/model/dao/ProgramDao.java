@@ -25,9 +25,10 @@ public interface ProgramDao {
 //    
     List<Program> selectAllProgram();
 //    
-//    List<Program> selectProgramsByMentorId(int mentorId);
+    List<Program> selectProgramsByMentorId(int mentorId);
     
     List<Program> searchProgram(SearchCondition condition);
     
     int deleteProgram(int id);
+    
 }

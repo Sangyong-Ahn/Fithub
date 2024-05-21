@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team2.fithub.model.dao.ProgramDao">
+
+	<insert id="insertProgram" parameterType="Program" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO program (
+			mentorId, categoryId, title, reservationStartDate, reservationEndDate,
+			programStartDate, programEndDate, thumbnail, content, youtubeUrl,
+			latitude, longitude
+		)
+		VALUES (
+			#{mentorId}, #{categoryId}, #{title}, #{reservationStartDate}, #{reservationEndDate},
+			#{programStartDate}, #{programEndDate}, #{thumbnail}, #{content}, #{youtubeUrl},
+			#{latitude}, #{longitude}
+		)
+	</insert>
+	
+	<update id="updateProgramThumbnailSavePath" parameterType="map">
+	    UPDATE program
+	    SET thumbnailSavePath = #{thumbnailSavePath}
+	    WHERE id = #{id}
+	</update>
+	
+	<update id="updateProgramThumbnail" parameterType="map">
+	    UPDATE program
+	    SET thumbnail = #{thumbnail}
+	    WHERE id = #{id}
+	</update>
+	
+	<select id="selectProgramThumbnailPath" parameterType="int" resultType="string">
+	    SELECT thumbnailSavePath
+	    FROM program
+	    WHERE id = #{id}
+	</select>
+	
+	<select id="selectProgram" resultType="Program">
+		SELECT * FROM program
+		WHERE id = #{id}
+	</select>
+	
+	 <select id="selectProgramByTimeId" parameterType="int" resultType="Program">
+        SELECT p.*
+        FROM program p
+        JOIN time t ON p.id = t.programId
+        WHERE t.id = #{timeId}
+    </select>
+	
+	<select id="selectAllProgram" resultType="Program">
+		SELECT * FROM program
+	</select>
+	
+	<!-- 프로그램 검색 -->
+	<select id="searchProgram" parameterType="SearchCondition" resultType="Program">
+	    SELECT p.*
+	    FROM Program p
+	    JOIN (
+	        SELECT DISTINCT programId
+	        FROM Time
+	        WHERE 
+	            <if test="not sunday"> sunday = 0 AND</if>
+	            <if test="not monday"> monday = 0 AND</if>
+	            <if test="not tuesday"> tuesday = 0 AND</if>
+	            <if test="not wednesday"> wednesday = 0 AND</if>
+	            <if test="not thursday"> thursday = 0 AND</if>
+	            <if test="not friday"> friday = 0 AND</if>
+	            <if test="not saturday"> saturday = 0 AND</if>
+	            startTime <![CDATA[ >= ]]> #{convertedStartTime} AND endTime <![CDATA[ <= ]]> #{convertedEndTime}
+	    ) AS filteredPrograms ON p.id = filteredPrograms.programId
+	    WHERE 
+	        1=1 <!-- Always true condition to ensure WHERE clause is valid even when no other conditions are present -->
+	        <if test="categoryId != null and categoryId != 0">
+	            AND p.categoryId = #{categoryId}
+	        </if>
+	        <if test="distance != null and distance != 0">
+	            AND (
+	            6371000 * acos(
+	                cos(radians(#{latitude})) * cos(radians(latitude)) * cos(radians(longitude) - radians(#{longitude})) +
+	                sin(radians(#{latitude})) * sin(radians(latitude))
+	            )
+	        ) <![CDATA[ <= ]]> #{distance}
+	        </if>
+	    ORDER BY #{order} #{direction}
+	</select>
+
+	<delete id="deleteProgram" parameterType="int">
+	    DELETE FROM program
+	    WHERE id = #{id}
+	</delete>
+
+	
+</mapper>

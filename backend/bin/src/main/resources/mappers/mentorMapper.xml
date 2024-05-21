@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team2.fithub.model.dao.MentorDao">
+
+	<insert id="insertMentor" parameterType="Mentor">
+		INSERT INTO mentor (email, password, name, dateOfBirth, gender, phoneNumber, latitude, longitude)
+		VALUES(#{email}, #{password}, #{name}, #{dateOfBirth}, #{gender}, #{phoneNumber}, #{latitude}, #{longitude})
+	</insert>
+	
+	<select id="selectMentorByEmail" parameterType="String" resultType="Mentor">
+		SELECT * FROM mentor
+		WHERE email = #{email}
+	</select>
+	
+	<select id="selectMentor" parameterType="int" resultType="Mentor">
+		SELECT * FROM mentor
+		WHERE id = #{id}
+	</select>
+	
+	<select id="selectAllMentor" resultType="Mentor">
+		SELECT * FROM mentor
+	</select>
+	
+	<update id="updateMentor" parameterType="Mentor">
+		UPDATE mentor 
+		SET password = #{password}, name = #{name}, phoneNumber = #{phoneNumber}, content = #{content}, latitude = #{latitude}, longitude = #{longitude}
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteMentor" parameterType="int">
+		DELETE FROM mentor
+		WHERE id = #{id}
+	</delete>
+</mapper>
