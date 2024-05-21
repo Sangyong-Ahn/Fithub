@@ -10,7 +10,7 @@
     </div>
     <!-- 내용 -->
     <div class="d-flex justify-content-around m-3 mt-0">
-      <img class="border rounded-4" :src="store.program.thumbnail" />
+      <img class="border rounded-4" :src="imgUrl" />
       <div class="border rounded-4 custom-width">
         <div v-for="time in computedTimes" :key="time.id">
           <div class="d-flex mx-4 mt-3 mb-2">
@@ -104,6 +104,16 @@ const store = useProgramStore()
 const userStore = useUserStore()
 const matchStore = useMatchStore()
 const route = useRoute();
+
+let imgUrl = store.program.thumbnail;
+const img = new Image();
+
+new Promise((resolve)=>{
+  img.src = imgUrl;
+  img.onerror = () => {
+    imgUrl = '/src/assets/common/thumbnail-demo.jpg'
+  }
+})
 
 const computedTimes = computed(() => {
   if (!store.program.times) return store.program.times;
