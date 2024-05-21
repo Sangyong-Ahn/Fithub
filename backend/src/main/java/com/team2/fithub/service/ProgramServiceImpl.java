@@ -137,8 +137,8 @@ public class ProgramServiceImpl implements ProgramService{
     }
 
 	@Override
-	public List<Program> getMentorProgram(int id) {
-		return programDao.selectProgramsByMentorId(id);
+	public List<Program> getMentorProgram(int mentorId) {
+		return programDao.selectProgramsByMentorId(mentorId);
 	}
 
 }

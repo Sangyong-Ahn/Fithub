@@ -198,12 +198,4 @@ public class ProgramRestController {
 		return new ResponseEntity<String>("Sorry: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@GetMapping("/mentor/{id}/programs")
-	public ResponseEntity<?> getMentorProgramList(@PathVariable("id") int id) {
-		List<Program> programs = ps.getMentorProgram(id);
-		if (programs == null || programs.size() == 0) {
-			return new ResponseEntity<>("등록 프로그램이 없습니다.", HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<>(programs, HttpStatus.OK);
-	}
 }

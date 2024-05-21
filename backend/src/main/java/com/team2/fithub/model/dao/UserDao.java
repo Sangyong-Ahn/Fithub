@@ -22,4 +22,6 @@ public interface UserDao {
 	// 회원탈퇴
 	int deleteUser(int id);
 	
+	// 타임 해당 유저 확인
+	List<User> selectUsersByTimeId(int timeId);
 }

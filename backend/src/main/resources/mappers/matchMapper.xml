@@ -24,4 +24,5 @@
 		DELETE FROM `match`
 		WHERE id = #{id}
 	</delete>
+	
 </mapper>

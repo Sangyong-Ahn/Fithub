@@ -24,5 +24,5 @@ public interface ProgramService {
 
 	int removeProgram(int id);
 	
-	List<Program> getMentorProgram(int id);
+	List<Program> getMentorProgram(int mentorId);
 }
