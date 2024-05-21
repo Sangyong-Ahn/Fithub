@@ -2,10 +2,11 @@ import { ref } from 'vue'
 import { defineStore } from "pinia";
 import axios from 'axios'
 
+import { useUserStore } from './userStore';
+
 const REST_API = `http://localhost:8080/chat`
 
 export const useChatStore = defineStore("chat", () => {
-
   const chatList = ref([])
 
   const getChatList = function (mentorId, userId) {
@@ -32,5 +33,7 @@ export const useChatStore = defineStore("chat", () => {
       });
   };
 
-  return { chatList, getChatList, insertChat };
+  
+
+  return { chatList, getChatList, insertChat};
 });

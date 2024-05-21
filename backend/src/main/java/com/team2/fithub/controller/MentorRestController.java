@@ -128,10 +128,13 @@ public class MentorRestController {
 
 	@GetMapping("/{id}/chat")
 	public ResponseEntity<?> mentorChats(@PathVariable("id") int id) {
-		Map<Integer, List<Chat>> chat = cs.findChatByMentor(id);
-		if (chat.isEmpty())
-			return new ResponseEntity<>(chat, HttpStatus.NOT_FOUND);
-		return new ResponseEntity<>(chat, HttpStatus.OK);
+		
+		List<User> users = us.findUserChatWithMentor(id);
+		for(User user : users) {
+			List<Chat> chats = cs.findChat(id, user.getId());
+			user.setChats(chats);
+		}
+		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}/review")

@@ -13,6 +13,8 @@ public interface UserService {
 	
 	List<User> findAllUser();
 	
+	List<User> findUserChatWithMentor(int mentorId);
+	
 	int modifyUser(User user);
 	
 	int removeUser(int id);

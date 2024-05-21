@@ -13,7 +13,7 @@
           <template v-for="chat in chatStore.chatList" :key="chat.id">
             <div v-if="chat.user" class="row justify-content-end mb-3">
               <div class="text-end" style="max-width: 70%;">
-                <div class="text-end" style="font-size:13px;">{{ new Date(chat.createdAt).toLocaleString() }}</div>
+                <div class="text-end" style="font-size:13px; color:gray">{{ new Date(chat.createdAt).toLocaleString() }}</div>
                 <div class="border rounded-4 bg-white px-3 py-2" style="display: inline-block; word-wrap: break-word;">
                   <div>{{ chat.content }}</div>
                 </div>
@@ -21,10 +21,10 @@
             </div>
             <div v-else class="row mb-3">
               <div class="d-flex" style="max-width: 70%;">
-                <img class="border border-2" src="@/assets/common/thumbnail-demo.jpg" style="border-radius:50%; width:40px; height:40px">
+                <img class="border border-2" src="@/assets/common/profile-demo.png" style="border-radius:50%; width:40px; height:40px;">
                 <div class="mx-2">
-                  <div class="text-start" style="font-size:13px;">{{ new Date(chat.createdAt).toLocaleString() }}</div>
-                  <div class="border rounded-4 bg-white px-3 py-2" style="word-wrap: break-word;">
+                  <div class="text-start" style="font-size:13px; color:gray">{{ new Date(chat.createdAt).toLocaleString() }}</div>
+                  <div class="border rounded-4 bg-white px-3 py-2" style="display: inline-block; word-wrap: break-word; border: 1px solid white !important">
                     <div>{{ chat.content }}</div>
                   </div>
                 </div>
@@ -37,7 +37,7 @@
         <div class="modal-footer justify-content-center">
           <div class="d-flex gap-2 align-items-center">
             <div>
-              <input type="text" v-model="content" class="form-control p-2" style="width: 400px" placeholder="Type your message...">
+              <input type="text" v-model="content" @keyup.enter="insertChat" class="form-control p-2" style="width: 400px" placeholder="Type your message...">
             </div>
             <div>
               <button @click="insertChat" type="button" class="btn btn-sm btn-outline-secondary">전송</button>

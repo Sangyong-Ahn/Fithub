@@ -63,6 +63,7 @@ const collapseFilter = () => {
 
 <style scoped>
 .accordion-item {
+  background-color: #040404;
   border-radius: 5px;
 }
 .accordion-button {

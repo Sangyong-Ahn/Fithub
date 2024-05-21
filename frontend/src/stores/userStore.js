@@ -1,11 +1,17 @@
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { defineStore } from "pinia";
 import axios from 'axios';
 
+import { useChatStore } from './chatStore';
+
 const USER_REST_API = `http://localhost:8080/user`;
 const MENTOR_REST_API = `http://localhost:8080/mentor`;
+const CHAT_REST_API = `http://localhost:8080/chat`
 
 export const useUserStore = defineStore("user", () => {
+  const router = useRouter();
+
   const loginUser = ref(null);
   const isUser = ref(false);
   const isMentor = ref(false);
@@ -88,6 +94,7 @@ export const useUserStore = defineStore("user", () => {
         loginUser.value = null;
       });
     }
+    router.push({ name: 'home' });
   };
 
   const userCreate = function (user) {
@@ -153,12 +160,38 @@ export const useUserStore = defineStore("user", () => {
       });
   };
 
+  const chatRooms = ref([])
+
+  const getChatRooms = function (id) {
+    axios.get(`${MENTOR_REST_API}/${id}/chat`)
+      .then((response) => {
+        chatRooms.value = response.data
+      })
+      .catch((error) => {
+        console.error('Failed to get chat rooms:', error);
+      });
+  }
+
+  const chatRoom = ref({})
+
+  const insertMentorChat = function (chat) {
+    console.log(chat)
+    return axios.post(CHAT_REST_API, chat)
+      .then((response) => {
+        getChatRooms(chat.mentorId)
+        chatRoom.value.chats.push(response.data)
+      })
+      .catch((error) => {
+        console.error('insert 실패');
+      });
+  };
+
 
   onMounted(loadSessionStorage);
 
   return {
     user, getUser, loginUser, isUser, isMentor, errMsg,
     userLogin, mentorLogin, logout, userCreate, mentorCreate, 
-    loadSessionStorage, updateUser, updateMentor
+    loadSessionStorage, updateUser, updateMentor, chatRooms, getChatRooms, chatRoom, insertMentorChat
   };
 });

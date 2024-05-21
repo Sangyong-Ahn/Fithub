@@ -25,7 +25,7 @@
         </div>
         <div class="col-md-3 col-lg-1 py-1">
           <input type="checkbox" class="btn-check" name="day">
-          <label class="btn btn-sm btn-outline-secondary rounded-5" style="border: 1px solid gray" @click="selectAllDays">All</label>
+          <label class="btn btn-sm btn-outline-secondary rounded-5" style="border: 1px solid gray; word-break: keep-all;" @click="selectAllDays">All</label>
         </div>
       </div>
       

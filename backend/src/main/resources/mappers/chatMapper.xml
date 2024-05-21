@@ -4,7 +4,7 @@
 
 <mapper namespace="com.team2.fithub.model.dao.ChatDao">
 
-	<insert id="insertChat" parameterType="Chat">
+	<insert id="insertChat" parameterType="Chat" useGeneratedKeys="true" keyProperty="id">
 	    INSERT INTO chat (mentorId, userId, content, isUser)
 	    VALUES (#{mentorId}, #{userId}, #{content}, #{isUser})
 	</insert>

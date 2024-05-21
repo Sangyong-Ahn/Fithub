@@ -1,6 +1,6 @@
 <template>
-    <div class="m-3 p-3 border rounded-4 bg-white">
-        {{ store.program.content }}
+    <div class="m-3 p-5 border rounded-4 bg-white">
+        <span v-html="content"></span>
     </div>
 </template>
 
@@ -8,10 +8,11 @@
 import { useProgramStore } from '@/stores/programStore';
 
 const store = useProgramStore();
+const content = store.program.content.replace(new RegExp('\r?\n','g'), '<br />')
 </script>
 
 <style scoped>
 div {
-    height: 400px
+    min-height: 400px
 }
 </style>
