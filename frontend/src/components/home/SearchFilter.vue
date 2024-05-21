@@ -77,7 +77,7 @@ const categoryStore = useCategoryStore()
 onMounted(() => {
   categoryStore.getCategoryList()
 })
-const getImagePath = (idx) => `src/assets/sports/${idx}.png`;
+const getImagePath = (idx) => `src/assets/sports/icon/${idx}.png`;
 
 const emit = defineEmits(["collapse"])
 
