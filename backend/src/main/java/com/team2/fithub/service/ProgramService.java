@@ -23,4 +23,6 @@ public interface ProgramService {
 	List<Program> searchProgram(SearchCondition condition);
 
 	int removeProgram(int id);
+	
+	List<Program> getMentorProgram(int mentorId);
 }

@@ -13,4 +13,5 @@ public interface MatchDao {
 	List<Match> selectMatchByUser(int userId);
 	
 	int deleteMatch(int id);
+	
 }

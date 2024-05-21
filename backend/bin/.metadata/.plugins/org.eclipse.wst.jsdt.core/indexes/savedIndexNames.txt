@@ -1,0 +1,2 @@
+INDEX VERSION 1.4+C:\Users\SSAFY\Desktop\fithub\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1370897866.index

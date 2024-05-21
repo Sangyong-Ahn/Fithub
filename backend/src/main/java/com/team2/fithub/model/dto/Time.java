@@ -1,5 +1,7 @@
 package com.team2.fithub.model.dto;
 
+import java.util.List;
+
 public class Time {
 	private int id;
     private int programId;
@@ -15,6 +17,8 @@ public class Time {
     private int price;
     private int capacity;
     private int reserveNum;
+    
+    private List<User> users;
 
     // 생성자
     public Time() {
@@ -131,5 +135,13 @@ public class Time {
 
 	public void setReserveNum(int reserveNum) {
 		this.reserveNum = reserveNum;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 }

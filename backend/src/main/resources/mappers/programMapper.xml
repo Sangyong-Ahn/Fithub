@@ -89,5 +89,10 @@
 	    WHERE id = #{id}
 	</delete>
 
+	 <select id="selectProgramsByMentorId" parameterType="int" resultType="Program">
+        SELECT *
+        FROM program
+        WHERE mentorId = #{mentorId}
+    </select>
 	
 </mapper>
