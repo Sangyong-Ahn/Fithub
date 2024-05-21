@@ -23,8 +23,8 @@
                 </tr>
               </thead>
               <tbody>
-                <template v-for="time in program.times" :key="time.id">
-                  <tr v-if="time.users.length === 0">
+                <template v-for="time in program.times">
+                  <tr v-if="time.users.length === 0" :key="time.id">
                     <td>
                       <span v-if="time.monday">월 </span>
                       <span v-if="time.tuesday">화 </span>
@@ -34,7 +34,7 @@
                       <span v-if="time.saturday">토 </span>
                       <span v-if="time.sunday">일 </span>
                     </td>
-                    <td>{{ time.startTime }} ~ {{ time.endTime }}</td>
+                    <td>{{ time.startTime.slice(0, -3) }} ~ {{ time.endTime.slice(0, -3) }}</td>
                     <td>{{ time.reserveNum }} / {{ time.capacity }}</td>
                     <td colspan="2">예약된 사용자가 없습니다</td>
                   </tr>
@@ -49,7 +49,7 @@
                         <span v-if="time.saturday">토 </span>
                         <span v-if="time.sunday">일 </span>
                       </td>
-                      <td :rowspan="time.users.length">{{ time.startTime }} ~ {{ time.endTime }}</td>
+                      <td :rowspan="time.users.length">{{ time.startTime.slice(0, -3) }} ~ {{ time.endTime.slice(0, -3) }}</td>
                       <td :rowspan="time.users.length">{{ time.reserveNum }} / {{ time.capacity }}</td>
                     </template>
                     <td>{{ user.name }}</td>
@@ -119,6 +119,11 @@ const calculateTotalCapacity = (times) => {
 th {
   /* border: 1px solid lightgreen !important */
   background-color: #121212 !important;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: var(--bs-accordion-bg); 
+  color:white;
 }
 
 </style>
