@@ -40,4 +40,11 @@
 		DELETE FROM user
 		WHERE id = #{id}
 	</delete>
+	
+	<select id="selectUsersByTimeId" parameterType="int" resultType="User">
+        SELECT u.*
+        FROM user u
+        JOIN `match` m ON u.id = m.userId
+        WHERE m.timeId = #{timeId}
+    </select>
 </mapper>

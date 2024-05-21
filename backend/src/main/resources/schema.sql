@@ -102,6 +102,7 @@ CREATE TABLE IF NOT EXISTS `match` (
   FOREIGN KEY (`timeId`) REFERENCES `time`(`id`),
   FOREIGN KEY (`mentorId`) REFERENCES `mentor`(`id`),
   FOREIGN KEY (`userId`) REFERENCES `user`(`id`)
+  
 ) ENGINE=InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
 
@@ -264,4 +265,3 @@ END$$
 DELIMITER ;
 
 CALL InsertDummyReviews();
-

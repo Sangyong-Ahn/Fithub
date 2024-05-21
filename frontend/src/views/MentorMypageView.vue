@@ -61,6 +61,7 @@ import MentorUpdate from '@/components/mypage/MentorUpdate.vue';
 import MentorProgram from '@/components/mypage/MentorProgram.vue';
 import MentorReview from '@/components/mypage/MentorReview.vue';
 import MentorChat from '@/components/mypage/MentorChat.vue';
+import { useProgramStore } from '@/stores/programStore';
 
 export default {
   components: {

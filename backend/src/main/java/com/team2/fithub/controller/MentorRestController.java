@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.team2.fithub.model.dto.Chat;
 import com.team2.fithub.model.dto.Mentor;
+import com.team2.fithub.model.dto.Program;
 import com.team2.fithub.model.dto.Review;
 import com.team2.fithub.model.dto.User;
 import com.team2.fithub.service.ChatService;
@@ -267,5 +268,11 @@ public class MentorRestController {
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		e.printStackTrace();
 		return new ResponseEntity<String>("Sorry: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@GetMapping("/{id}/program")
+	public ResponseEntity<?> getMentorProgramList(@PathVariable("id") int id) {
+		List<Program> programs = ms.findAllProgramByMentor(id);
+		return new ResponseEntity<>(programs, HttpStatus.OK);
 	}
 }
