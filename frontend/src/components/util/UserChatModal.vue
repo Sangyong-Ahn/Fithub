@@ -37,7 +37,7 @@
         <div class="modal-footer justify-content-center">
           <div class="d-flex gap-2 align-items-center">
             <div>
-              <input type="text" v-model="content" class="form-control p-2" style="width: 400px" placeholder="Type your message...">
+              <input type="text" v-model="content" @keyup.enter="insertChat" class="form-control p-2" style="width: 400px" placeholder="Type your message...">
             </div>
             <div>
               <button @click="insertChat" type="button" class="btn btn-sm btn-outline-secondary">전송</button>
