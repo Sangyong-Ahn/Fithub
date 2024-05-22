@@ -22,7 +22,7 @@ public class JwtUtil {
 	private long refreshTokenExpireTime = 60*60*24*14; // 2주간 유효
 	
 	public String createToken(String email) {
-		Date exp = new Date(System.currentTimeMillis() + 1000*5); // 30분 만료
+		Date exp = new Date(System.currentTimeMillis() + 1000*60*30); // 30분 만료
 		return Jwts.builder().header().add("typ", "JWT").and()
 				.claim("email", email).expiration(exp).signWith(secretKey).compact();
 	}

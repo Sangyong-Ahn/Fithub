@@ -103,7 +103,7 @@ const userStore = useUserStore()
 
 const categoryId = ref(0);
 const order = ref("createdAt")
-const direction = ref("asc")
+const direction = ref("desc")
 
 const programSearch = function () {
   const latitude = userStore.loginUser ? userStore.loginUser.latitude : defaultLatitude;

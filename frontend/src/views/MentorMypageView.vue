@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/userStore';
 import MentorProfile from '@/components/mypage/MentorProfile.vue';
@@ -61,7 +61,7 @@ import MentorUpdate from '@/components/mypage/MentorUpdate.vue';
 import MentorProgram from '@/components/mypage/MentorProgram.vue';
 import MentorReview from '@/components/mypage/MentorReview.vue';
 import MentorChat from '@/components/mypage/MentorChat.vue';
-import { useProgramStore } from '@/stores/programStore';
+import axiosInstance from '@/axiosInstance';
 
 export default {
   components: {
@@ -76,6 +76,15 @@ export default {
     const router = useRouter();
     const mentor = ref({ ...store.loginUser });
     const activeTab = ref('mentor');
+
+    onMounted(async () => {
+      try {
+        await axiosInstance.get('/api/auth/verify-token'); // 서버에서 토큰 유효성 검증
+      } catch (error) {
+        store.logout();
+        router.push('/');
+      }
+    });
 
     const changeTab = (tabName) => {
       activeTab.value = tabName;
