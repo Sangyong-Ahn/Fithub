@@ -49,12 +49,12 @@ import ProgramCard from "@/components/home/ProgramCard.vue"
 import { getLowestPrice } from '@/common/common.js';
 
 const store = useProgramStore()
-const selectedSort = ref('newest');
+const selectedSort = ref('');
 
 const sortPrograms = () => {
     switch (selectedSort.value) {
         case 'newest':
-            store.programList.sort((a, b) => new Date(b.createAt) - new Date(a.createAt));
+            store.programList.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
             break;
         case 'lowestPrice':
             store.programList.sort((a, b) => getLowestPrice(a) - getLowestPrice(b));
