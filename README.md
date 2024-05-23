@@ -9,10 +9,6 @@
 - [설치](#설치)
 - [백엔드 실행](#백엔드-실행)
 - [프론트엔드 실행](#프론트엔드-실행)
-- [배포](#배포)
-- [기여](#기여)
-- [라이센스](#라이센스)
-- [문의](#문의)
 
 ## 소개
 
@@ -20,8 +16,8 @@
 
 ## 기술 스택
 
-- **백엔드**: Spring Boot, JPA, MySQL
-- **프론트엔드**: Vue.js, Vue Router, Vuex, Axios
+- **백엔드**: Spring Boot, MySQL
+- **프론트엔드**: Vue.js, Vue Router, Axios
 - **빌드 도구**: Maven, Node.js, npm
 
 ## 설치
@@ -31,10 +27,10 @@
 - Java 11 이상
 - Maven
 - Node.js (v14 이상)
-- npm 또는 Yarn
+- npm
 
 ### 저장소 클론
 
 ```sh
-git clone https://github.com/username/projectname.git
-cd projectname
+cd backend
+mvn clean install
