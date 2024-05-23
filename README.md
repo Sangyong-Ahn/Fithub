@@ -29,8 +29,39 @@
 - Node.js (v14 이상)
 - npm
 
-### 저장소 클론
+### 백엔드 실행
 
-```sh
+#### 의존성 설치
+```bash
 cd backend
 mvn clean install
+```
+#### 데이터베이스 설정 
+src/main/resources/application.properties 파일을 열어 데이터베이스 설정을 업데이트합니다.
+```bash
+spring.datasource.url=jdbc:mysql://localhost:3306/yourdatabase
+spring.datasource.username=yourusername
+spring.datasource.password=yourpassword
+```
+#### 서버 실행 
+```bash
+mvn spring-boot:run
+```
+백엔드 서버는 기본적으로 http://localhost:8080에서 실행됩니다.
+
+### 프론트엔드 실행 
+
+#### 의존성 설치
+```bash
+cd frontend
+npm install
+npm install openai
+npm install bootstrap
+```
+
+#### 개발 서버 실행
+```bash
+npm run dev
+```
+프론트엔드 개발 서버는 기본적으로 http://localhost:5173에서 실행됩니다.
+
