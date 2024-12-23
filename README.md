@@ -1,10 +1,12 @@
 # Fithub
 
 스프링부트와 Vue.js를 사용한 웹 애플리케이션 프로젝트입니다.
+[fithub.pdf](https://github.com/user-attachments/files/18228975/fithub.pdf)
 
 ## 목차
 
 - [소개](#소개)
+
 - [기술 스택](#기술-스택)
 - [설치](#설치)
 - [백엔드 실행](#백엔드-실행)
